@@ -1,24 +1,32 @@
-import logo from '../shared/assets/logo.svg';
+
+import React, { useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { createMuiTheme } from '@material-ui/core/styles';
 import '../shared/styles/App.css';
+import Themes from '../shared/styles/themes';
+import Home from './Home';
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <ThemeProvider theme={appliedTheme}>
+        <CssBaseline />
+        <Container className="App">
+          <Switch>
+            <Route exact path="/" >
+              <Home />
+            </Route>
+          </Switch>
+        </Container>
+      </ThemeProvider>
+    </React.Fragment>
   );
 }
 
