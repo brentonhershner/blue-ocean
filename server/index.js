@@ -17,7 +17,7 @@ app.listen(PORT, () => {
 });
 
 app.get('/getimagelist', async (req, res, next) => {
-  const folderPath = path.join(__dirname, 'public/images/')
+  const folderPath = path.join(__dirname, 'public/images/testImages/')
   console.log('folderPath is', folderPath);
   const fileList = await readdir(folderPath);
   console.log('getimagelist', fileList);

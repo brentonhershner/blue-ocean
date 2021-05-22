@@ -4,7 +4,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import api from '../../api/api';
 
-const staticPath = 'http://localhost:3001/images/';
+const staticPath = 'http://localhost:3001/images/testImages/';
 
 const GetImageTemp = () => {
 

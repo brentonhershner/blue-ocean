@@ -126,5 +126,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# folder for test images
-/data/images
