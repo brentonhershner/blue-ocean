@@ -8,6 +8,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import '../shared/styles/App.css';
 import Themes from '../shared/styles/themes';
 import Home from './Home';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -15,18 +16,20 @@ function App() {
   const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light)
 
   return (
-    <React.Fragment>
-      <ThemeProvider theme={appliedTheme}>
-        <CssBaseline />
-        <Container className="App">
-          <Switch>
-            <Route exact path="/" >
-              <Home />
-            </Route>
-          </Switch>
-        </Container>
-      </ThemeProvider>
-    </React.Fragment>
+    <Router>
+      <React.Fragment>
+        <ThemeProvider theme={appliedTheme}>
+          <CssBaseline />
+          <Container className="App">
+            <Switch>
+              <Route exact path="/" >
+                <Home />
+              </Route>
+            </Switch>
+          </Container>
+        </ThemeProvider>
+      </React.Fragment>
+    </Router>
   );
 }
 

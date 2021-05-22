@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom';
 import './shared/styles/index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router } from 'react-router-dom';
+
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <App />,
   document.getElementById('root')
 );
 
