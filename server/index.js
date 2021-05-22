@@ -13,14 +13,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+  console.info(`listening on port ${PORT}`);
 });
 
 app.get('/getimagelist', async (req, res, next) => {
   const folderPath = path.join(__dirname, 'public/images/testImages/')
-  console.log('folderPath is', folderPath);
   const fileList = await readdir(folderPath);
-  console.log('getimagelist', fileList);
   res.send(fileList);
 });
 
