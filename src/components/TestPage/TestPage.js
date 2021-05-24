@@ -2,32 +2,33 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+// import Button from '@material-ui/core/Button';
 import api from '../../api/api';
+import ImageUploader from '../ImageUploader/ImageUploader';
 
-const staticPath = 'http://localhost:3001/images/testImages/';
+const TestPage = () => {
+  const [images, setImages] = useState([]);
 
-const GetImageTemp = () => {
+  useEffect(() => {
+    getImageList();
+  }, [])
 
   const getImageList = async () => {
     const imageList = await api.getImageList();
     setImages(imageList);
   }
 
-  useEffect(() => {
-    getImageList();
-  }, [])
-
-  const [images, setImages] = useState([]);
-
   return (
     <div>
       <Typography variant="h2">
-        Grid List!
+        TestPage
       </Typography>
+
+      <ImageUploader images={images} setImages={setImages} />
       <GridList >
         {images.map((tile) => (
-          <GridListTile key={tile} cols={tile.cols || 1}>
-            <img src={`${staticPath}${tile}`} alt={tile} />
+          <GridListTile key={tile.name} cols={tile.cols || 1}>
+            <img src={`${tile.url}`} alt={tile} />
           </GridListTile>
         ))}
       </GridList>
@@ -35,4 +36,5 @@ const GetImageTemp = () => {
   );
 }
 
-export default GetImageTemp;
+
+export default TestPage;

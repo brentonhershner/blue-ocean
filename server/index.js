@@ -1,26 +1,26 @@
 import express from 'express';
 import morgan from 'morgan';
-import path from 'path';
 import cors from 'cors';
-import { readdir } from 'fs/promises';
 
-const app = express();
+import routes from './router.js';
+
 const PORT = 3001;
+const app = express();
 
-app.use(cors());
+
+var corsOptions = {
+  origin: "http://localhost:3000"
+};
+
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+routes(app);
+
+app.use(express.static('public'));
+
 app.listen(PORT, () => {
   console.info(`listening on port ${PORT}`);
 });
-
-app.get('/getimagelist', async (req, res, next) => {
-  const folderPath = path.join(__dirname, 'public/images/testImages/')
-  const fileList = await readdir(folderPath);
-  res.send(fileList);
-});
-
-const __dirname = path.resolve();
-app.use(express.static('public'));

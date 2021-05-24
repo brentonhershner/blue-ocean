@@ -11,7 +11,7 @@ import '../shared/styles/App.css';
 
 import Home from './Home';
 import DarkModeSwitch from './DarkModeSwitch';
-import GetImagesTemp from './GetImagesTemp/GetImagesTemp';
+import TestPage from './TestPage/TestPage';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -27,7 +27,7 @@ function App() {
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
             <Switch>
               <Route exact path="/" ><Home /></Route>
-              <Route exact path="/getimagestemp" ><GetImagesTemp /></Route>
+              <Route exact path="/testpage" ><TestPage /></Route>
             </Switch>
           </Container>
         </ThemeProvider>
