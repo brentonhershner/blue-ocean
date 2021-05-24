@@ -11,12 +11,7 @@ api.getImageList = async () => {
     method: 'GET',
   })
     .then((res) => res.json())
-    .then((list) => {
-      return list.map(image => {
-        image.url = `${hostname}:${PORT}/${image.url}`;
-        return image;
-      })
-    })
+    .then((list) => list.filter(image => image.name !=='.DS_Store'))
     .catch(err => { throw err });
 };
 

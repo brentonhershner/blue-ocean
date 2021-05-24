@@ -11,7 +11,7 @@ const TestPage = () => {
 
   useEffect(() => {
     getImageList();
-  }, [])
+  }, [images.length])
 
   const getImageList = async () => {
     const imageList = await api.getImageList();

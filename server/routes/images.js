@@ -46,7 +46,6 @@ images.upload = async (req, res, next) => {
     console.log(result);
     console.log(req.file);
     if (req.file === undefined) {
-      console.log('req.file === undefined')
       return res.status(400).send({ message: "Please upload a file!" });
     }
 
@@ -56,8 +55,7 @@ images.upload = async (req, res, next) => {
     });
   } catch (err) {
     console.error('error');
-    console.error(error);
-    console.log(req.file)
+    console.error(err);
     res.status(500).send({
       message: `Could not upload the file: ${req.file.name}. ${err}`,
     });
