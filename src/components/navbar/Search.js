@@ -15,6 +15,7 @@ const Search = () => {
   return (
     <div>
       <InputBase
+        data-testid="search-bar"
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
       />
