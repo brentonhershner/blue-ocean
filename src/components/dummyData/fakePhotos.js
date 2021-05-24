@@ -77,7 +77,7 @@ export default fakePhotos;
     description: 'Go go power rangers!',
     tags: ['mmpr', 'coachella'],
     permission: 2,
-    url: '/blue-ocean/dummyData/photos/photo-1.jpg',
+    url: './photos/photo-1.jpg',
   }, {
     photoId: 2,
     ownerId: 1,
@@ -86,7 +86,7 @@ export default fakePhotos;
     description: 'man\'s best friend',
     tags: ['bff4ever', 'coachella'],
     permission: 0,
-    url: '/blue-ocean/dummyData/photos/photo-2.jpeg',
+    url: './photos/photo-2.jpeg',
   }, {
     photoId: 3,
     ownerId: 2,
@@ -95,7 +95,7 @@ export default fakePhotos;
     description: 'get on my level',
     tags: [],
     permission: 2,
-    url: '/blue-ocean/dummyData/photos/photo-3.jpg',
+    url: './photos/photo-3.jpg',
   }
 
 ]
