@@ -1,4 +1,4 @@
-const userPhotos =
+const fakePhotos =
 [
   {
     ownerId: 2,
@@ -65,4 +65,6 @@ const userPhotos =
       }
     ]
   }
-]
+];
+
+export default fakePhotos;
