@@ -10,6 +10,7 @@ import Themes from '../shared/styles/themes';
 import '../shared/styles/App.css';
 
 import Home from './Home';
+import Gallery from './photoGallery/Gallery'
 import DarkModeSwitch from './DarkModeSwitch';
 import TestPage from './TestPage/TestPage';
 import UserContextProvider from '../contexts/user-context';
@@ -32,6 +33,7 @@ function App() {
                 <Switch>
                   <Route exact path="/" ><Home /></Route>
                   <Route exact path="/testpage" ><TestPage /></Route>
+                  <Route exact path="/gallery"><Gallery /></Route>
                 </Switch>
               </PhotosContextProvider>
             </UserContextProvider>

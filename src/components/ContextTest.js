@@ -10,8 +10,8 @@ const ContextTest = () => {
     <div>
       {userName}
       <button onClick={()=>{setUserName('Josh Elder')}}>test</button>
-      {JSON.stringify(photos)};
-      <button onClick={()=>{updatePhoto(1,{2:'WOWIE'})}}>test</button>
+      {/* {JSON.stringify(photos)}; */}
+      {/* <button onClick={()=>{updatePhoto(1,{2:'WOWIE'})}}>test</button> */}
     </div>
   )
 }
