@@ -21,7 +21,7 @@ const friendSchema = new Schema({
 });
 
 const userSchema = new Schema({
-  
+  userId: Number,
   fullName: String,
   email: String,
   password: String,
@@ -32,6 +32,7 @@ const userSchema = new Schema({
 });
 
 const photoSchema = new Schema({
+  photoId: Number,
   uploadDate: Date,
   description: String,
   tags: Array,

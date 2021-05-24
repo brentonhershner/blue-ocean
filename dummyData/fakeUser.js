@@ -6,7 +6,16 @@ const users = [
     email: 'boss.man@admin.com',
     password: "ImDaBoss69",
     userLevel: 3,
-    friends: [2, 3],
+    friends: [
+      {
+      userId: 2,
+      userName: 'Scrub User'
+      },
+      {
+        userId: 3,
+        userName: 'Beta Tester'
+      }
+    ],
     pending: [],
     requested: []
   },
@@ -17,17 +26,27 @@ const users = [
     email: 'scrub.adubdub@rubberduck.com',
     password: "PW$420blazers",
     userLevel: 1,
-    friends: [3],
+    friends: [
+      {
+        userId: 3,
+        userName: 'Beta Tester'
+      }
+    ],
     pending: [],
     requested: []
   },
   {
-    userId: 2
+    userId: 3
     fullName: 'Beta Tester',
     email: 'test.icicles@testes.com',
     password: "73$7@CUL4R",
     userLevel: 1,
-    friends: [2],
+    friends: [
+      {
+        userId: 2,
+        userName: 'Scrub User'
+        }
+    ],
     pending: [],
     requested: []
   }
