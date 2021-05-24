@@ -4,7 +4,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 // import Button from '@material-ui/core/Button';
 import api from '../../api/api';
-import ImageUploader from '../ImageUploader/ImageUploader';
+import ImageUploader from '../SharedComponents/ImageUploader/ImageUploader';
 
 const TestPage = () => {
   const [images, setImages] = useState([]);
@@ -23,8 +23,7 @@ const TestPage = () => {
       <Typography variant="h2">
         TestPage
       </Typography>
-
-      <ImageUploader images={images} setImages={setImages} />
+      <ImageUploader setImages={setImages} />
       <GridList >
         {images.map((tile) => (
           <GridListTile key={tile.name} cols={tile.cols || 1}>
@@ -35,6 +34,5 @@ const TestPage = () => {
     </div>
   );
 }
-
 
 export default TestPage;

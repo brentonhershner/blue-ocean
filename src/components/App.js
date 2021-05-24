@@ -11,7 +11,7 @@ import '../shared/styles/App.css';
 
 import Home from './Home';
 import Gallery from './photoGallery/Gallery'
-import DarkModeSwitch from './DarkModeSwitch';
+import DarkModeSwitch from '../components/SharedComponents/DarkModeSwitch';
 import TestPage from './TestPage/TestPage';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
@@ -31,9 +31,9 @@ function App() {
             <UserContextProvider>
               <PhotosContextProvider>
                 <Switch>
-                  <Route exact path="/" ><Home /></Route>
-                  <Route exact path="/testpage" ><TestPage /></Route>
-                  <Route exact path="/gallery"><Gallery /></Route>
+                  <Route exact path="/gallery" render={() => <Gallery />} />
+                  <Route exact path="/" render={() => <Home />} />
+                  <Route exact path="/testpage" render={() => <TestPage />} />
                 </Switch>
               </PhotosContextProvider>
             </UserContextProvider>

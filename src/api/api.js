@@ -15,17 +15,13 @@ api.getImageList = async () => {
     .catch(err => { throw err });
 };
 
-api.upload = (image) => {
-  let formData = new FormData();
-  formData.append('file', image);
-
+api.upload = (formData) => {
   return axios.post(`${hostname}:${PORT}/api/images/upload`,
     formData,
     {
       headers: { 'Content-type': 'multipart/form-data' }
     },
   )
-
 }
 
 export default api;
