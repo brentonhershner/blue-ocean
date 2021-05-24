@@ -24,8 +24,15 @@ const userPhotos =
         uploadDate: 'May 19 2021 18:11:26 GMT-0700',
         description: 'get on my level',
         tags: [],
-        permission: 2,
+        accessLevel: 2,
         url: '/blue-ocean/dummyData/photos/photo-3.jpg'
+      }
+      {
+        uploadDate: 'May 19 2021 18:11:26 GMT-0700',
+        description: 'you can never have too much TP',
+        tags: ['t-p'],
+        accessLevel: 2,
+        url: '/blue-ocean/dummyData/photos/photo-7.jpg'
       }
     ]
   },
@@ -36,25 +43,25 @@ const userPhotos =
       {
         photoId: 1,
         uploadDate: 'May 16 2021 18:11:26 GMT-0700',
-        description: 'Go go power rangers!',
-        tags: ['mmpr', 'coachella'],
+        description: 'my little teapot!',
+        tags: ['mmpr', 'coachella', 't-pots'],
         accessLevel: 2,
-        url: '/blue-ocean/dummyData/photos/photo-1.jpg'
+        url: '/blue-ocean/dummyData/photos/photo-4.jpg'
       },
       {
         photoId: 2,
         uploadDate: 'May 17 2021 18:11:26 GMT-0700',
-        description: 'man\'s best friend',
-        tags: ['bff4ever', 'coachella'],
+        description: 't-pain is my bestie',
+        tags: ['bff4ever', 'coachella', 't-pain'],
         accessLevel: 2,
-        url: '/blue-ocean/dummyData/photos/photo-2.jpeg'
+        url: '/blue-ocean/dummyData/photos/photo-5.jpeg'
       },
       {
         uploadDate: 'May 19 2021 18:11:26 GMT-0700',
-        description: 'get on my level',
-        tags: [],
-        permission: 0,
-        url: '/blue-ocean/dummyData/photos/photo-3.jpg'
+        description: 'about to tee-off',
+        tags: ['t-time', 'mmpr'],
+        accessLevel: 0,
+        url: '/blue-ocean/dummyData/photos/photo-6.jpg'
       }
     ]
   }
