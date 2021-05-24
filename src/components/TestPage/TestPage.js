@@ -23,7 +23,7 @@ const TestPage = () => {
       <Typography variant="h2">
         TestPage
       </Typography>
-      <ImageUploader setImages={setImages} />
+      <ImageUploader setImages={setImages} getImageList={getImageList} />
       <GridList >
         {images.map((tile) => (
           <GridListTile key={tile.name} cols={tile.cols || 1}>

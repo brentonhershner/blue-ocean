@@ -7,7 +7,6 @@ const images = {};
 
 const folderPath = 'imageFolder/testImages/'
 const fullPath = path.join(path.resolve(), 'public/', folderPath);
-console.log(fullPath);
 
 images.getImageList = async (req, res) => {
   try {

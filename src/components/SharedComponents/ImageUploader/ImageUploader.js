@@ -5,13 +5,11 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import api from '../../../api/api';
 
-export function ImageUploader({ setImages }) {
+export function ImageUploader({ setImages, getImageList }) {
   const [selectedFiles, setSelectedFiles] = useState(undefined);
 
   const selectFile = (event) => {
     setSelectedFiles(event.target.files);
-    console.log(event.target.files);
-    console.log(Array(event.target.files));
   };
 
   const upload = (e) => {
@@ -23,7 +21,8 @@ export function ImageUploader({ setImages }) {
 
     api.upload(formData)
       .then((response) => {
-        return api.getImageList();
+        // return api.getImageList();
+        getImageList();
       })
       .catch((error) => console.error(error));
 
@@ -61,6 +60,7 @@ export function ImageUploader({ setImages }) {
 
 ImageUploader.propTypes = {
   setImages: PropTypes.func,
+  getImageList: PropTypes.func,
 }
 
 export default ImageUploader;
