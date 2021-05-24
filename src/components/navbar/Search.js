@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import Link from '@material-ui/core/Link';
 // import Typography from '@material-ui/core/Typography'
 // import { Link as RouterLink } from 'react-router-dom';
@@ -13,6 +13,8 @@ import fakePhotos from '../dummyData/fakePhotos';
 // 2. Free Solo (currently using):  https://material-ui.com/components/autocomplete/#search-input
 
 const Search = () => {
+  const [photoList, setPhotoList] = useState(fakePhotos)
+
   return (
     <div>
       <InputBase
