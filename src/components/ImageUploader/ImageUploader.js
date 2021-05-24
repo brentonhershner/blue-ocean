@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -8,21 +8,12 @@ import api from '../../api/api';
 export function ImageUploader({ images, setImages }) {
   const [selectedFiles, setSelectedFiles] = useState(undefined);
 
-  useEffect(() => {
-    async function fetchData() {
-      const imageList = await api.getImageList();
-      setImages(imageList);
-    }
-    fetchData();
-  }, []);
-
   const selectFile = (event) => {
     setSelectedFiles(event.target.files);
   };
 
   const upload = () => {
     let currentFile = selectedFiles[0];
-
 
     api.upload(currentFile)
       .then((response) => {

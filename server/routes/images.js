@@ -40,11 +40,8 @@ const uploadFile = multer({
 }).single("file");
 
 images.upload = async (req, res, next) => {
-  console.log('uploading');
   try {
-    const result = await uploadFile(req, res, next);
-    console.log(result);
-    console.log(req.file);
+    await uploadFile(req, res, next);
     if (req.file === undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
@@ -53,9 +50,10 @@ images.upload = async (req, res, next) => {
     res.status(200).send({
       message: "Uploaded the file successfully: " + req.file.name,
     });
-  } catch (err) {
-    console.error('error');
-    console.error(err);
+  } catch {
+    const err = 'error'
+    console.log('error');
+    // console.error(err);
     res.status(500).send({
       message: `Could not upload the file: ${req.file.name}. ${err}`,
     });
