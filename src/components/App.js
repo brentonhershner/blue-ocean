@@ -12,6 +12,8 @@ import '../shared/styles/App.css';
 import Home from './Home';
 import DarkModeSwitch from './DarkModeSwitch';
 import TestPage from './TestPage/TestPage';
+import UserContextProvider from '../contexts/user-context';
+import PhotosContextProvider from '../contexts/photos-context';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -25,10 +27,14 @@ function App() {
           <CssBaseline />
           <Container className="App">
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
-            <Switch>
-              <Route exact path="/" ><Home /></Route>
-              <Route exact path="/testpage" ><TestPage /></Route>
-            </Switch>
+            <UserContextProvider>
+              <PhotosContextProvider>
+                <Switch>
+                  <Route exact path="/" ><Home /></Route>
+                  <Route exact path="/testpage" ><TestPage /></Route>
+                </Switch>
+              </PhotosContextProvider>
+            </UserContextProvider>
           </Container>
         </ThemeProvider>
       </React.Fragment>
