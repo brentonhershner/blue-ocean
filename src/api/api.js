@@ -45,6 +45,40 @@ api.getUserInfo = (currentUserId) => {
   })
 }
 
+api.updatePhoto = (editsObj) => {
+  // EditsObj = {
+  // userId: UserIdNumOfRequetsinguser,
+  // photoId: idNumOfPhotoToUpdate,
+  // description: ‘string to add for description if updating/adding’,
+  // addTags: [‘array’, ‘ofTags’, ‘toAdd’],
+  // removeTags: [‘array’, ‘ofTags’, ‘toRemove’],
+  // accessLevel: NumOfPermission(0=private,1=onlySpecificUsers(future feature),2=allFriends,3=global)
+  axios.patch(`${hostname}:${PORT}/api/photos/single`, editsObj)
+  .then((res) => {
+    console.log('successful patch, we should add in refresh photos API call or something here', res.body);
+  })
+  .catch((err) => { 
+    console.log('error updating photo', err);
+  })
+};
+
+api.updatePhotos = (editsObj) => {
+  // EditsObj = {
+  // userId: UserIdNumOfRequetsingUser,
+  // photoIds: [arrayOf, photoIds, forAllUpdates, toBeApplied],
+  // addTags: [‘array’, ‘ofTags’, ‘toAdd’],
+  // removeTags: [‘array’, ‘ofTags’, ‘toRemove’],
+  // accessLevel: NumOfPermission(0=private,1=onlySpecificUsers(future feature),2=allFriends,3=global)
+  axios.patch(`${hostname}:${PORT}/api/photos/multiple`, editsObj)
+  .then((res) => {
+    console.log('successful patch, we should add in refresh photos API call or something here', res.body);
+  })
+  .catch((err) => { 
+    console.log('error updating photo', err);
+  })
+};
+
+
 // api.getAllPhotos = (userId) => {
 //   axios.get(`${hostname}:${PORT}/api/photos/allPhotos`, {data: { userid }})
 //   .then((res) => { console.log('put me in state or something', res.body)})
