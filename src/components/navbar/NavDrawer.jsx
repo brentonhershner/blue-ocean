@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Drawer } from '@material-ui/core';
 import { List, ListItem } from '@material-ui/core';
-// import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import Search from './Search';
 
 import { AppBar, IconButton, Typography, Toolbar } from '@material-ui/core';
@@ -97,7 +97,12 @@ export default function NavDrawer() {
         <ListItem button>Add Photo</ListItem>
         <ListItem button>Feed</ListItem>
         <ListItem button>Friends</ListItem>
-        <ListItem button>Gallery</ListItem>
+        <RouterLink to='/gallery'>
+          <ListItem button>Gallery</ListItem>
+        </RouterLink>
+        <RouterLink to='/testpage'>
+          <ListItem button>Testing Purposes Only</ListItem>
+        </RouterLink>
       </List>
     </div>
   )
@@ -115,7 +120,9 @@ export default function NavDrawer() {
       style={{display:"flex", justifyContent: "flex-start"}}
       >
       <Typography variant="h6" noWrap className={classes.title}>
-      Persistent drawer
+        <RouterLink to='/'>
+          Marineon
+        </RouterLink>
       </Typography>
       <div
 style={{display: "flex", justifyContent: "center", width: "88%"}}
