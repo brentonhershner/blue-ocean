@@ -1,5 +1,4 @@
-const fakePhotos =
-[
+const fakePhotos = [
   {
     ownerId: 2,
     ownerName: 'Scrub User',
