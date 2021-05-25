@@ -8,6 +8,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 import { PhotosContext } from '../../contexts/photos-context';
 //import GalleryTile from './GalleryTile';
@@ -22,7 +23,7 @@ let styles = {
     maxHeight: window.innerWidth / 4
   },
   button: {
-    margin: "5px 5px",
+    margin: "10px 5px",
   },
 };
 
@@ -32,12 +33,12 @@ function Gallery(props) {
   const [selected, setSelected] = useState([]);
 
 
-  const { classes, 
+  const { classes,
     // children, className, ...other
   } = props;
 
   const { photos,
-    // setPhotos, 
+    // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
 
