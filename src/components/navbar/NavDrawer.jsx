@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState,  } from 'react';
 import { Drawer, Button } from '@material-ui/core';
 import { List, ListItem } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavDrawer() {
+export default function NavDrawer() {
   const [showState, setShowState] = useState(false)
 
   const toggleDrawer = (open) => (event) => {
@@ -103,6 +103,7 @@ function NavDrawer() {
   )
 
   return (
+    <React.Fragment>
     <div className={classes.root}>
       <AppBar
         position="fixed"
@@ -138,8 +139,6 @@ style={{display: "flex", justifyContent: "center", width: "88%"}}
           [classes.contentShift]: showState,
         })}
       >
-        <div className={classes.drawerHeader} />
-        <Typography paragraph></Typography>
         </main>
         <Drawer
         className={classes.drawer}
@@ -160,8 +159,12 @@ style={{display: "flex", justifyContent: "center", width: "88%"}}
         {list()}
       </Drawer>
     </div>
+    </React.Fragment>
   )
 
 }
 
-export default NavDrawer;
+/*
+        <div className={classes.drawerHeader} />
+        <Typography paragraph></Typography>
+*/

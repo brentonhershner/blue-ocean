@@ -31,11 +31,11 @@ function App() {
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
             <UserContextProvider>
               <PhotosContextProvider>
-                <Switch>
+              <NavDrawer/>
+              <Switch>
                   <Route exact path="/gallery" render={() => <Gallery />} />
                   <Route exact path="/" render={() => <Home />} />
                   <Route exact path="/testpage" render={() => <TestPage />} />
-                  <Route exact path="/drawer" render={() => <NavDrawer />}/>
                 </Switch>
               </PhotosContextProvider>
             </UserContextProvider>

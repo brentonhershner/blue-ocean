@@ -13,15 +13,12 @@ import ContextTest from './ContextTest';
 const Home = () => {
   return (
     <div>
-      <Search />
       <Typography variant="h2">
         HELLO WORLD!
         <br />
         <ContextTest />
       </Typography>
       <Link to='/testpage' component={RouterLink}>Testing Purposes Only</Link>
-      <br/>
-      <Link to='/drawer' component={RouterLink}>Testing Drawer Component</Link>
     </div>
   );
 };
