@@ -1,6 +1,7 @@
 const fakePhotos =
 [
   {
+<<<<<<< HEAD
     ownerId: 2,
     ownerName: 'Scrub User',
     photos: [
@@ -71,6 +72,8 @@ export default fakePhotos;
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> move dummyData from root to src/components/dummyData
     photoId: 1,
     ownerId: 1,
     ownerName: 'DanDruff',
@@ -102,5 +105,8 @@ export default fakePhotos;
 ]
 
 export default fakePhotos;
+<<<<<<< HEAD
 >>>>>>> moved dummyData from root to src/components to solve relative import:src/components/dummyData/fakePhotos.js
 >>>>>>> change photo url to relative path
+=======
+>>>>>>> move dummyData from root to src/components/dummyData
