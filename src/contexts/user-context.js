@@ -5,7 +5,8 @@ export const UserContext = createContext();
 class UserContextProvider extends Component {
   state = {
     userName: 'TestUser',
-    userType: 'admin'
+    userType: 'admin',
+    userId: 1
   }
 
   setUserName = (newUserName) => {
