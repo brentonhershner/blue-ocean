@@ -9,6 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import Modal from '@material-ui/core/Modal';
+import InputLabel from '@material-ui/core/InputLabel'
+import Input from '@material-ui/core/Input'
 
 import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
@@ -20,6 +23,11 @@ let styles = {
   },
   button: {
     margin: "10px 5px",
+  },
+  paper: {
+    position: 'absolute',
+    width: 400,
+    border: '2px solid #000',
   },
 };
 
