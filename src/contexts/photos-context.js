@@ -2,6 +2,7 @@ import React, { Component, createContext } from 'react'
 
 export const PhotosContext = createContext();
 
+
 class PhotosContextProvider extends Component {
   state = {
     photos: [
