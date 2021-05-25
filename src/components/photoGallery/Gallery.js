@@ -9,21 +9,27 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import Modal from '@material-ui/core/Modal';
+import InputLabel from '@material-ui/core/InputLabel'
+import Input from '@material-ui/core/Input'
 
 import { PhotosContext } from '../../contexts/photos-context';
+import EditPhotosModal from './EditPhotosModal'
+
 //import GalleryTile from './GalleryTile';
 
 
 let styles = {
-  selectedGridListTile: {
-    border: "3px solid dodgerBlue",
-    maxHeight: window.innerWidth / 4
-  },
   gridListTile: {
     maxHeight: window.innerWidth / 4
   },
   button: {
     margin: "10px 5px",
+  },
+  paper: {
+    position: 'absolute',
+    width: 400,
+    border: '2px solid #000',
   },
 };
 
@@ -60,23 +66,21 @@ function Gallery(props) {
     }
   }
 
+  const handleClose = () => {
+    setShowModal(false)
+  }
+  const handleOpen = () => {
+    setShowModal(true)
+  }
+
   return (
-    <Paper id="wrapper">
-      <div style={{ height: 45, display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
-        <FormGroup className={classes.formGroup} row>
-          {onSelect ?
-            <>
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                startIcon={<DeleteIcon />}
-                size="small"
-              >
-                Delete
-        </Button>
-              <Button size="small" className={classes.button} variant="contained" color="primary">
-                Share
+  <Paper id="wrapper">
+    <div style={{ height: 50, display:'flex', justifyContent:'flex-end', flexWrap: 'wrap' }}>
+      <FormGroup className={classes.formGroup} row>
+        {onSelect && selected.length > 0 ?
+        <>
+        <Button onClick={handleOpen} size="small" className={classes.button} variant="contained" color="primary">
+          Edit
         </Button>
             </>
             : null
@@ -98,10 +102,17 @@ function Gallery(props) {
               loading="lazy"
             />
           </GridListTile>
-        ))}
-      </GridList>
-    </Paper>
-  )
+      ))}
+    </GridList>
+    <EditPhotosModal
+        open={showModal}
+        onClose={handleClose}
+        aria-labelledby="Edit Photos"
+        aria-describedby="Modal to edit photos"
+        selected={selected}
+    />
+  </Paper>
+)
 }
 
 
