@@ -121,7 +121,7 @@ export default fakePhotos;
         tags: [],
         accessLevel: 2,
         url: '/blue-ocean/dummyData/photos/photo-3.jpg'
-      }
+      },
       {
         uploadDate: 'May 19 2021 18:11:26 GMT-0700',
         description: 'you can never have too much TP',
