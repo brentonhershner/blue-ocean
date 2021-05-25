@@ -45,8 +45,7 @@ export function ImageUploader({ setImages, getImageList }) {
 
         <Button
           className="btn btn-success"
-          disabled={!selectedFiles}
-          // onClick={upload}
+          // disabled={!selectedFiles}
           type="submit"
           variant="contained"
         >

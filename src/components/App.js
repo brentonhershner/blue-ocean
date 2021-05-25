@@ -16,6 +16,7 @@ import TestPage from './TestPage/TestPage';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
 import NavDrawer from './navbar/NavDrawer';
+import AddPhotos from './AddPhotos/AddPhotos';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -27,7 +28,7 @@ function App() {
       <React.Fragment>
         <ThemeProvider theme={appliedTheme}>
           <CssBaseline />
-          <Container className="App">
+          <Container className="App" >
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
             <UserContextProvider>
               <PhotosContextProvider>
@@ -37,6 +38,7 @@ function App() {
                   <Route exact path="/" render={() => <Home />} />
                   <Route exact path="/testpage" render={() => <TestPage />} />
                 </Switch>
+                <AddPhotos />
               </PhotosContextProvider>
             </UserContextProvider>
           </Container>

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/user-context'
-import { PhotosContext } from '../contexts/photos-context'
+// import { PhotosContext } from '../contexts/photos-context'
 
 const ContextTest = () => {
 
   const { userName, setUserName } = useContext(UserContext)
-  const { photos, setPhotos, updatePhoto } = useContext(PhotosContext)
+  // const { photos, setPhotos, updatePhoto } = useContext(PhotosContext)
   return (
     <div>
       {userName}
