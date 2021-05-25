@@ -9,14 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import Modal from '@material-ui/core/Modal';
-import InputLabel from '@material-ui/core/InputLabel'
-import Input from '@material-ui/core/Input'
 
 import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
-
-//import GalleryTile from './GalleryTile';
 
 
 let styles = {
@@ -34,7 +29,7 @@ let styles = {
 };
 
 function Gallery(props) {
-  // const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
 
@@ -82,6 +77,9 @@ function Gallery(props) {
         <Button onClick={handleOpen} size="small" className={classes.button} variant="contained" color="primary">
           Edit
         </Button>
+        <IconButton aria-label="delete">
+          <DeleteIcon />
+        </IconButton>
             </>
             : null
           }
