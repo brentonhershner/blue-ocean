@@ -1,5 +1,4 @@
-const fakePhotos =
-[
+const fakePhotos = [
   {
     ownerId: 2,
     ownerName: 'Scrub User',
@@ -26,7 +25,11 @@ const fakePhotos =
         tags: [],
         accessLevel: 2,
         url: '/blue-ocean/dummyData/photos/photo-3.jpg'
+<<<<<<< HEAD
       },
+=======
+      }
+>>>>>>> update from origin main
       {
         uploadDate: 'May 19 2021 18:11:26 GMT-0700',
         description: 'you can never have too much TP',
