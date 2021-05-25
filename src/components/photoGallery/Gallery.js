@@ -21,11 +21,6 @@ let styles = {
   button: {
     margin: "10px 5px",
   },
-  paper: {
-    position: 'absolute',
-    width: 400,
-    border: '2px solid #000',
-  },
 };
 
 function Gallery(props) {
