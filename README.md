@@ -47,8 +47,11 @@ If pull request is rejected, update history and fix conflicts. Commonly this is 
     git checkout feature-branch
     git pull --rebase upstream main
 
-Fix any merge conflicts.
+Fix any merge conflicts then do:
 
+    git add .
+    git commit
+    git rebase --continue
     git push origin feature-branch
 
 If the above doesn't work try:
