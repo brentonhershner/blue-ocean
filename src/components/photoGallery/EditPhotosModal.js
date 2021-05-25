@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -10,27 +8,7 @@ import Button from '@material-ui/core/Button';
 // import IconButton from '@material-ui/core/IconButton';
 import Modal from '@material-ui/core/Modal';
 import InputLabel from '@material-ui/core/InputLabel';
-// import Input from '@material-ui/core/Input';
-=======
-import React, { useContext, useState, useEffect } from 'react';
-=======
-import React, { useState } from 'react';
->>>>>>> added functionalities that were deleted by rebasing
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-// import Switch from '@material-ui/core/Switch';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormGroup from '@material-ui/core/FormGroup';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import IconButton from '@material-ui/core/IconButton';
-import Modal from '@material-ui/core/Modal';
-import InputLabel from '@material-ui/core/InputLabel';
-<<<<<<< HEAD
-import Input from '@material-ui/core/Input';
->>>>>>> added all the buttons i need on gallery
-=======
-// import Input from '@material-ui/core/Input';
->>>>>>> added functionalities that were deleted by rebasing
+//import Input from '@material-ui/core/Input';
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
