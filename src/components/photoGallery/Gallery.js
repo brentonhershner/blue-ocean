@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import React, { useContext, useState } from "react";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -12,11 +12,11 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
-
+import PhotoModal from '../PhotoView/PhotoModal';
 
 let styles = {
   gridListTile: {
-    maxHeight: window.innerWidth / 4
+    maxHeight: window.innerWidth / 4,
   },
   button: {
     margin: "10px 5px",
@@ -46,20 +46,22 @@ function Gallery(props) {
   const handleSelectClick = () => {
     setOnSelect(!onSelect);
     setSelected([]);
-  }
+  };
 
   const handlePhotoClick = (index) => {
     if (onSelect) {
       let newArr = selected.slice();
       if (newArr.includes(index)) {
-        newArr.splice(newArr.indexOf(index), 1)
+        newArr.splice(newArr.indexOf(index), 1);
       } else {
-        newArr.push(index)
+        newArr.push(index);
       }
       setSelected(newArr);
     } else {
+      // console.log('set modal photo as', photos[index])
+      setShowModal(photos[index]);
     }
-  }
+  };
 
   const handleClose = () => {
     setShowModal(false)
@@ -74,15 +76,14 @@ function Gallery(props) {
       <FormGroup className={classes.formGroup} row>
         {onSelect && selected.length > 0 ?
         <>
-        <Button onClick={handleOpen} size="small" className={classes.button} variant="contained" color="primary">
-          Edit
-        </Button>
-        <IconButton aria-label="delete">
-          <DeleteIcon />
-        </IconButton>
-            </>
-            : null
-          }
+          <Button onClick={handleOpen} size="small" className={classes.button} variant="contained" color="primary">
+            Edit
+          </Button>
+          <IconButton aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        </>
+          : null}
           <FormControlLabel
             control={<Switch onClick={handleSelectClick} color="primary" />}
             label="Select"
@@ -93,8 +94,17 @@ function Gallery(props) {
         {photos.map((item, index) => (
           // add onclick open photoviewer modal pass in index
           //
-          <GridListTile className={classes.gridListTile} onClick={() => handlePhotoClick(index)} key={index} >
-            <img style={selected.includes(index) ? { filter: 'brightness(1.8) opacity(0.61) saturate(1.8)' } : {}}
+          <GridListTile
+            className={classes.gridListTile}
+            onClick={() => handlePhotoClick(index)}
+            key={index}
+          >
+            <img
+              style={
+                selected.includes(index)
+                  ? { filter: "brightness(1.8) opacity(0.61) saturate(1.8)" }
+                  : {}
+              }
               srcSet={item.url}
               alt={item.title}
               loading="lazy"
@@ -109,9 +119,14 @@ function Gallery(props) {
         aria-describedby="Modal to edit photos"
         selected={selected}
     />
+    <PhotoModal
+        // alt={item.title}
+        // srcSet={item.url}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
   </Paper>
-)
+  )
 }
-
 
 export default withStyles(styles)(Gallery);
