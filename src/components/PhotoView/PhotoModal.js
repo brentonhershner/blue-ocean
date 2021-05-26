@@ -8,15 +8,11 @@ import {
   Modal,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import userPhotos from "/Users/gea/HR/hr-sea16/blue-ocean/src/dummyData/fakePhotos.js";
 import CloseIcon from "@material-ui/icons/Close";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import SharePermissions from "./SharePermissions";
-
-const ownerInfo = userPhotos[0];
-const photo = ownerInfo.photos[0];
 
 const useStyles = makeStyles((theme) => ({
   container: {
