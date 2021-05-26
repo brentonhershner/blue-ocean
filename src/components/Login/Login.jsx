@@ -15,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import clsx from 'clsx';
+import { spacing } from "@material-ui/system";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,40 +61,6 @@ export default function Login() {
           <TextField
             className={classes.margin}
             id="outlined-basic"
-            label="First Name"
-            variant="outlined"
-            required
-            onChange={"add handlechange"}
-            value={""}
-            margin="normal"
-
-          />
-          <br />
-          <TextField
-            className={classes.margin}
-            id="outlined-basic"
-            label="Last Name"
-            variant="outlined"
-            required
-            onChange={"add handlechange"}
-            value={""}
-            margin="normal"
-          />
-          <br />
-          <TextField
-            className={classes.margin}
-            id="outlined-basic"
-            label="Email Address"
-            variant="outlined"
-            required
-            onChange={"add handlechange"}
-            value={""}
-            margin="normal"
-          />
-          <br />
-          <TextField
-            className={classes.margin}
-            id="outlined-basic"
             label="Username"
             variant="outlined"
             required
@@ -102,49 +69,59 @@ export default function Login() {
             margin="normal"
           />
           <br />
-          <FormControl className={clsx(classes.margin, classes.textField)}variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            required
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            value={""}
-            margin="normal"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            labelWidth={70}
-          />
+          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
+              required
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              value={""}
+              margin="normal"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              labelWidth={70}
+            />
           </FormControl>
+          <div>
+            <br />
+          </div>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
+            margin="normal"
             className={classes.create}
-          >      Login
-    </Button>
-    <Button
-    type="submit"
-    fullWidth
-    variant="contained"
-    color="primary"
-    className={classes.create}
-  >      Create Account
-</Button>
+          >
+            Login
+          </Button>
+          <div>
+            <br />
+          </div>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            margin="normal"
+            className={classes.create}
+          >
+            Create Account
+        </Button>
         </Typography>
 
       </Container>
