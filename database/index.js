@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+import { ViewModuleSharp } from '@material-ui/icons';
+
+import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 mongoose.connect('mongodb://localhost/db', {
   useNewUrlParser: true,
@@ -33,6 +35,7 @@ const userSchema = new Schema({
 
 const photoSchema = new Schema({
   photoId: Number,
+  ownerId: Number,
   uploadDate: Date,
   description: String,
   tags: Array,
@@ -51,4 +54,5 @@ const User = model('User', userSchema);
 const Photo = model('Photo', photoSchema);
 const UserPhotos = model('UserPhotos', userPhotosSchema);
 
+export { Friend, User, Photo, UserPhotos }
 export default db;
