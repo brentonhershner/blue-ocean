@@ -7,7 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Themes from '../shared/styles/themes';
 import '../shared/styles/App.css';
-
 import Home from './Home';
 import Gallery from './photoGallery/Gallery'
 import DarkModeSwitch from '../components/SharedComponents/DarkModeSwitch';
@@ -17,6 +16,7 @@ import PhotosContextProvider from '../contexts/photos-context';
 import Login from './Login'
 import NavDrawer from './navbar/NavDrawer';
 import AddPhotos from './AddPhotos/AddPhotos';
+import CreateUser from './Login/createUser'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -38,7 +38,8 @@ function App() {
                   <Route exact path="/login" render={() => <Login />} />
                   <Route exact path="/" render={() => <Home />} />
                   <Route exact path="/testpage" render={() => <TestPage />} />
-                </Switch>
+                  <Route exact path="/createuser" render={() => <CreateUser />} />
+               </Switch>
                 <AddPhotos />
               </PhotosContextProvider>
             </UserContextProvider>

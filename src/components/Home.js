@@ -3,6 +3,7 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography'
 import { Link as RouterLink } from 'react-router-dom';
+
 // import Search from './navbar/Search';
 // import NavDrawer from './navbar/NavDrawer'
 
@@ -18,7 +19,10 @@ const Home = () => {
         <br />
         <ContextTest />
       </Typography>
-      <Link to='/testpage' component={RouterLink}>Testing Purposes Only</Link>
+      <Link to='/testpage' component={RouterLink}>Testing TestPage</Link>
+      <br/>
+      <Link to='/createuser' component={RouterLink}>Testing Create User</Link>
+      <br/>
       <Link to='/login' component={RouterLink}>Testing Login</Link>
     </div>
   );
