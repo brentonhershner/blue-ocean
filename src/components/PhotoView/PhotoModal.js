@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PhotoListTile = ({ showModal, setShowModal }) => {
+const PhotoModal = ({ showModal, setShowModal }) => {
   const [modalView, setModalView] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
@@ -190,4 +190,4 @@ const PhotoListTile = ({ showModal, setShowModal }) => {
   );
 };
 
-export default PhotoListTile;
+export default PhotoModal;
