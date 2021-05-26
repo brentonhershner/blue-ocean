@@ -24,6 +24,8 @@ const Home = () => {
       <Link to='/createuser' component={RouterLink}>Testing Create User</Link>
       <br/>
       <Link to='/login' component={RouterLink}>Testing Login</Link>
+      <br/>
+      <Link to='/signup' component={RouterLink}>Testing Sign Up</Link>
     </div>
   );
 };
