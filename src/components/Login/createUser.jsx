@@ -36,6 +36,8 @@ export default function CreateUser() {
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
+    confirm: '',
+    showConfirm: '',
     first_name: '',
     last_name: '',
     email: '',
@@ -54,70 +56,29 @@ export default function CreateUser() {
     event.preventDefault();
   };
 
-  const displayExistingEmail = () => {
-    document.getElementsByClassName('message')[0].innerText = 'User exists at that email address!';
-  }
-  const validateEmail = () => {
-    const email = document.formBox.email.value;
-    const at = email.indexOf('@');
-    const dot = email.indexOf('.');
-    if (at < 1) {
-      document.getElementsByClassName('message')[0].innerText = 'Not a valid email address!';
-      document.getElementsByClassName('inActiveInput')[0].setAttribute('disabled', '');
-    } else if (dot < at + 2) {
-      document.getElementsByClassName('message')[0].innerText = 'Not a valid email address!';
-      document.getElementsByClassName('inActiveInput')[0].setAttribute('disabled', '');
-    } else if (dot + 2 >= email.length) {
-      document.getElementsByClassName('message')[0].innerText = 'Not a valid email address!';
-      document.getElementsByClassName('inActiveInput')[0].setAttribute('disabled', '');
-    } else {
-      document.getElementsByClassName('message')[0].innerText = 'Email address is valid!';
-      document.getElementsByClassName('inActiveInput')[0].removeAttribute('disabled', '');
-    }
-  }
-  const validateUserName = () => {
-    if (document.formBox.userName.value.length >= 8) {
-      document.getElementsByClassName('message')[0].innerText = 'Username length is good!';
-      document.getElementsByClassName('inActiveInput')[1].removeAttribute('disabled', '');
-    } else {
-      document.getElementsByClassName('message')[0].innerText = 'Username needs to be at least 8 characters long!';
-      document.getElementsByClassName('inActiveInput')[1].setAttribute('disabled', '');
-    }
-  }
-  const validatePassword = () => {
-    if (document.formBox.password.value.length >= 8) {
-      document.getElementsByClassName('message')[0].innerText = 'Password length is good!';
-      document.getElementsByClassName('inActiveInput')[2].removeAttribute('disabled', '');
-    } else {
-      document.getElementsByClassName('message')[0].innerText = 'Password needs to be at least 8 characters long!';
-      document.getElementsByClassName('inActiveInput')[2].setAttribute('disabled', '');
-    }
-  }
-  const validateConfirm = () => {
-    if (document.formBox.confirm.value === document.formBox.password.value) {
-      document.getElementsByClassName('message')[0].innerText = 'Passwords match!'
-      document.getElementsByClassName('inActive')[0].removeAttribute('disabled', '');
-      document.getElementsByClassName('inActive')[0].classList.add('active');
-    } else {
-      document.getElementsByClassName('message')[0].innerText = 'Passwords don\'t match!'
-      document.getElementsByClassName('inActive')[0].setAttribute('disabled', '');
-      document.getElementsByClassName('inActive')[0].classList.remove('active');
-    }
-  }
+  const handleClickShowConfirm = () => {
+    setValues({ ...values, showConfirm: !values.showConfirm });
+  };
+
+  const handleMouseDownConfirm = (event) => {
+    event.preventDefault();
+  };
+
+
 
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm">
-        <Typography component="div" style={{ height: '100vh' }}>
+        <Typography name="formBox" component="div" style={{ height: '100vh' }}>
           <TextField
             className={classes.margin}
             id="outlined-basic"
             label="First Name"
             variant="outlined"
             required
-            onChange={"add handlechange"}
-            value={""}
+            onChange={handleChange(`first_name`)}
+            value={values.first_name}
             margin="normal"
           />
           <br />
@@ -127,20 +88,20 @@ export default function CreateUser() {
             label="Last Name"
             variant="outlined"
             required
-            onChange={"add handlechange"}
-            value={""}
+            onChange={handleChange(`last_name`)}
+            value={values.last_name}
             margin="normal"
           />
           <br />
           <TextField
-            onKeyUp={() => validateEmail()}
             className={classes.margin}
             id="outlined-basic"
             label="Email Address"
             variant="outlined"
+            name="email"
             required
-            onChange={"add handlechange"}
-            value={""}
+            onChange={handleChange(`email`)}
+            value={values.email}
             margin="normal"
           />
           <br />
@@ -148,26 +109,25 @@ export default function CreateUser() {
             className={classes.margin}
             id="outlined-basic"
             label="Username"
+            name="userName"
             variant="outlined"
             required
-            onChange={"add handlechange"}
-            value={""}
+            onChange={handleChange(`username`)}
+            value={values.username}
             margin="normal"
-            onKeyUp={() => validateUserName()}
           />
           <br />
           <FormControl className={clsx(classes.margin, classes.textField)}variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
           <OutlinedInput
-            onKeyUp={() => validatePassword()}
             id="outlined-basic"
+            name="password"
             label="Password"
             variant="outlined"
             required
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
-            value={""}
             margin="normal"
             endAdornment={
               <InputAdornment position="end">
@@ -181,35 +141,40 @@ export default function CreateUser() {
                 </IconButton>
               </InputAdornment>
             }
-            labelWidth={70}
           />
+          </FormControl>
+            <br />
+            <br />
+          <FormControl>
+          <InputLabel htmlFor="outlined-adornment-confirm">Confirm</InputLabel>
           <OutlinedInput
-            onKeyUp={() => validateConfirm()}
+            style={{labelWidth: "center"}}
             id="outlined-basic"
             label="Confirm"
             variant="outlined"
             required
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            value={""}
+            type={values.showConfirm ? 'text' : 'confirm'}
+            value={values.confirm}
+            onChange={handleChange('confirm')}
             margin="normal"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
+                  aria-label="toggle confirm visibility"
+                  onClick={handleClickShowConfirm}
+                  onMouseDown={handleMouseDownConfirm}
                   edge="end"
                 >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  {values.showConfirm ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
-            labelWidth={70}
           />
           </FormControl>
+          <br />
+          <br />
           <Button
+            margin="normal"
             type="submit"
             fullWidth
             variant="contained"

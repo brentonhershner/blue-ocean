@@ -19,7 +19,6 @@ import AddPhotos from './AddPhotos/AddPhotos';
 import CreateUser from './Login/createUser'
 import SearchResults from './search/SearchResults';
 import Login from './Login/Login';
-import Signup from './Signup';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -43,7 +42,6 @@ function App() {
                       <Route exact path="/" render={() => <Home />} />
                       <Route exact path="/search" render={() => <SearchResults />} />
                       <Route exact path="/testpage" render={() => <TestPage />} />
-                      <Route exact path="/signup" render={() => <Signup />} />
                       <Route exact path="/createuser" render={() => <CreateUser />} />
                   </Switch>
                   <AddPhotos />
