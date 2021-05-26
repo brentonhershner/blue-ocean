@@ -72,7 +72,7 @@ return (
       <Typography component="div" style={{ height: '100vh' }}>
         <TextField
           className={classes.margin}
-          id="outlined-basic"
+          id="outlined-basic-user"
           label="Username"
           variant="outlined"
           required
@@ -85,14 +85,14 @@ return (
         <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
           <OutlinedInput
-            id="outlined-basic"
+            id="outlined-basic-password"
             label="Password"
             variant="outlined"
             required
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
-            margin="normal"
+            margin="none"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
