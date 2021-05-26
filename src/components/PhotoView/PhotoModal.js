@@ -175,14 +175,14 @@ const PhotoListTile = ({ showModal, setShowModal }) => {
             // title={tile.title}
             subtitle={<span>by: {randOwner}</span>}
             style={{fontSize: "large"}}
-            // actionIcon={
-            //   <IconButton
-            //     aria-label={`info about ${showModal && showModal.description}`}
-            //     className={classes.icon}
-            //   >
-            //     <InfoIcon className={classes.icon} />
-            //   </IconButton>
-            // }
+            actionIcon={
+              <IconButton
+                aria-label={`info about ${showModal && showModal.description}`}
+                className={classes.icon}
+              >
+                <InfoIcon className={classes.icon} />
+              </IconButton>
+            }
           />
         </Container>
       </Modal>
