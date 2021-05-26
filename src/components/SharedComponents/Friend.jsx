@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import api from '../../api/api.js';
 import { UserContext } from '../../contexts/user-context.js';
 
+
 const { friendAction } = api;
 
 const Friend = ({ friend, status }) => {
@@ -27,7 +28,7 @@ const Friend = ({ friend, status }) => {
             return (<Button onclick={friendAction(userInfo.userId, targetUserId, 'request')}>Add Friend</Button>)
         }
     }
-    
+
 
 
     return (

@@ -1,23 +1,26 @@
 import React from 'react';
-// import { useContext } from 'react';
+ import { useContext } from 'react';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography'
 import { Link as RouterLink } from 'react-router-dom';
 
+import FriendsList from './FriendsList';
 // import Search from './navbar/Search';
 // import NavDrawer from './navbar/NavDrawer'
 
-// import { UserContext } from '../contexts/user-context'
+ import { UserContext } from '../contexts/user-context'
 // import { PhotosContext } from '../contexts/photos-context'
 import ContextTest from './ContextTest';
 
 const Home = () => {
+     const { friends, pending, requested } = useContext(UserContext)
   return (
     <div>
       <Typography variant="h2">
         HELLO WORLD!
         <br />
         <ContextTest />
+        <FriendsList friends={friends} pending={pending} requested={requested}/>
       </Typography>
       <Link to='/testpage' component={RouterLink}>Testing TestPage</Link>
       <br/>
