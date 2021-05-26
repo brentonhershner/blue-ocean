@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios'
+/*-------------------Material-UI Imports-------------------*/
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -13,7 +15,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import clsx from 'clsx';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,79 +54,90 @@ export default function Login() {
     event.preventDefault();
   };
 
-  console.log(values.password, values.username)
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth="sm">
-        <Typography component="div" style={{ height: '100vh' }}>
-          <TextField
-            className={classes.margin}
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('/', values)
+      .then(() => {
+        console.log(`User login post successful`);;
+      })
+      .catch((error) => { throw error; });
+  }
+
+
+console.log(values.password, values.username)
+return (
+  <React.Fragment>
+    <CssBaseline />
+    <Container maxWidth="sm">
+      <Typography component="div" style={{ height: '100vh' }}>
+        <TextField
+          className={classes.margin}
+          id="outlined-basic"
+          label="Username"
+          variant="outlined"
+          required
+          type='text'
+          value={values.username}
+          onChange={handleChange('username')}
+          margin="normal"
+        />
+        <br />
+        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
             id="outlined-basic"
-            label="Username"
+            label="Password"
             variant="outlined"
             required
-            type='text'
-            value={values.username}
-            onChange={handleChange('username')}
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
+            onChange={handleChange('password')}
             margin="normal"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
           />
+        </FormControl>
+        <div>
           <br />
-          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput
-              id="outlined-basic"
-              label="Password"
-              variant="outlined"
-              required
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              onChange={handleChange('password')}
-              margin="normal"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              labelWidth={70}
-            />
-          </FormControl>
-          <div>
-            <br />
-          </div>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            margin="normal"
-            className={classes.create}
-          >
-            Login
+        </div>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          margin="normal"
+          className={classes.create}
+        >
+          Login
           </Button>
-          <div>
-            <br />
-          </div>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            margin="normal"
-            className={classes.create}
-          >
-            Create Account
+        <div>
+          <br />
+        </div>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          margin="normal"
+          className={classes.create}
+          onClick={handleSubmit}
+        >
+          Create Account
         </Button>
-        </Typography>
+      </Typography>
 
-      </Container>
-    </React.Fragment>
-  );
+    </Container>
+  </React.Fragment>
+);
 }
