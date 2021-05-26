@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+
   const classes = useStyles();
 
   const [values, setValues] = useState({
@@ -52,6 +53,7 @@ export default function Login() {
     event.preventDefault();
   };
 
+  console.log(values.password, values.username)
   return (
     <React.Fragment>
       <CssBaseline />
@@ -63,8 +65,9 @@ export default function Login() {
             label="Username"
             variant="outlined"
             required
-            onChange={"add handlechange"}
-            value={""}
+            type='text'
+            value={values.username}
+            onChange={handleChange('username')}
             margin="normal"
           />
           <br />
@@ -78,7 +81,6 @@ export default function Login() {
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
               onChange={handleChange('password')}
-              value={""}
               margin="normal"
               endAdornment={
                 <InputAdornment position="end">
