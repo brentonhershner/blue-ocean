@@ -146,15 +146,6 @@ const PhotoListTile = ({ showModal, setShowModal }) => {
           >
             <CloseIcon />
           </Fab>
-          <Fab
-            id="InfoIcon"
-            className="edit"
-            color="primary"
-            style={{ position: "absolute", top: 5, right: 5 }}
-            onClick={handleClick}
-          >
-            <InfoOutlinedIcon fontSize="large" />
-          </Fab>
           <Menu
             id="edit-menu"
             anchorEl={anchorEl}
@@ -174,14 +165,23 @@ const PhotoListTile = ({ showModal, setShowModal }) => {
           <GridListTileBar
             // title={tile.title}
             subtitle={<span>by: {randOwner}</span>}
-            style={{fontSize: "large"}}
+            style={{ fontSize: "large" }}
             actionIcon={
-              <IconButton
-                aria-label={`info about ${showModal && showModal.description}`}
-                className={classes.icon}
+              <Fab
+                id="InfoIcon"
+                className="edit"
+                color="primary"
+                style={{ position: "absolute", top: 5, right: 5 }}
+                onClick={handleClick}
               >
-                <InfoIcon className={classes.icon} />
-              </IconButton>
+                <InfoOutlinedIcon fontSize="large" />
+              </Fab>
+              // <IconButton
+              //   aria-label={`info about ${showModal && showModal.description}`}
+              //   className={classes.icon}
+              // >
+              //   <InfoIcon className={classes.icon} />
+              // </IconButton>
             }
           />
         </Container>
