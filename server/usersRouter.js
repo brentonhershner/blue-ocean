@@ -9,9 +9,12 @@ usersRouter.put('/friends/:action', async (req, res) => {
     const { currentUser, targetUser } = req.body;
     const action = req.params.action;
 
+    const errors = [];
     const currUser = User.findById(currentUser);
     const targUser = User.findById(targetUser);
 
+
+    console.log('curr user test', )
     const currUserObj = new Friend({
         userId: currentUser,
         userName: currUser.fullName
@@ -22,6 +25,7 @@ usersRouter.put('/friends/:action', async (req, res) => {
     });
     
     
+
     const removeRequest = (reqUser, pendUser) => {
         pendUser.exec()
         .then((doc) => {
@@ -32,6 +36,7 @@ usersRouter.put('/friends/:action', async (req, res) => {
                 }
             })
         })
+        .catch((err) => {console.log(err)})
         reqUser.exec()
         .then((doc) => {
             doc.requested.forEach((friend, index) => {
@@ -41,26 +46,48 @@ usersRouter.put('/friends/:action', async (req, res) => {
                 }
             })
         })
-    }
+        .catch((err) => {
+            console.log(err);
+        })
+    };
+
+    const sendUserUpdate = () => {
+        currUser.exec()
+        .then((doc) => {
+            console.log('THE RESULT', doc);
+            res.status(200).send(doc);
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        })
+    };
 
 
 
     if (action === 'request') {
         await currUser.exec()
         .then((doc) => {
+            console.log('found this from request', doc)
             doc.pending.push(targUserObj);
             doc.save();
+        })
+        .catch((err) => {
+            console.log(err);
         })
         await targUser.exec()
         .then((doc) => {
             doc.requested.push(currUserObj);
             doc.save();
         })
-
+        .catch((err) => {
+            console.log(err);
+        })
+        sendUserUpdate();
     }
 
     if (action === 'cancelRequest') {
         await removeRequest(targUser, currUser);
+        sendUserUpdate();
     }
 
     if (action === 'accept') {
@@ -76,7 +103,7 @@ usersRouter.put('/friends/:action', async (req, res) => {
             doc.save();
         })
         await removeRequest(currUser, targUser);
-
+        sendUserUpdate();
     }
 
     if (action === 'reject') {
@@ -93,6 +120,9 @@ usersRouter.put('/friends/:action', async (req, res) => {
                 }
             })
         })
+        .catch((err) => {
+            console.log(err);
+        })
 
         await targUser.exec()
         .then((doc) => {
@@ -103,11 +133,11 @@ usersRouter.put('/friends/:action', async (req, res) => {
                 }
             })
         })
-
-        currUser.exec()
-        .then((doc) => {
-            res.status(200).send(doc);
+        .catch((err) => {
+            console.log(err);
         })
+
+        sendUserUpdate();
     }
 });
 
