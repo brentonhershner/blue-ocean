@@ -24,14 +24,14 @@ import Signup from './Signup';
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
-  const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light)
+  const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light);
 
   return (
     <Router>
       <React.Fragment>
         <ThemeProvider theme={appliedTheme}>
           <CssBaseline />
-          <Container className="App" >
+          <Container className="App">
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
             <UserContextProvider>
               <PhotosContextProvider>

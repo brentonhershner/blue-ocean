@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios'
+import { Link as RouterLink } from 'react-router-dom';
+/*-------------------Material-UI Imports-------------------*/
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Link from '@material-ui/core/Link';
 import clsx from 'clsx';
-import { spacing } from "@material-ui/system";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,9 +35,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+
   const classes = useStyles();
 
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
+    username: '',
     password: '',
     showPassword: false,
   });
@@ -53,78 +56,91 @@ export default function Login() {
     event.preventDefault();
   };
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth="sm">
-        <Typography component="div" style={{ height: '100vh' }}>
-          <TextField
-            className={classes.margin}
-            id="outlined-basic"
-            label="Username"
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.put('/api/users', values)
+      .then(() => {
+        console.log(`User login post successful`);;
+      })
+      .catch((error) => { throw error; });
+  }
+
+return (
+  <React.Fragment>
+    <CssBaseline />
+    <Container maxWidth="sm">
+      <Typography component="div" style={{ height: '100vh' }}>
+        <TextField
+          className={classes.margin}
+          id="outlined-basic-user"
+          label="Username"
+          variant="outlined"
+          required
+          type='text'
+          value={values.username}
+          onChange={handleChange('username')}
+          margin="normal"
+        />
+        <br />
+        <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-basic-password"
+            label="Password"
             variant="outlined"
             required
-            onChange={"add handlechange"}
-            value={""}
-            margin="normal"
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
+            onChange={handleChange('password')}
+            margin="none"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+            labelWidth={70}
           />
+        </FormControl>
+        <div>
           <br />
-          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput
-              id="outlined-basic"
-              label="Password"
-              variant="outlined"
-              required
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              onChange={handleChange('password')}
-              value={""}
-              margin="normal"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              labelWidth={70}
-            />
-          </FormControl>
-          <div>
-            <br />
-          </div>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            margin="normal"
-            className={classes.create}
-          >
-            Login
+        </div>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          margin="normal"
+          className={classes.create}
+          onClick={handleSubmit}
+        >
+          Login
           </Button>
-          <div>
-            <br />
-          </div>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            margin="normal"
-            className={classes.create}
-          >
-            Create Account
+        <div>
+          <br />
+        </div>
+        <Link to='/createuser' component={RouterLink}>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          margin="normal"
+          className={classes.create}
+        >
+          Create an Account
         </Button>
-        </Typography>
+        </Link>
+      </Typography>
 
-      </Container>
-    </React.Fragment>
-  );
+    </Container>
+  </React.Fragment>
+);
 }
+

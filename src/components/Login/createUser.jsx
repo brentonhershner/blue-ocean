@@ -5,11 +5,9 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
@@ -121,7 +119,6 @@ export default function CreateUser() {
             onChange={"add handlechange"}
             value={""}
             margin="normal"
-
           />
           <br />
           <TextField
@@ -218,8 +215,9 @@ export default function CreateUser() {
             variant="contained"
             color="primary"
             className={classes.create}
-          >      Create Account
-    </Button>
+          >
+            Create Account
+          </Button>
         </Typography>
 
       </Container>
