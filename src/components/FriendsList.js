@@ -1,10 +1,10 @@
-import React, { useContext }from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
-import { UserContext } from '../contexts/user-context';
+//import { UserContext } from '../contexts/user-context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,24 +22,24 @@ function renderRow(friends, pending, requested) {
 
 {/* Friends on your friends list  */}
     {friends.map((item, i) => (
-      <ListItem button>
-    <ListItemText primary={`${item.username}`} secondary={'Friend'} key={i}/>
+      <ListItem button key={`${item.userId}` + i + 'f'}>
+    <ListItemText primary={`${item.username}`} secondary={'Friend'} key={`${item.userId}` + i}/>
 
     </ListItem>
     ))
   }
   {/* Requested friends  */}
   {pending.map((item, i) => (
-      <ListItem button>
-    <ListItemText primary={`${item.username}`} secondary={'Pending'} key={i}/>
+      <ListItem button key={`${item.userId}` + i + 'p'}>
+    <ListItemText primary={`${item.username}`} secondary={'Pending'} key={`${item.userId}` + i}/>
 
     </ListItem>
     ))
   }
 {/* Friends you have requested to be friends with  */}
 {requested.map((item, i) => (
-      <ListItem button>
-    <ListItemText primary={`${item.username}`} secondary={'Requested'} key={i}/>
+      <ListItem button key={`${item.userId}` + i + 'r'}>
+    <ListItemText primary={`${item.username}`} secondary={'Requested'} key={`${item.userId}` + i}/>
 
     </ListItem>
     ))
@@ -57,15 +57,15 @@ function renderRow(friends, pending, requested) {
   // );
 }
 
-// renderRow.propTypes = {
-  //   index: PropTypes.number.isRequired,
-  //   style: PropTypes.object.isRequired,
-  // };
+renderRow.propTypes = {
+    friends: PropTypes.object.isRequired,
+    requested: PropTypes.object.isRequired,
+    pending: PropTypes.object.isRequired,
+  };
 
   function FriendsList({friends, pending, requested, index, style }) {
     const classes = useStyles();
 
-  // const { userName, friends } = useContext(UserContext)
   console.log(friends)
   return (
     <div className={classes.root}>
