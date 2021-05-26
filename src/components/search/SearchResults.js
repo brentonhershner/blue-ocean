@@ -10,8 +10,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
-import { PhotosContext } from '../../contexts/photos-context';
+// import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from '../photoGallery/EditPhotosModal'
+
+import { SearchContext } from '../../contexts/search-context';
 
 
 let styles = {
@@ -29,6 +31,12 @@ let styles = {
 };
 
 function SearchResults(props) {
+  const { searchTerm } = useContext(SearchContext);
+  const { searchResults } = useContext(SearchContext);
+
+  // console.log('searchTerm in SearchResults.js:', searchTerm); // shows access to context
+  // console.log('searchResults in SearchResults.js:', searchTerm); // shows access to context
+
   const [showModal, setShowModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
@@ -37,10 +45,11 @@ function SearchResults(props) {
     // children, className, ...other
   } = props;
 
-  const { photos,
-    // setPhotos,
-    // updatePhoto
-  } = useContext(PhotosContext);
+  // REPLACED BY searchResults
+  // const { photos,
+  //   // setPhotos,
+  //   // updatePhoto
+  // } = useContext(PhotosContext);
 
   const handleSelectClick = () => {
     setOnSelect(!onSelect);
@@ -70,7 +79,7 @@ function SearchResults(props) {
   return (
     <Paper id="wrapper">
       <br/>
-      <div>Search results:  #tag</div>
+      <div>Search results:  #{searchTerm}</div>
 
       {/* SELECT/EDIT/DELETE */}
       <div style={{ height: 50, display:'flex', justifyContent:'flex-end', flexWrap: 'wrap' }}>
@@ -95,7 +104,7 @@ function SearchResults(props) {
 
       {/* PHOTO GRID */}
       <GridList cols={4} component="div">
-        {photos.map((item, index) => (
+        {searchResults.map((item, index) => (
           // add onclick open photoviewer modal pass in index
           //
           <GridListTile className={classes.gridListTile} onClick={() => handlePhotoClick(index)} key={index} >
