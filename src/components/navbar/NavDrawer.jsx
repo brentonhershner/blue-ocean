@@ -100,6 +100,9 @@ export default function NavDrawer() {
         <RouterLink to='/gallery'>
           <ListItem button>Gallery</ListItem>
         </RouterLink>
+        <RouterLink to='/search'>
+          <ListItem button>(test) Search Results</ListItem>
+        </RouterLink>
         <RouterLink to='/testpage'>
           <ListItem button>Testing Purposes Only</ListItem>
         </RouterLink>
