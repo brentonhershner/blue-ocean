@@ -125,8 +125,8 @@ function Gallery(props) {
         showModal={showModal}
         setShowModal={setShowModal}
       />
-  </Paper>
-  )
+    </Paper>
+  );
 }
 
 export default withStyles(styles)(Gallery);
