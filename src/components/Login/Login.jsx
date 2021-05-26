@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import { Link as RouterLink } from 'react-router-dom';
 /*-------------------Material-UI Imports-------------------*/
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Link from '@material-ui/core/Link';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,15 +58,13 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('/', values)
+    axios.put('/api/users', values)
       .then(() => {
         console.log(`User login post successful`);;
       })
       .catch((error) => { throw error; });
   }
 
-
-console.log(values.password, values.username)
 return (
   <React.Fragment>
     <CssBaseline />
@@ -118,12 +118,14 @@ return (
           color="primary"
           margin="normal"
           className={classes.create}
+          onClick={handleSubmit}
         >
           Login
           </Button>
         <div>
           <br />
         </div>
+        <Link to='/createuser' component={RouterLink}>
         <Button
           type="submit"
           fullWidth
@@ -131,13 +133,14 @@ return (
           color="primary"
           margin="normal"
           className={classes.create}
-          onClick={handleSubmit}
         >
-          Create Account
+          Create an Account
         </Button>
+        </Link>
       </Typography>
 
     </Container>
   </React.Fragment>
 );
 }
+
