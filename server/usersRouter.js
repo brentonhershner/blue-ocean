@@ -1,98 +1,131 @@
-<<<<<<< HEAD
+
 // const express = require('express');
-import express from 'express';
-=======
 import express, { request } from 'express';
 import { Friend, User } from '../database/index.js';
 
->>>>>>> started queries
 const usersRouter = express.Router();
 
-
-const fr = new Friend({userName: 'test6'})
-// const test = new User({fullName: 'test tester3', friends: []}).save()
-User.find({fullName: 'test tester3'})
-.exec()
-.then((doc) => {console.log('heres the thing', doc)})
-
-
-
-
-usersRouter.put('/friends/:action', (req, res) => {
+usersRouter.put('/friends/:action', async (req, res) => {
     const { currentUser, targetUser } = req.body;
     const action = req.params.action;
 
     const currUser = User.findById(currentUser);
-    const targUser = User.findById(targUser);
+    const targUser = User.findById(targetUser);
+
+    const currUserObj = new Friend({
+        userId: currentUser,
+        userName: currUser.fullName
+    });
+    const targUserObj = new Friend({
+        userId: targetUser,
+        userName: targUser.fullName
+    });
     
-    const removeRequest = () => {
-        currUser.find
-        //delete targetuser from currentUsers pending
+    
+    const removeRequest = (reqUser, pendUser) => {
+        pendUser.exec()
+        .then((doc) => {
+            doc.pending.forEach((friend, index) => {
+                if (friend.userName === reqUser.fullName) {
+                    doc.pending.splice(index, 1);
+                    doc.save();
+                }
+            })
+        })
+        reqUser.exec()
+        .then((doc) => {
+            doc.requested.forEach((friend, index) => {
+                if (friend.userName === pendUser.fullName) {
+                    doc.requested.splice(index, 1);
+                    doc.save();
+                }
+            })
+        })
     }
+
 
 
     if (action === 'request') {
-        const currUser = new Friend({
-            userId: currentUser,
-            userName: getUserName(currentUser)
-        });
+        await currUser.exec()
+        .then((doc) => {
+            doc.pending.push(targUserObj);
+            doc.save();
+        })
+        await targUser.exec()
+        .then((doc) => {
+            doc.requested.push(currUserObj);
+            doc.save();
+        })
 
-        const targUser = new Friend({
-            userId: targetUser,
-            userName: getUserName(targetUser)
-        });
-
-        User.findById()
-        //add targetuser to currentUsers pending
     }
 
     if (action === 'cancelRequest') {
-        removeRequest();
+        await removeRequest(targUser, currUser);
     }
 
     if (action === 'accept') {
-         //add currentUser to targetUsers friends
-        //add targetuser to currentusers friends
-        removeRequest();
+        await currUser.exec()
+        .then((doc) => {
+            doc.friends.push(targUserObj);
+            doc.save();
+        })
+
+       await targUser.exec()
+        .then((doc) => {
+            doc.friends.push(currUserObj);
+            doc.save();
+        })
+        await removeRequest(currUser, targUser);
+
     }
 
     if (action === 'reject') {
-        removeRequest();
+       await removeRequest(currUser, targUser);
     }
 
     if (action === 'remove') {
-         //delete targetUser from currentUsers friends
-        //delete currentUser from targetUsers friends
+       await currUser.exec()
+        .then((doc) => {
+            doc.friends.forEach((friend, index) => {
+                if (friend.userName === targUser.fullName) {
+                    doc.pending.splice(index, 1);
+                    doc.save();
+                }
+            })
+        })
+
+        await targUser.exec()
+        .then((doc) => {
+            doc.friends.forEach((friend, index) => {
+                if (friend.userName === currUser.fullName) {
+                    doc.pending.splice(index, 1);
+                    doc.save();
+                }
+            })
+        })
+
+        currUser.exec()
+        .then((doc) => {
+            res.status(200).send(doc);
+        })
     }
-
-
-    //find target user
-    //find current user
-   //  [add/remove] [targetUser] from [currentUsers][actionArray]
-   // [add/remove] [currentUser] from [targetusers][actionArray]
-
-   Model.findByIdAndUpdate()
-   findOneAndDelete()
-    
-
-//    Put ‘/users/friends/:action’
-// (note action in parameters will be one of the following:
-// 	-’request’
-// 	-’cancelRequest’
-// 	-’accept’
-// 	-’reject’
-// 	-’remove’
-// )
-
-// Req.body = {
-// 	currentUser: userIdNumOfUserLoggedIn,
-// 	targetUser: userIdNumOfTargetUser (the user that is being requested/rejected/removed/etc)
-// }
-
 });
 
+
 usersRouter.put('/', (req, res) => {
-    //create new user
+    const formData = req.body;
+    const newUserObj = new User({
+        fullName: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        userLevel: 1,
+        friends: [],
+        pending: [],
+        requested: []
+    });
+    const signUp = new User(newUserObj)
+    signUp.save()
+    .then((doc) => {res.status(200).send(doc)})
 })
 
 usersRouter.delete('/', (req, res) => {
