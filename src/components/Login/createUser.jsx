@@ -66,7 +66,6 @@ export default function CreateUser() {
             onChange={"add handlechange"}
             value={""}
             margin="normal"
-
           />
           <br />
           <TextField
@@ -102,32 +101,58 @@ export default function CreateUser() {
             margin="normal"
           />
           <br />
-          <FormControl className={clsx(classes.margin, classes.textField)}variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            required
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            value={""}
-            margin="normal"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            labelWidth={70}
-          />
+          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Create a Password</InputLabel>
+            <OutlinedInput
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
+              required
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              margin="normal"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              labelWidth={70}
+            />
+          </FormControl>
+          <br />
+          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Confirm Your Password</InputLabel>
+            <OutlinedInput
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
+              required
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              margin="normal"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              labelWidth={70}
+            />
           </FormControl>
           <Button
             type="submit"
@@ -135,8 +160,9 @@ export default function CreateUser() {
             variant="contained"
             color="primary"
             className={classes.create}
-          >      Create Account
-    </Button>
+          >
+            Create Account
+          </Button>
         </Typography>
 
       </Container>
