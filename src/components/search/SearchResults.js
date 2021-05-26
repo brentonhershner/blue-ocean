@@ -33,7 +33,6 @@ function SearchResults(props) {
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
 
-
   const { classes,
     // children, className, ...other
   } = props;
