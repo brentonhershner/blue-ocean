@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
 /*-------------------Material-UI Imports-------------------*/
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -121,6 +121,19 @@ return (
           onClick={handleSubmit}
         >
           Login
+          </Button>
+        <div>
+          <br />
+        </div>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          margin="normal"
+          className={classes.create}
+        >
+          Forget your password?
           </Button>
         <div>
           <br />
