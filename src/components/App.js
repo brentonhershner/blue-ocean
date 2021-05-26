@@ -14,12 +14,10 @@ import TestPage from './TestPage/TestPage';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
 import SearchContextProvider from '../contexts/search-context';
-import Login from './Login'
 import NavDrawer from './navbar/NavDrawer';
 import AddPhotos from './AddPhotos/AddPhotos';
 import CreateUser from './Login/createUser'
 import SearchResults from './search/SearchResults';
-import CreateUser from './Login/createUser'
 import Login from './Login/Login'
 
 function App() {
