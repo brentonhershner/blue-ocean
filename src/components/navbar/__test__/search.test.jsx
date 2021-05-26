@@ -5,6 +5,7 @@ import Search from '../Search';
 describe('Search Component', () => {
   test('Renders Search Component', () => {
     const { queryByTestId } = render(<Search />);
-    expect(queryByTestId('search-bar')).toBeTruthy();
+    const searchBar = queryByTestId('search-bar');
+    expect(searchBar).toBeTruthy();
   });
 });

@@ -12,7 +12,7 @@ import { SearchContext } from '../../contexts/search-context';
 const Search = () => {
   // const [ searchTerm, setSearchTerm ] = useState(null); // superceded by context
   // const [ searchResults, setSearchResults ] = useState([]); // superceded by context
-  const { photos } = useContext(PhotosContext);
+  const { photos } = useContext(PhotosContext) || [];
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
   const { searchResults, setSearchResults } = useContext(SearchContext);
 
