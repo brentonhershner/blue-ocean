@@ -13,14 +13,15 @@ import FriendsList from './FriendsList';
 import ContextTest from './ContextTest';
 
 const Home = () => {
-     const { friends, pending, requested } = useContext(UserContext)
+  // Use context in this instance is for the friends list 
+    //  const { friends, pending, requested } = useContext(UserContext);
   return (
     <div>
       <Typography variant="h2">
         HELLO WORLD!
         <br />
         <ContextTest />
-        <FriendsList friends={friends} pending={pending} requested={requested}/>
+        {/* <FriendsList friends={friends} pending={pending} requested={requested}/> */}
       </Typography>
       <Link to='/testpage' component={RouterLink}>Testing TestPage</Link>
       <br/>
