@@ -13,6 +13,7 @@ import DarkModeSwitch from '../components/SharedComponents/DarkModeSwitch';
 import TestPage from './TestPage/TestPage';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
+import SearchContextProvider from '../contexts/search-context';
 import Login from './Login'
 import NavDrawer from './navbar/NavDrawer';
 import AddPhotos from './AddPhotos/AddPhotos';
@@ -33,16 +34,18 @@ function App() {
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
             <UserContextProvider>
               <PhotosContextProvider>
-              <NavDrawer/>
-              <Switch>
-                  <Route exact path="/gallery" render={() => <Gallery />} />
-                  <Route exact path="/login" render={() => <Login />} />
-                  <Route exact path="/" render={() => <Home />} />
-                  <Route exact path="/search" render={() => <SearchResults />} />
-                  <Route exact path="/testpage" render={() => <TestPage />} />
-                  <Route exact path="/createuser" render={() => <CreateUser />} />
-               </Switch>
-                <AddPhotos />
+                <SearchContextProvider>
+                  <NavDrawer/>
+                  <Switch>
+                      <Route exact path="/gallery" render={() => <Gallery />} />
+                      <Route exact path="/login" render={() => <Login />} />
+                      <Route exact path="/" render={() => <Home />} />
+                      <Route exact path="/search" render={() => <SearchResults />} />
+                      <Route exact path="/testpage" render={() => <TestPage />} />
+                      <Route exact path="/createuser" render={() => <CreateUser />} />
+                  </Switch>
+                  <AddPhotos />
+                </SearchContextProvider>
               </PhotosContextProvider>
             </UserContextProvider>
           </Container>
