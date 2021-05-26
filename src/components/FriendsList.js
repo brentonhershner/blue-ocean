@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
-//import { UserContext } from '../contexts/user-context';
+import Friend from './SharedComponents/Friend.jsx';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,39 +21,21 @@ function renderRow(friends, pending, requested) {
 
 {/* Friends on your friends list  */}
     {friends.map((item, i) => (
-      <ListItem button key={`${item.userId}` + i + 'f'}>
-    <ListItemText primary={`${item.username}`} secondary={'Friend'} key={`${item.userId}` + i}/>
-
-    </ListItem>
+    <Friend  friend={item} status={'friends'} key={item.userId} />
     ))
   }
   {/* Requested friends  */}
   {pending.map((item, i) => (
-      <ListItem button key={`${item.userId}` + i + 'p'}>
-    <ListItemText primary={`${item.username}`} secondary={'Pending'} key={`${item.userId}` + i}/>
-
-    </ListItem>
+    <Friend  friend={item} status={'pending'} key={item.userId} />
     ))
   }
 {/* Friends you have requested to be friends with  */}
 {requested.map((item, i) => (
-      <ListItem button key={`${item.userId}` + i + 'r'}>
-    <ListItemText primary={`${item.username}`} secondary={'Requested'} key={`${item.userId}` + i}/>
-
-    </ListItem>
+     <Friend  friend={item} status={'requested'} key={item.userId} />
     ))
   }
     </div>
   )
-
-  // const { index, style}  = props;
-  // console.log(style, "this is style ")
-  // return (
-  //   <ListItem button style={style} key={index}>
-  //     {/* {props ? props.map((friends) => ( <ListItemText  primary={friends.username} key={ friends.userId } /> )) : null} */}
-  //      <ListItemText primary={`Item ${props}`} />
-  //   </ListItem>
-  // );
 }
 
 renderRow.propTypes = {
@@ -70,7 +51,7 @@ renderRow.propTypes = {
   return (
     <div className={classes.root}>
       <p>Friends</p>
-      <FixedSizeList height={300} width={300} itemSize={36} itemCount={1} >
+      <FixedSizeList height={250} width={300} itemSize={36} itemCount={1} >
 {() => renderRow(friends, pending, requested) }
         </FixedSizeList>
     </div>
