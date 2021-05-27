@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+/*-------------------Material-UI Imports-------------------*/
 import { ThemeProvider } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Themes from '../shared/styles/themes';
+/*-------------------Component Imports-------------------*/
 import '../shared/styles/App.css';
 import Home from './Home';
 import Gallery from './photoGallery/Gallery'
@@ -29,6 +32,7 @@ function App() {
     <Router>
       <React.Fragment>
         <ThemeProvider theme={appliedTheme}>
+        <h1>Marineon</h1>
           <CssBaseline />
           <Container className="App">
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
