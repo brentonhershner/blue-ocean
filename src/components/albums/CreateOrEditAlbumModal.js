@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
@@ -8,9 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/CloseRounded';
-import { PhotosContext } from '../../contexts/photos-context';
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    overflow: 'auto',
+    padding: theme.spacing(2, 4, 3)
   },
   button: {
     marginTop: theme.spacing(2),
@@ -39,36 +35,34 @@ const useStyles = makeStyles((theme) => ({
     alignContent:'center',
     justifyContent: 'center',
   },
-  image: {
-    maxHeight: window.innerWidth / 4,
+  title: {
+    minWidth: '100%',
   },
-  extra: {
-    maxHeight: window.innerWidth / 4,
-    display: 'flex',
-    justifyContent: 'center',
-  },
+  description: {
+    minWidth: '100%',
+  }
 }));
 
 
-function EditPhotosModal(props) {
-  const [currentTag, setCurrentTag] = useState('');
-  const [tags, setTags] = useState([]);
-  const [permission, setPermission] = useState(0);
+function CreateOrEditAlbumsModal(props) {
+  let album = {title: '', description: '', tags: [], permission: 0, photos: props.selected };
+  if (!props.isCreate) {
+    album=props.album;
+  }
 
-  const { photos,
-    // setPhotos,
-    // updatePhoto
-  } = useContext(PhotosContext);
+  const [title, setTitle] = useState(album.title);
+  const [description, setDescription] = useState(album.description);
+  const [currentTag, setCurrentTag] = useState('');
+  const [tags, setTags] = useState(album.tags);
+  const [permission, setPermission] = useState(album.permission);
 
   const handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
+    if(event.key === 'Enter' && currentTag){
       event.preventDefault();
-      if (currentTag && !tags.includes(currentTag)) {
       console.log(currentTag);
       let tempTags = tags.slice();
       tempTags.push(currentTag);
       setTags(tempTags);
-      }
       setCurrentTag('');
     }
   }
@@ -84,20 +78,31 @@ function EditPhotosModal(props) {
   };
 
   const resetModalState = () => {
-    setCurrentTag('');
-    setTags([]);
-    setPermission(0);
+    if(!props.isCreate) {
+      setTitle(album.title);
+      setDescription(album.description);
+      setCurrentTag(album.tags);
+      setTags(album.tags);
+      setPermission(album.permission);
+    } else {
+      setTitle('');
+      setDescription('');
+      setCurrentTag('');
+      setTags([]);
+      setPermission(0);
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let output = props.selected.map((item) => {return {item: item, tags, permission}})
-    console.log(output);
-    props.onClose();
-    resetModalState();
+    // let output = props.selected.map((item) => {return {item: item, tags, permission}})
+    // console.log(output);
+    // props.onClose();
+    // resetModalState();
   }
 
   const classes = useStyles();
+
   return(
   <Modal
         open={props.open}
@@ -113,44 +118,29 @@ function EditPhotosModal(props) {
         maxHeight: '90vh',
       }}
         className={classes.paper}>
-        <h2 id="Edit Photos">Editing {props.selected.length} Photo(s)</h2>
-        <div style={{marginBottom:10}}>
-        <GridList cols={3} component="div" className={classes.gridList}>
-        {props.selected.map((item, index) => {
-          if(index < 5) {
-            return (
-              <GridListTile className={classes.image}>
-              <img
-                srcSet={photos[item].url}
-                alt={photos[item].title}
-                loading="lazy"
-              />
-              </GridListTile>
-            )
-          }
-          if (index === 5 && props.selected.length === 6){
-            return (
-              <GridListTile className={classes.image}>
-              <img
-                srcSet={photos[item].url}
-                alt={photos[item].title}
-                loading="lazy"
-              />
-              </GridListTile>
-            )
-          }
-          if (index === props.selected.length-1) {
-            return (
-              <GridListTile className={classes.extra}>
-              <h1>+{props.selected.length-5}</h1>
-              </GridListTile>
-            )
-          }
-          return null;
-        })}
-        </GridList>
-        </div>
-        <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
+        <h2 id="simple-modal-title">
+          {props.isCreate ? 'Create New Album' : 'Editing Album'}
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          className={classes.root}
+          noValidate autoComplete="off"
+        >
+        <TextField
+          className={classes.title}
+          id="title"
+          label="Title"
+          value={title}
+          onChange={(e) => {setTitle(e.target.value)}}/>
+        <TextField
+          className={classes.description}
+          id="description"
+          label="Description"
+          multiline
+          value={description}
+
+          onChange={(e)=> {setDescription(e.target.value)}}
+        />
         <InputLabel id="demo-simple-select-label">Permission</InputLabel>
         <Select
           className={classes.select}
@@ -182,4 +172,4 @@ function EditPhotosModal(props) {
   )
 }
 
-export default EditPhotosModal
+export default CreateOrEditAlbumsModal

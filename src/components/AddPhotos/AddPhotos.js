@@ -8,9 +8,11 @@ import api from '../../api/api';
 const useStyles = makeStyles((theme) => ({
   fab: {
     // margin: theme.spacing.unit,
-    position: 'fixed',
     bottom: theme.spacing(2),
+    position: 'fixed',
+    left:0,
   },
+
 }));
 
 const AddPhotos = () => {

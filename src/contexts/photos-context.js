@@ -2,7 +2,6 @@ import React, { Component, createContext } from 'react'
 
 export const PhotosContext = createContext();
 
-
 class PhotosContextProvider extends Component {
   state = {
     photos: [
@@ -76,7 +75,17 @@ class PhotosContextProvider extends Component {
       {photoId: 68, ownerId: 3, uploadDate: 'May 11 2021 12:11:26 GMT-0700', description: 'my little teapot!', tags: ['mmpr', 'coachella', 't-pots'], accessLevel: 2, title: 'concert', url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_rnAQsKS3MLdXOs-u-IemPxYJRK5Hf99l3A&usqp=CAU'},
       //{title:'concert', url: 'https://wp-denverite.s3.amazonaws.com/wp-content/uploads/sites/4/2018/07/180718-RED-ROCKS-CONCERT-MUSIC-KEVINJBEATY-04-1024x576.jpg?resize=994,559'},
       //{title:'concert', url: 'https://static.dw.com/image/18920718_403.jpg'},
-    ]
+    ],
+    albums:[{title: 'Really Really Long name Test Album 1', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,7,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 2', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [1,3,6,7,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 3', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,7,2,9,11,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 4', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,8,7,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 5', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,7,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 1', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,7,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 2', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,7,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 3', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,7,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 4', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,7,10,12], tags: ['test1', 'test2', 'test3']},
+               {title: 'Test Album 5', description: 'Simple Test Album', owner:'Jun', permission:0, photos: [6,7,10,12], tags: ['test1', 'test2', 'test3']},]
   }
 
   setPhotos = (arr) => {
@@ -91,7 +100,7 @@ class PhotosContextProvider extends Component {
 
   render() {
     return(
-      <PhotosContext.Provider value={{photos:this.state.photos, updatePhoto:this.updatePhoto, setPhotos:this.setPhotos}}>
+      <PhotosContext.Provider value={{photos:this.state.photos, albums: this.state.albums, updatePhoto:this.updatePhoto, setPhotos:this.setPhotos}}>
         {this.props.children}
       </PhotosContext.Provider>
     );
