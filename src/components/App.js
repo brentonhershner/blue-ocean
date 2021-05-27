@@ -32,7 +32,11 @@ function App() {
     <Router>
       <React.Fragment>
         <ThemeProvider theme={appliedTheme}>
-        <h1>Marineon</h1>
+         <h1
+         style={{textAlign:"center"}}
+         >
+          Marineon
+        </h1>
           <CssBaseline />
           <Container className="App">
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
