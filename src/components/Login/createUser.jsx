@@ -37,7 +37,7 @@ export default function CreateUser() {
     password: '',
     showPassword: false,
     confirm: '',
-    showConfirm: '',
+    showConfirm: false,
     first_name: '',
     last_name: '',
     email: '',
@@ -143,7 +143,6 @@ export default function CreateUser() {
             }
           />
           </FormControl>
-            <br />
             <br />
           <FormControl>
           <InputLabel htmlFor="outlined-adornment-confirm">Confirm</InputLabel>
