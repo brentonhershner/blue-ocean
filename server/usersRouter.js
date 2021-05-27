@@ -14,7 +14,7 @@ usersRouter.put('/friends/request', async (req, res) => {
 
     const currUserObj = {
         userId: currentUser,
-        userName: currUser.username
+        userName: currUser.userName
     };
     const targUserObj = {
         userId: targetUser,
