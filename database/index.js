@@ -7,7 +7,9 @@ mongoose.connect('mongodb://localhost/blueocean', {
   useUnifiedTopology: true,
 });
 
+
 const db = mongoose.connection;
+
 
 db.on('error', (error) => {
   console.error('mongoose connection error', error);
@@ -23,9 +25,8 @@ const friendSchema = new Schema({
 });
 
 const userSchema = new Schema({
-  userId: Number,
   fullName: String,
-  username: String,
+  userName: String,
   email: String,
   password: String,
   userLevel: Number,  /* 1=general user, 2='super user', 3=admin  */
@@ -35,7 +36,8 @@ const userSchema = new Schema({
 });
 
 const photoSchema = new Schema({
-  photoId: Number,
+  photoId: String,
+  ownerId: String,
   uploadDate: Date,
   description: String,
   tags: Array,
