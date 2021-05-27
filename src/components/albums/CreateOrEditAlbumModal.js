@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   select: {
-    padding: theme.spacing(0, 1)
+    //padding: theme.spacing(0, 1)
+    marginBottom:0,
   },
   tag: {
     margin: theme.spacing(0.5),
@@ -45,53 +46,64 @@ const useStyles = makeStyles((theme) => ({
 
 
 function CreateOrEditAlbumsModal(props) {
-  let album = {title: '', description: '', tags: [], permission: 0, photos: props.selected };
-  if (!props.isCreate) {
-    album=props.album;
-  }
 
-  const [title, setTitle] = useState(album.title);
-  const [description, setDescription] = useState(album.description);
+  // const [title, setTitle] = useState(album.title);
+  // const [description, setDescription] = useState(album.description);
   const [currentTag, setCurrentTag] = useState('');
-  const [tags, setTags] = useState(album.tags);
-  const [permission, setPermission] = useState(album.permission);
+  // const [tags, setTags] = useState(album.tags);
+  // const [permission, setPermission] = useState(album.permission);
+
+  // useEffect(()=>{
+
+  // })
+  // let album = {
+  //   title: props.albumTitle,
+  //   description: props.albumDescription,
+  //   tags: props.albumTags,
+  //   permission: props.albumPermission,
+  //   photos: props.albumSelected
+  // };
+  // if (!props.isCreate) {
+  //   album=props.album;
+  // }
 
   const handleKeyPress = (event) => {
     if(event.key === 'Enter' && currentTag){
       event.preventDefault();
-      console.log(currentTag);
-      let tempTags = tags.slice();
-      tempTags.push(currentTag);
-      setTags(tempTags);
+      if (currentTag && !props.albumTags.includes(currentTag)) {
+        let tempTags = props.albumTags.slice();
+        tempTags.push(currentTag);
+        props.setAlbumTags(tempTags);
+      }
       setCurrentTag('');
     }
   }
 
   const removeTag = (index) => {
-    let tempTags = tags.slice();
+    let tempTags = props.albumTags.slice();
       tempTags.splice(index, 1);
-      setTags(tempTags);
+      props.setAlbumTags(tempTags);
   }
 
   const handlePermissionChange = (event) => {
-    setPermission(event.target.value);
+    props.setAlbumPermission(event.target.value);
   };
 
-  const resetModalState = () => {
-    if(!props.isCreate) {
-      setTitle(album.title);
-      setDescription(album.description);
-      setCurrentTag(album.tags);
-      setTags(album.tags);
-      setPermission(album.permission);
-    } else {
-      setTitle('');
-      setDescription('');
-      setCurrentTag('');
-      setTags([]);
-      setPermission(0);
-    }
-  }
+  // const resetModalState = () => {
+  //   if(!props.isAlbumCreate) {
+  //     props.setAlbumTitle(album.title);
+  //     setDescription(album.description);
+  //     setCurrentTag('');
+  //     setTags(album.tags);
+  //     setPermission(album.permission);
+  //   } else {
+  //     setTitle('');
+  //     setDescription('');
+  //     setCurrentTag('');
+  //     setTags([]);
+  //     setPermission(0);
+  //   }
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -118,9 +130,11 @@ function CreateOrEditAlbumsModal(props) {
         maxHeight: '90vh',
       }}
         className={classes.paper}>
-        <h2 id="simple-modal-title">
-          {props.isCreate ? 'Create New Album' : 'Editing Album'}
-        </h2>
+        {props.hasPrivilege
+        ?  <h2 id="simple-modal-title">
+            {props.isAlbumCreate ? 'Create New Album' : 'Editing Album'}
+          </h2>
+        : null}
         <form
           onSubmit={handleSubmit}
           className={classes.root}
@@ -130,23 +144,29 @@ function CreateOrEditAlbumsModal(props) {
           className={classes.title}
           id="title"
           label="Title"
-          value={title}
-          onChange={(e) => {setTitle(e.target.value)}}/>
+          value={props.albumTitle}
+          disabled={props.hasPrivilege ? 'true': 'false'}
+          onChange={(e) => {props.setAlbumTitle(e.target.value)}}
+        />
         <TextField
           className={classes.description}
           id="description"
           label="Description"
           multiline
-          value={description}
-
-          onChange={(e)=> {setDescription(e.target.value)}}
+          disabled={props.hasPrivilege ? 'true': 'false'}
+          value={props.albumDescription}
+          onChange={(e)=> {props.setAlbumDescription(e.target.value)}}
         />
-        <InputLabel id="demo-simple-select-label">Permission</InputLabel>
+        {props.hasPrivilege
+        ? <InputLabel id="demo-simple-select-label">Permission</InputLabel>
+        : null
+        }
         <Select
           className={classes.select}
           labelId="permission-select-label"
           id="permission-select"
-          value={permission}
+          value={props.albumPermision}
+          disabled={props.hasPrivilege ? 'true': 'false'}
           onChange={handlePermissionChange}
         >
           <MenuItem value={0}>Private</MenuItem>
@@ -154,18 +174,32 @@ function CreateOrEditAlbumsModal(props) {
           <MenuItem value={2}>Public</MenuItem>
         </Select>
         <br />
-        <TextField id="standard-basic" label="Add Tags" onKeyPress={handleKeyPress} value={currentTag} onChange={(e)=> {setCurrentTag(e.target.value)}}/>
+        {props.hasPrivilege
+        ? <TextField id="standard-basic" label="Add Tags" onKeyPress={handleKeyPress} value={currentTag} onChange={(e)=> {setCurrentTag(e.target.value)}}/>
+        : <TextField label="Tags" disabled > Tags </TextField> }
         <br />
         <div style={{
         display: 'flex',
         flexWrap: 'wrap',
       }}>
-        {tags.map((item, index) => (
-          <Paper key={index} className={classes.tag}>{item}&nbsp;<CloseIcon style={{fontSize:16}} onClick={()=>removeTag(index)} /></Paper>
+        {props.albumTags.map((item, index) => (
+          <Paper key={index} className={classes.tag}>
+            {item}&nbsp;
+            {props.hasPrivilege
+            ? <CloseIcon style={{fontSize:16}} onClick={()=>removeTag(index)} />
+            : null
+            }
+          </Paper>
         ))}
         </div>
-        <Button type="submit" className={classes.button} size="small" variant="contained" color="primary">Submit</Button>
-        <Button onClick={() => {props.onClose(); resetModalState()}} className={classes.button} size="small" variant="contained" color="secondary">Cancel</Button>
+        {props.hasPrivilege
+        ? <Button type="submit" className={classes.button} size="small" variant="contained" color="primary">Submit</Button>
+        : null}
+        <Button onClick={() => {props.onClose()}} className={classes.button} size="small" variant="contained" color="secondary">
+        {props.hasPrivilege
+        ? 'Cancel'
+        : 'Close'}
+        </Button>
         </form>
       </div>
     </Modal>

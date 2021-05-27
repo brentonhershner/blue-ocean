@@ -6,7 +6,7 @@ import { ThemeProvider } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Themes from '../shared/styles/themes';
 /*-------------------Component Imports-------------------*/
 import '../shared/styles/App.css';

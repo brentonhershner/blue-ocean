@@ -64,7 +64,6 @@ function EditPhotosModal(props) {
     if(event.key === 'Enter'){
       event.preventDefault();
       if (currentTag && !tags.includes(currentTag)) {
-      console.log(currentTag);
       let tempTags = tags.slice();
       tempTags.push(currentTag);
       setTags(tempTags);
@@ -142,7 +141,7 @@ function EditPhotosModal(props) {
           if (index === props.selected.length-1) {
             return (
               <GridListTile className={classes.extra}>
-              <h1>+{props.selected.length-5}</h1>
+                  <h1>+{props.selected.length-5}</h1>
               </GridListTile>
             )
           }

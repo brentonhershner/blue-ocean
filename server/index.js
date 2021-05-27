@@ -24,7 +24,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/photos', photosRouter);
 routes(app);
 
-app.use(express.static('public'));
+app.use(express.static('build'));
 
 app.listen(PORT, () => {
   console.info(`listening on port ${PORT}`);

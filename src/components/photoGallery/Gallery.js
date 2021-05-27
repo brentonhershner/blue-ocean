@@ -31,7 +31,10 @@ let styles = {
 };
 
 function Gallery(props) {
+  const hasPrivilege = false;
+
   const { photos,
+    //albums,
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
@@ -42,6 +45,14 @@ function Gallery(props) {
   const [shownPhotos, setShownPhotos] = useState(photos);
   const [showAlbumModal, setShowAlbumModal] = useState(false);
   const [currentAlbum, setCurrentAlbum] = useState({});
+
+  //states for create/edit album modal
+  const [albumTitle, setAlbumTitle] = useState('');
+  const [albumDescription, setAlbumDescription] = useState('');
+  const [albumPermision, setAlbumPermission] = useState(0);
+  const [albumTags, setAlbumTags] = useState([]);
+  const [albumSelected, setAlbumSelected] = useState([]);
+  const [isAlbumCreate, setIsAlbumCreate] = useState(false);
 
   const { classes,
     // children, className, ...other
@@ -72,8 +83,18 @@ function Gallery(props) {
     setShowEditPhotosModal(false)
     setShowAlbumModal(false)
   }
-  const handleOpen = () => {
+  const handleEidtPhotosOpen = () => {
     setShowEditPhotosModal(true)
+  }
+
+  const handleCreateAlbumOpen = () => {
+    setAlbumTitle('')
+    setAlbumDescription('')
+    setAlbumPermission(0)
+    setAlbumTags([])
+    setAlbumSelected([])
+    setIsAlbumCreate(true)
+    setShowAlbumModal(true)
   }
 
   const removePhotosFromAlbum = () => {
@@ -82,68 +103,79 @@ function Gallery(props) {
 
   return (
     <>
-    <AlbumRow
-      currentAlbum={currentAlbum}
-      setCurrentAlbum={setCurrentAlbum}
-      setShownPhotos={setShownPhotos}
-      handleSelectClick={handleSelectClick}
-      onSelect={onSelect}
-    />
-    <Paper id="wrapper" className={classes.paper}>
-    <div
-      style={{
-        height: 50,
-        display:'flex',
-        justifyContent:'space-between',
-        flexWrap: 'wrap'
-      }}
-    >
-      <div>
-      {onSelect && selected.length > 0 ?
-      currentAlbum.title
-      ? <IconButton
-          onClick={() => removePhotosFromAlbum()}
-          aria-label="new-album"
+      <AlbumRow
+        currentAlbum={currentAlbum}
+        setCurrentAlbum={setCurrentAlbum}
+        setShownPhotos={setShownPhotos}
+        handleSelectClick={handleSelectClick}
+        onSelect={onSelect}
+        hasPrivilege={hasPrivilege}
+
+        setShowAlbumModal={setShowAlbumModal}
+        setAlbumTitle={setAlbumTitle}
+        setAlbumDescription={setAlbumDescription}
+        setAlbumPermission={setAlbumPermission}
+        setAlbumTags={setAlbumTags}
+        setIsAlbumCreate={setIsAlbumCreate}
+      />
+      <Paper id="wrapper" className={classes.paper}>
+      {hasPrivilege ?
+        <div
+          style={{
+            height: 50,
+            display:'flex',
+            justifyContent:'space-between',
+            flexWrap: 'wrap'
+          }}
         >
-          <RemoveCircleOutlineIcon />
-        </IconButton>
-      : <IconButton
-          onClick={() => setShowAlbumModal(true)}
-          aria-label="new-album"
-        >
-          <AddAlbumIcon />
-        </IconButton> : null }
-        </div>
-      <FormGroup className={classes.formGroup} row>
-        {onSelect && selected.length > 0 ?
-        <>
-          <Button
-            onClick={handleOpen}
-            size="small"
-            className={classes.button}
-            variant="contained"
-            color="primary"
-          >
-            Edit
-          </Button>
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </>
-          : null}
+          <div>
+            {onSelect && selected.length > 0
+            ? currentAlbum.title
+              ? <IconButton
+                  onClick={() => removePhotosFromAlbum()}
+                aria-label="new-album"
+                >
+                  <RemoveCircleOutlineIcon />
+                </IconButton>
+              : <IconButton
+                  onClick={handleCreateAlbumOpen}
+                  aria-label="new-album"
+                >
+                  <AddAlbumIcon />
+                </IconButton>
+            : null }
+          </div>
+          <FormGroup className={classes.formGroup} row>
+            {onSelect && selected.length > 0
+            ? <>
+                <Button
+                  onClick={handleEidtPhotosOpen}
+                  size="small"
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                >
+                  Edit
+                </Button>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </>
+            : null}
           <FormControlLabel
             control={
               <Switch
-                size="small"
-                checked={onSelect}
-                onChange={handleSelectClick}
-                color="primary"
+              size="small"
+              checked={onSelect}
+              onChange={handleSelectClick}
+              color="primary"
               />
             }
             label="Select"
-          />
-        </FormGroup>
-      </div>
+            />
+          </FormGroup>
+        </div>
+      : null }
       <GridList cols={4} component="div">
         {shownPhotos.map((item, index) => (
           // add onclick open photoviewer modal pass in index
@@ -183,10 +215,22 @@ function Gallery(props) {
     <CreateOrEditAlbumModal
       open={showAlbumModal}
       onClose={handleClose}
-      aria-labelledby="Create album"
+      aria-labelledby="Create or edit album"
       aria-describedby="Modal to create albums"
-      selected={selected}
-      isCreate={true}/>
+      albumTitle={albumTitle}
+      albumDescription={albumDescription}
+      albumPermision={albumPermision}
+      albumTags={albumTags}
+      albumSelected={albumSelected}
+      isAlbumCreate={isAlbumCreate}
+
+      setAlbumTitle={setAlbumTitle}
+      setAlbumDescription={setAlbumDescription}
+      setAlbumPermission={setAlbumPermission}
+      setAlbumTags={setAlbumTags}
+
+      hasPrivilege={hasPrivilege}
+    />
   </>
 )
 }
