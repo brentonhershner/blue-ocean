@@ -35,14 +35,14 @@ function App() {
             <UserContextProvider>
               <PhotosContextProvider>
                 <SearchContextProvider>
-                  <NavDrawer/>
                   <Switch>
-                      <Route exact path="/gallery" render={() => <Gallery />} />
-                      <Route exact path="/login" render={() => <Login />} />
-                      <Route exact path="/" render={() => <Home />} />
-                      <Route exact path="/search" render={() => <SearchResults />} />
-                      <Route exact path="/testpage" render={() => <TestPage />} />
-                      <Route exact path="/createuser" render={() => <CreateUser />} />
+                    <Route exact path="/" render={() => <Login />} />
+                    <Route exact path="/createuser" render={() => <CreateUser />} />
+                    <NavDrawer />
+                    <Route exact path="/home" render={() => <Home />} />
+                    <Route exact path="/testpage" render={() => <TestPage />} />
+                    <Route exact path="/gallery" render={() => <Gallery />} />
+                    <Route exact path="/search" render={() => <SearchResults />} />
                   </Switch>
                   <AddPhotos />
                 </SearchContextProvider>
