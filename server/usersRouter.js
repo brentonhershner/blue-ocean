@@ -73,7 +73,7 @@ usersRouter.put('/friends/accept', async (req, res) => {
     
         const currUserObj = {
             userId: currentUser,
-            userName: currUser.username
+            userName: currUser.userName
         };
         const targUserObj = {
             userId: targetUser,
@@ -125,7 +125,7 @@ usersRouter.put('/friends/reject', async (req, res) => {
     
         const currUserObj = {
             userId: currentUser,
-            userName: currUser.username
+            userName: currUser.userName
         };
         const targUserObj = {
             userId: targetUser,
