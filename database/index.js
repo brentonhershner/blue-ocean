@@ -2,7 +2,7 @@ import { ViewModuleSharp } from '@material-ui/icons';
 
 import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
-mongoose.connect('mongodb://localhost/db', {
+mongoose.connect('mongodb://localhost/blueocean', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -18,13 +18,14 @@ db.once('open', () => {
 });
 
 const friendSchema = new Schema({
-  userId: Number,
+  userId: String,
   userName: String
 });
 
 const userSchema = new Schema({
   userId: Number,
   fullName: String,
+  username: String,
   email: String,
   password: String,
   userLevel: Number,  /* 1=general user, 2='super user', 3=admin  */
@@ -35,7 +36,6 @@ const userSchema = new Schema({
 
 const photoSchema = new Schema({
   photoId: Number,
-  ownerId: Number,
   uploadDate: Date,
   description: String,
   tags: Array,
@@ -44,7 +44,7 @@ const photoSchema = new Schema({
 });
 
 const userPhotosSchema = new Schema({
-  ownerId: Number,
+  ownerId: String,
   ownerName: String,
   photos: [photoSchema]
 });

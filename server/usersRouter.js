@@ -1,5 +1,3 @@
-
-// const express = require('express');
 import express, { request } from 'express';
 import { Friend, User } from '../database/index.js';
 
@@ -23,8 +21,8 @@ usersRouter.put('/friends/:action', async (req, res) => {
         userId: targetUser,
         userName: targUser.fullName
     });
-    
-    
+
+
 
     const removeRequest = (reqUser, pendUser) => {
         pendUser.exec()
@@ -141,11 +139,27 @@ usersRouter.put('/friends/:action', async (req, res) => {
     }
 });
 
+usersRouter.get('/login', (req, res) => {
+    const { username, password } = req.body;
+    User.findOne(username)
+    .then((doc) => {
+        if (doc.password === password) {
+            res.status(200).send(doc)
+        } else {
+            res.send('Invalid Password')
+        }
+    })
+    .catch((err) => {
+        res.status(500).send(err)
+    });
+})
 
-usersRouter.put('/', (req, res) => {
+usersRouter.post('/', (req, res) => {
     const formData = req.body;
+    console.log(formData);
     const newUserObj = new User({
-        fullName: formData.fullName,
+        fullName: `${formData.first_name} ${formData.last_name}`,
+        username: formData.username,
         email: formData.email,
         password: formData.password,
         userLevel: 1,
@@ -156,9 +170,10 @@ usersRouter.put('/', (req, res) => {
     const signUp = new User(newUserObj)
     signUp.save()
     .then((doc) => {res.status(200).send(doc)})
+    .catch((err) => {console.log('Something went wrong: ', err); res.status(500).send(err)})
 })
 
-usersRouter.delete('/', (req, res) => {
+usersRouter.delete('/users', (req, res) => {
     //this is future feature for superusers, providing option to delete a user account
     //don't need to worry about it for Monday
 })

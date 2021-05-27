@@ -58,7 +58,7 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put('/api/users', values)
+    axios.get('/api/users/login', values)
       .then(() => {
         console.log(`User login post successful`);;
       })
