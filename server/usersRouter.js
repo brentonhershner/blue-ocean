@@ -261,7 +261,7 @@ usersRouter.post('/', (req, res) => {
     const formData = req.body;
     console.log(formData);
     const newUserObj = new User({
-        fullName: `${forData.firstName} ${formData.lastName}`,
+        fullName: `${formData.first_name} ${formData.last_name}`,
         userName: formData.username,
         email: formData.email,
         password: formData.password,
