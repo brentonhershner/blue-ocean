@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useNavigate } from 'react';
 import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
 /*-------------------Material-UI Imports-------------------*/
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
-
+  // const navigate = useNavigate();
   const classes = useStyles();
 
   const [values, setValues] = useState({
@@ -56,11 +56,10 @@ export default function Login() {
     event.preventDefault();
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.get('/api/users/login', values)
-      .then(() => {
-        console.log(`User login post successful`);;
+  const handleSubmit = (userObj) => {
+    axios.get('/api/users/login', userObj)
+      .then((response) => {
+        console.log(`User login post successful `, response.data);;
       })
       .catch((error) => { throw error; });
   }
@@ -111,6 +110,7 @@ return (
         <div>
           <br />
         </div>
+        <Link to='/' component={RouterLink}>
         <Button
           type="submit"
           fullWidth
@@ -118,10 +118,11 @@ return (
           color="primary"
           margin="normal"
           className={classes.create}
-          onClick={handleSubmit}
+          onClick={() => handleSubmit(values)}
         >
           Login
           </Button>
+          </Link>
         <div>
           <br />
         </div>
@@ -138,7 +139,7 @@ return (
         <div>
           <br />
         </div>
-        <Link to='/createuser' component={RouterLink}>
+        <Link to='/' component={RouterLink}>
         <Button
           type="submit"
           fullWidth

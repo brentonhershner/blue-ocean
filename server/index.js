@@ -1,6 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import passport from 'passport';
+import cookieParser from 'cookie-parser';
 
 import routes from './router.js';
 import usersRouter from './usersRouter.js';

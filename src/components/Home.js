@@ -12,7 +12,8 @@ import FriendsList from './FriendsList';
 // import { PhotosContext } from '../contexts/photos-context'
 import ContextTest from './ContextTest';
 
-const Home = () => {
+const Home = ({ user }) => {
+  console.log(user)
   // Use context in this instance is for the friends list
 
   return (

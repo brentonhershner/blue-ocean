@@ -1,6 +1,7 @@
 import express, { request } from 'express';
 import { Friend, User } from '../database/index.js';
 
+
 const usersRouter = express.Router();
 
 //------------------------------------------------------------------------//
@@ -245,11 +246,11 @@ usersRouter.get('/login', (req, res) => {
     const { username, password } = req.body;
     User.findOne(username)
     .then((doc) => {
-        if (doc.password === password) {
+        // if (doc.password === password) {
             res.status(200).send(doc)
-        } else {
-            res.send('Invalid Password')
-        }
+        // } else {
+        //     res.send('Invalid Password')
+        // }
     })
     .catch((err) => {
         res.status(500).send(err)

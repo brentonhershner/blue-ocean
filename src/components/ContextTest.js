@@ -5,6 +5,7 @@ import { UserContext } from '../contexts/user-context'
 const ContextTest = () => {
 
   const { userName, setUserName } = useContext(UserContext)
+  console.log(userName)
   // const { photos, setPhotos, updatePhoto } = useContext(PhotosContext)
   return (
     <div>
