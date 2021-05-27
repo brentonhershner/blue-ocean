@@ -32,18 +32,11 @@ Write code, commit, repeat
 
 Rebase before pull request. First update main.
 
-    git pull --rebase upstream main
-
-Push to a feature branch on YOUR fork.
-
-    git push origin feature-branch
-
-Make a pull request on GitHub
-
-If pull request is rejected, update history and fix conflicts. Commonly this is an issue during rebasing.
-
-    git checkout main     //(this may not be necessary)
+    get checkout main
     git pull --rebase upstream
+
+Incorporate the changes from main into your feature branch.
+
     git checkout feature-branch
     git pull --rebase upstream main
 
@@ -52,15 +45,18 @@ Fix any merge conflicts then do:
     git add .
     git commit
     git rebase --continue
+
+Push the feature branch.
+
     git push origin feature-branch
 
-If the above doesn't work try:
+If you get warnings about it being rejected, try:
 
     git push origin feature-branch -f
 
-Update the pull request on GitHub
+Make a pull request on GitHub
 
-If pull request is accepted
+After the pull request is merged,
 
     git checkout main
     git pull --rebase upstream main

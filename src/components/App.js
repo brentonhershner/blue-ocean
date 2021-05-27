@@ -12,7 +12,6 @@ import Themes from '../shared/styles/themes';
 import '../shared/styles/App.css';
 import Home from './Home';
 import Gallery from './photoGallery/Gallery'
-import DarkModeSwitch from '../components/SharedComponents/DarkModeSwitch';
 import TestPage from './TestPage/TestPage';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
@@ -39,11 +38,10 @@ function App() {
         </h1>
           <CssBaseline />
           <Container className="App">
-            <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
             <UserContextProvider>
               <PhotosContextProvider>
                 <SearchContextProvider>
-                <NavDrawer />
+                <NavDrawer darkMode={darkMode} setDarkMode={setDarkMode} />
                   <Switch>
                     <Route exact path="/" render={() => <Home />} />
                     <Route exact path="/login" render={() => <Login />} />

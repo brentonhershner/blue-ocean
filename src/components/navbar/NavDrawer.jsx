@@ -11,6 +11,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 import clsx from 'clsx';
 
 const drawerWidth = 240;
@@ -72,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavDrawer() {
+export default function NavDrawer(props) {
   const [showState, setShowState] = useState(false)
 
   const toggleDrawer = (open) => (event) => {
@@ -103,69 +105,74 @@ export default function NavDrawer() {
         <RouterLink to='/testpage'>
           <ListItem button>Testing Purposes Only</ListItem>
         </RouterLink>
+
+        <ListItem button onClick={() => { props.setDarkMode(!props.darkMode) }} >
+            {props.darkMode ? <Brightness7Icon /> : <Brightness3Icon />}
+          <Typography>{props.darkMode ? 'Light Mode' : 'Dark Mode'}</Typography>
+        </ListItem>
       </List>
-    </div>
+    </div >
   )
 
   return (
     <React.Fragment>
-    <div className={classes.root}>
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: showState,
-        })}
-      >
-      <Toolbar
-      style={{display:"flex", justifyContent: "flex-start"}}
-      >
-      <Typography variant="h6" noWrap className={classes.title}>
-        <RouterLink to='/'>
-          Marineon
+      <div className={classes.root}>
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: showState,
+          })}
+        >
+          <Toolbar
+            style={{ display: "flex", justifyContent: "flex-start" }}
+          >
+            <Typography variant="h6" noWrap className={classes.title}>
+              <RouterLink to='/'>
+                Marineon
         </RouterLink>
-      </Typography>
-      <div
-style={{display: "flex", justifyContent: "center", width: "88%"}}
->
-<Search
-/>
-</div>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="end"
-        onClick={handleDrawerOpen}
-        className={clsx(showState && classes.hide)}
-      >
-        <MenuIcon />
-      </IconButton>
-    </Toolbar>
-  </AppBar>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: showState,
-        })}
-      >
+            </Typography>
+            <div
+              style={{ display: "flex", justifyContent: "center", width: "88%" }}
+            >
+              <Search
+              />
+            </div>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerOpen}
+              className={clsx(showState && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: showState,
+          })}
+        >
         </main>
         <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={showState}
-        onClose={toggleDrawer(false)}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        {list()}
-      </Drawer>
-    </div>
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={showState}
+          onClose={toggleDrawer(false)}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          {list()}
+        </Drawer>
+      </div>
     </React.Fragment>
   )
 
