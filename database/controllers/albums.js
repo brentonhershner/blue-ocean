@@ -19,7 +19,7 @@ albums.getFriendsAlbums = async (userId) => {
     // user.friends.forEach((friend) => {
     //   friendsIds.push(friend.userId);
     // });
-    const friendsAlbums = await Album.find({ accessLevel: 1, ownerId: { $in: user.friends } });
+    const friendsAlbums = await Album.find({ accessLevel: 1, ownerId: { $in: userId.friends } }) || [];
     return friendsAlbums;
   }
   catch(err) {

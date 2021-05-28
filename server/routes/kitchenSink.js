@@ -22,14 +22,14 @@ kitchenSinkRouter.get('/', async (req, res) => {
       albums.getAll(userId),
       albums.getFriendsAlbums(userId),
       albums.getPublicAlbums(),
-      users.getFriends(userId),
-      users.getAll()
+      users.getFriendsNames(userId), // add username to this
+      users.getAll() // add username to his
     ]).then((resolved) => {
       keys.forEach((k, i) => {
-        resolvedObj[k] = resolved[i];
+        resolvedObj[k] = resolved[i] || [];
       });
       console.log(resolvedObj);
-      res.status(200).send(resolvedObj);
+      res.status(200).send(resolvedObj || {});
     })
   } catch (err) {
     console.error(err);
@@ -37,17 +37,7 @@ kitchenSinkRouter.get('/', async (req, res) => {
 
 });
 
-// node ./server/routes/kitchenSink.js
 
-// ).then((resolved) => {
 
-// res.status(200).send(resolvedObj);
-// })
-
-// res.status(200).send(userPhotos);
-// } catch (err) {
-// res.status(500).send(err);
-// }
-// );
 
 export default kitchenSinkRouter;

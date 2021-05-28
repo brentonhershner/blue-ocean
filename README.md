@@ -66,6 +66,12 @@ git branch -d feature-branch just cleans up branches. You don't have to do this 
 
 ---
 
+Run the following command at the root directory to seed the database.
+
+    node ./database/seed/seedMe.js
+
+---
+
 ## Team Members
 
 - Jared Rogers

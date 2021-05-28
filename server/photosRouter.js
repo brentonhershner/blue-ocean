@@ -63,8 +63,13 @@ photosRouter.get('/feed', async (req, res) => {
 
 // find one and update
 photosRouter.patch('/single', async (req, res) => {
+  console.log('server')
   try {
-    await photos.updateOne(req.body.photoId);
+    console.log('data',req.data)
+    console.log('body',req.body)
+    console.log('query', req.query)
+    console.log('params', req.params)
+    // await photos.updateOne(req.body.photoId);
     res.sendstatus(200);
   } catch (err) {
     res.status(500).send(err);

@@ -44,6 +44,7 @@ photos.getUserPhotos = async (userId) => {
 photos.getSharedPhotos = async (userId) => {
   try {
     const [friends] = await users.getFriends(userId);
+    if(!friends || friends.friends) { return []; }
     return Promise.all(friends.friends.map(f => Photo.find({'userId': f} )))
       .then(resolution => resolution.flat()
         .filter(p => p.accessLevel === 1)

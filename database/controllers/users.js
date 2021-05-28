@@ -12,10 +12,17 @@ users.getInfo = async (userId) => {
   }
 };
 
-
 // get friends list
 users.getFriends = async (userId) => {
   return User.find({ 'userId': userId }).select('friends');
+};
+
+// get friends list with usernames
+users.getFriendsNames = async (userId) => {
+  const friends = await users.getFriends(userId);
+  return Promise.all(friends.map(f => {
+    return User.find({ 'userId': f }).select('userId', 'username')
+  }));
 };
 
 
@@ -64,7 +71,7 @@ users.acceptFriend = async (currentUser, targetUser) => {
     const [currUser] = await User.find({ 'userId': currentUser }).exec();
     const [targUser] = await User.find({ 'userId': targetUser }).exec();
 
-    if (!targUser.pending.includes(currUser.userId)){ return currUser; }
+    if (!targUser.pending.includes(currUser.userId)) { return currUser; }
 
     //remove curr user from target users pending array
     targUser.pending.pull(currUser.userId);
@@ -90,11 +97,11 @@ users.rejectFriend = async (currentUser, targetUser) => {
     const [currUser] = await User.find({ 'userId': currentUser }).exec();
     const [targUser] = await User.find({ 'userId': targetUser }).exec();
 
-    if (!currUser.pending.includes(targUser.userId)){ return currUser; }
+    if (!currUser.pending.includes(targUser.userId)) { return currUser; }
 
     //remove target user from current user's requested array
     currUser.requested.pull(targUser.userId);
-    
+
     //remove current user from target user's pending array
     targUser.pending.pull(currUser.userId);
 
@@ -143,7 +150,7 @@ users.removeFriend = async (currentUser, targetUser) => {
 };
 
 users.login = (username, password, cb) => {
-  User.findOne({userName: username}).exec()
+  User.findOne({ userName: username }).exec()
     .then((doc) => {
       if (doc.password === password) {
         cb(doc)
@@ -159,17 +166,8 @@ users.login = (username, password, cb) => {
 
 users.getAll = async () => {
   try {
-    const allUsers = [];
-    User.find({}).exec()
-      .then((allUserDocs) => {
-        allUserDocs.forEach((user) => {
-          const userObj = {
-            userName: user.userName,
-            userId: user._id
-          };
-          allUsers.push(userObj)
-        })
-      })
+    const allUsers = await User.find({}).exec()
+    console.log(allUsers);
     return allUsers;
   } catch (err) {
     throw err

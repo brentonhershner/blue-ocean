@@ -65,8 +65,8 @@ export default function NavDrawer(props) {
     if (userId) {
       let response = api.kitchenSink(userId);
       response.then((result) => {
-        setPhotos(result.personalPhotos, result.sharedPhotos, result.publicPhotos);
-        setAlbums(result.personalAlbums, result.sharedAlbums, result.publicAlbums);
+        setPhotos(result && result.personalPhotos, result && result.sharedPhotos, result && result.publicPhotos);
+        setAlbums(result && result.personalAlbums, result && result.sharedAlbums, result && result.publicAlbums);
         console.log(result);
       })
     }
