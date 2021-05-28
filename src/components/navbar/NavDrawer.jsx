@@ -15,32 +15,32 @@ import Brightness3Icon from '@material-ui/icons/Brightness3';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import clsx from 'clsx';
 
-const drawerWidth = 240;
+const drawerWidth = 'max-content';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  hide: {
-    display: 'none',
-  },
+  // appBar: {
+    // transition: theme.transitions.create(['margin', 'width'], {
+    //   easing: theme.transitions.easing.sharp,
+    //   duration: theme.transitions.duration.leavingScreen,
+    // }),
+  // },
+  // appBarShift: {
+  //   width: `calc(100% - ${drawerWidth}px)`,
+  //   transition: theme.transitions.create(['margin', 'width'], {
+  //     easing: theme.transitions.easing.easeOut,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  //   marginRight: drawerWidth,
+  // },
+  // title: {
+  //   flexGrow: 1,
+  // },
+  // hide: {
+  //   display: 'none',
+  // },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -56,22 +56,22 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-start',
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  },
+  // content: {
+  //   flexGrow: 1,
+  //   padding: theme.spacing(3),
+  //   transition: theme.transitions.create('margin', {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   marginRight: -drawerWidth,
+  // },
+  // contentShift: {
+  //   transition: theme.transitions.create('margin', {
+  //     easing: theme.transitions.easing.easeOut,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  //   marginRight: 0,
+  // },
 }));
 
 export default function NavDrawer(props) {
@@ -96,22 +96,22 @@ export default function NavDrawer(props) {
   const list = () => (
     <div onClick={toggleDrawer(false)}>
       <List>
-        <ListItem button>Add Photo</ListItem>
-        <ListItem button>Feed</ListItem>
-        <ListItem button>Friends</ListItem>
-        <RouterLink to='/gallery'>
-          <ListItem button>Gallery</ListItem>
+        <RouterLink to='/personal' style={{textDecoration:'none', color:'inherit'}}>
+          <ListItem button>My Photos</ListItem>
         </RouterLink>
-        <RouterLink to='/testpage'>
-          <ListItem button>Testing Purposes Only</ListItem>
+        <RouterLink to='/shared' style={{textDecoration:'none', color:'inherit'}}>
+          <ListItem button>Friends Photos</ListItem>
         </RouterLink>
-
+        <RouterLink to='/public' style={{textDecoration:'none', color:'inherit'}}>
+          <ListItem button>Public Photos</ListItem>
+        </RouterLink>
+        <ListItem button>My Friends</ListItem>
         <ListItem button onClick={() => { props.setDarkMode(!props.darkMode) }} >
             {props.darkMode ? <Brightness7Icon /> : <Brightness3Icon />}
           <Typography>{props.darkMode ? 'Light Mode' : 'Dark Mode'}</Typography>
         </ListItem>
       </List>
-    </div >
+    </div>
   )
 
   return (
@@ -124,15 +124,15 @@ export default function NavDrawer(props) {
           })}
         >
           <Toolbar
-            style={{ display: "flex", justifyContent: "flex-start" }}
+            style={{ display: "flex", justifyContent: "space-between" }}
           >
             <Typography variant="h6" noWrap className={classes.title}>
-              <RouterLink to='/'>
+              <RouterLink to='/' style={{textDecoration:'none', color:'inherit'}}>
                 Marineon
         </RouterLink>
             </Typography>
             <div
-              style={{ display: "flex", justifyContent: "center", width: "88%" }}
+              style={{ display: "flex", justifyContent: "center", width: "33%" }}
             >
               <Search
               />

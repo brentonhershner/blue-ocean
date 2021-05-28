@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import InputAdornment from '@material-ui/core/InputAdornment'
 import { PhotosContext } from '../../contexts/photos-context.js';
 import { SearchContext } from '../../contexts/search-context';
 import { Link as RouterLink } from 'react-router-dom';
@@ -11,8 +12,6 @@ import { Link as RouterLink } from 'react-router-dom';
 // 2. users/friends
 
 const Search = () => {
-  // const [ searchTerm, setSearchTerm ] = useState(null); // superceded by context
-  // const [ searchResults, setSearchResults ] = useState([]); // superceded by context
   const { photos } = useContext(PhotosContext) || [];
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
   const { searchResults, setSearchResults } = useContext(SearchContext);
@@ -33,12 +32,15 @@ const Search = () => {
       <InputBase
         data-testid="search-bar"
         placeholder="Search…"
+        value={searchTerm}
         inputProps={{ 'aria-label': 'search' }}
         onChange={(e) => setSearchTerm(e.target.value)}
+        startAdornment={
+          <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+        }
       />
-      <RouterLink to='/search'>
-        <SearchIcon onClick={() => search()}/>
-      </RouterLink>
     </div>
   );
 };

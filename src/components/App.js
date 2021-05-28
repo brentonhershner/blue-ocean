@@ -47,8 +47,10 @@ function App() {
                     <Route exact path="/login" render={() => <Login />} />
                     <Route exact path="/createuser" render={() => <CreateUser />} />
                     <Route exact path="/testpage" render={() => <TestPage />} />
-                    <Route exact path="/gallery" render={() => <Gallery />} />
-                    <Route exact path="/search" render={() => <SearchResults />} />
+                    <Route exact path="/public" render={() => <Gallery view={'public'} />} />
+                    <Route exact path="/personal" render={() => <Gallery view={'personal'} />} />
+                    <Route exact path="/shared" render={() => <Gallery view={'shared'} />} />
+                    {/* <Route exact path="/search" render={() => <SearchResults />} /> */}
                   </Switch>
                   <AddPhotos />
                 </SearchContextProvider>

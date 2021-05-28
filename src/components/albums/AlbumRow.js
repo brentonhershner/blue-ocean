@@ -41,7 +41,7 @@ function AlbumRow (props) {
   const classes = useStyles();
 
   const { photos,
-    albums
+    // albums
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
@@ -61,8 +61,9 @@ function AlbumRow (props) {
   }
 
   const returnToAll = () => {
-    props.setShownPhotos(photos);
+    // props.setShownPhotos(photos);
     props.setCurrentAlbum({});
+    props.setCurrentAlbumPhotos([]);
   }
 
   return (
@@ -107,7 +108,7 @@ function AlbumRow (props) {
         </div>
       </div>
       </>
-      : albums.map((item, index) => (
+      : props.shownAlbums.map((item, index) => (
         <Album
           key={index}
           album={item}
@@ -123,6 +124,7 @@ function AlbumRow (props) {
           setAlbumPermission={props.setAlbumPermission}
           setAlbumTags={props.setAlbumTags}
           setIsAlbumCreate={props.setIsAlbumCreate}
+          setCurrentAlbumPhotos={props.setCurrentAlbumPhotos}
         />
       ))}
     </Paper>

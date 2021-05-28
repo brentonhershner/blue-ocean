@@ -21,6 +21,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 
 import { PhotosContext } from '../../contexts/photos-context';
+import { SearchContext } from '../../contexts/search-context';
 
 const useStyles = makeStyles({
   root: {
@@ -53,6 +54,7 @@ function Album (props) {
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
+  const { setSearchTerm } = useContext(SearchContext);
 
   // const handleClose = () => {
   //   setShowModal(false)
@@ -70,10 +72,12 @@ function Album (props) {
   const showAlbum = () => {
     let shownAlbum = [];
     props.album.photos.forEach((item)=>{shownAlbum.push(photos[item])});
-    props.setShownPhotos(shownAlbum);
+    // props.setShownPhotos(shownAlbum);
+    props.setCurrentAlbumPhotos(shownAlbum);
     if (props.onSelect) {
-      props.handleSelectClick();
+      props.handleSelectClick(); // turns off select when album is clicked
     }
+    setSearchTerm('');
   }
 
   return (

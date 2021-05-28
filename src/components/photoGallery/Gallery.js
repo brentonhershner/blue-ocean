@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,13 +10,16 @@ import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddAlbumIcon from '@material-ui/icons/CreateNewFolder';
 import IconButton from '@material-ui/core/IconButton';
-import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
 import PhotoModal from '../PhotoView/PhotoModal';
 import AlbumRow from '../albums/AlbumRow'
 import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-
+import SearchFilter from './SearchFilter';
+/*-------------------Context Imports-------------------*/
+import { PhotosContext } from '../../contexts/photos-context';
+import { UserContext } from '../../contexts/user-context';
+import { SearchContext } from '../../contexts/search-context';
 
 let styles = {
   gridListTile: {
@@ -34,17 +37,22 @@ function Gallery(props) {
   const hasPrivilege = false;
 
   const { photos,
-    //albums,
+    albums,
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
+  const user = useContext(UserContext); // user context
+  const { setSearchTerm } = useContext(SearchContext); // user context
+
   const [showPhotoModal, setShowPhotoModal] = useState(null);
   const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
+  const [shownAlbums, setShownAlbums] = useState(albums);
   const [showAlbumModal, setShowAlbumModal] = useState(false);
   const [currentAlbum, setCurrentAlbum] = useState({});
+  const [currentAlbumPhotos, setCurrentAlbumPhotos] = useState([]);
 
   //states for create/edit album modal
   const [albumTitle, setAlbumTitle] = useState('');
@@ -55,9 +63,41 @@ function Gallery(props) {
   const [isAlbumCreate, setIsAlbumCreate] = useState(false);
 
   const { classes,
+    view, // render gallery view as = 'public', 'personal', 'shared'
     // children, className, ...other
   } = props;
 
+  useEffect(() => {
+    setSearchTerm('');
+  }, [])
+
+  // FILTER PHOTOS BY VIEW
+  useEffect(() => {
+    if (view === 'public') {
+      setShownPhotos(photos);
+    } else if (view === 'personal') {
+      // const personalPhotos = photos.filter(photo => photo.ownerId === user.userId) // PROPER code, when userId 1 exists
+      const personalPhotos = photos.filter(photo => photo.ownerId === 2)
+      console.log(personalPhotos);
+      setShownPhotos(personalPhotos);
+    } else if (view === 'shared') {
+      const friendIds = user.friends.map(friend => friend.userId); // map friend userIds to array
+      const sharedPhotos = photos.filter(photo => {
+        /* filter shared photos to user and friends Ids */
+        // return friendIds.concat([user.userId]).includes(photo.ownerId); // PROPER CODE, when valid friend userId's exist
+        return friendIds.concat([3]).includes(photo.ownerId); // filter shared photos to user and friends Ids
+      })
+      setShownPhotos(sharedPhotos);
+    }
+  }, [view]) // update 'shownPhotos' when 'view' changes
+
+  // useEffect(() => {
+  //   if (currentAlbumPhotos.length > 0) {
+  //     setShownPhotos(currentAlbumPhotos)
+  //   } else {
+  //     setShownPhotos(photos)
+  //   }
+  // }, [currentAlbumPhotos])
 
   const handleSelectClick = () => {
     setOnSelect(!onSelect);
@@ -103,6 +143,11 @@ function Gallery(props) {
 
   return (
     <>
+      <SearchFilter
+        setShownPhotos={setShownPhotos}
+        setShownAlbums={setShownAlbums}
+        currentAlbumPhotos={currentAlbumPhotos}
+      />
       <AlbumRow
         currentAlbum={currentAlbum}
         setCurrentAlbum={setCurrentAlbum}
@@ -117,6 +162,8 @@ function Gallery(props) {
         setAlbumPermission={setAlbumPermission}
         setAlbumTags={setAlbumTags}
         setIsAlbumCreate={setIsAlbumCreate}
+        shownAlbums={shownAlbums}
+        setCurrentAlbumPhotos={setCurrentAlbumPhotos}
       />
       <Paper id="wrapper" className={classes.paper}>
       {hasPrivilege ?
@@ -234,5 +281,4 @@ function Gallery(props) {
   </>
 )
 }
-
 export default withStyles(styles)(Gallery);
