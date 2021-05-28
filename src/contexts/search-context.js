@@ -12,6 +12,9 @@ function SearchContextProvider(props) {
   const [currentPhotoList, setCurrentPhotoList] = useState([]);
   const [currentAlbumList, setCurrentAlbumList] = useState([]);
 
+  const [ searchFriend, setSearchFriend ] = useState('');
+  const [ friendResults, setFriendResults ] = useState([]);
+
   return(
     <SearchContext.Provider value={{
       searchTerm,
@@ -21,7 +24,11 @@ function SearchContextProvider(props) {
       currentPhotoList,
       setCurrentPhotoList,
       currentAlbumList,
-      setCurrentAlbumList
+      setCurrentAlbumList,
+      searchFriend,
+      setSearchFriend
+      // friendResults,
+      // setFriendResults
     }}>
         {props.children}
     </SearchContext.Provider>

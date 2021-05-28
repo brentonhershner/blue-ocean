@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { FixedSizeList } from 'react-window';
 import Friend from './SharedComponents/Friend.jsx';
-
+import { UserContext } from '../contexts/user-context';
+import SearchFriends from './search/SearchFriends';
+import { SearchContext } from '../contexts/search-context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,26 +17,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function renderRow(friends, pending, requested) {
-
+  // console.log('triggered')
   return (
-    <div>
+    <>
+      {/* Friends on your friends list  */}
+      {friends.map((item, i) => (
+        <Friend  friend={item} status={'friends'} key={item.userId} />
+      ))}
 
-{/* Friends on your friends list  */}
-    {friends.map((item, i) => (
-    <Friend  friend={item} status={'friends'} key={item.userId} />
-    ))
-  }
-  {/* Requested friends  */}
-  {pending.map((item, i) => (
-    <Friend  friend={item} status={'pending'} key={item.userId} />
-    ))
-  }
-{/* Friends you have requested to be friends with  */}
-{requested.map((item, i) => (
-     <Friend  friend={item} status={'requested'} key={item.userId} />
-    ))
-  }
-    </div>
+      {/* Requested friends  */}
+      {pending.map((item, i) => (
+        <Friend  friend={item} status={'pending'} key={item.userId} />
+      ))}
+
+      {/* Friends you have requested to be friends with  */}
+      {requested.map((item, i) => (
+        <Friend  friend={item} status={'requested'} key={item.userId} />
+      ))}
+    </>
   )
 }
 
@@ -44,18 +44,26 @@ renderRow.propTypes = {
     pending: PropTypes.object.isRequired,
   };
 
-  function FriendsList({friends, pending, requested, index, style }) {
+  function FriendsList({ index, style }) {
     const classes = useStyles();
+    const { friends, pending, requested } = useContext(UserContext);
+    const { searchTerm } = useContext(SearchContext);
+    const [ shownUsers, setShownUsers ] = useState([]);
 
-  console.log(friends)
-  return (
-    <div className={classes.root}>
-      <p>Friends</p>
-      <FixedSizeList height={250} width={300} itemSize={36} itemCount={1} >
-{() => renderRow(friends, pending, requested) }
-        </FixedSizeList>
-    </div>
-  );
+    return (
+      <div className={classes.root}>
+        <SearchFriends setShownUsers={setShownUsers} />
+        <p>Friends</p>
+        <ul>
+          {searchTerm.length > 0
+            ? shownUsers.map((user, i) => (
+                <Friend friend={user} status={user.status || 'none'} key={i} />
+              ))
+            : renderRow(friends, pending, requested)
+          }
+        </ul>
+      </div>
+    );
 }
 
 export default FriendsList;

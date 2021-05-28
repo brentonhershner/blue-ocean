@@ -1,16 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import { SearchContext } from '../../contexts/search-context';
 import { PhotosContext } from '../../contexts/photos-context';
+import { UserContext } from '../../contexts/user-context';
 
 function SearchFilter(props) {
   const { photos, albums } = useContext(PhotosContext);
   const { searchTerm } = useContext(SearchContext);
   const { setShownPhotos, setShownAlbums, currentAlbumPhotos } = props;
-
+  const { friends, pending, requested, allUsers } = useContext(UserContext);
 
   useEffect(() => {
     filterLists(searchTerm)
-    console.log(searchTerm, currentAlbumPhotos)
   }, [searchTerm, currentAlbumPhotos])
 
 
