@@ -22,8 +22,8 @@ const Home = ({ logOut }) => {
       <Typography variant="h2">
         HELLO WORLD!
         <br />
-        {/* <div>{`Hello ${value}`}</div> */}
-        {/* <FriendsList friends={friends} pending={pending} requested={requested}/> */}
+        <div>{`Hello ${value}`}</div>
+        <FriendsList friends={friends} pending={pending} requested={requested}/>
       </Typography>
       <Link to='/testpage' component={RouterLink}>Testing TestPage</Link>
       <br/>

@@ -56,13 +56,8 @@ export default function Login({ helloUser }) {
 
   const handleSubmit = (userObj) => {
     console.log(userObj)
-    // axios.get('/api/users/login', { data: userObj })
-    axios.request({
-      method: 'get',
-      url: 'http://localhost:3000/api/users/login',
-      data: userObj,
-    })
-    .then((response) => { console.log(response.data); helloUser(response.data) })
+    axios.post('/api/users/login', userObj)
+    .then((response) => { console.log('Response data', response.data); helloUser(response.data) })
     .catch((error) => { throw error });
   }
 

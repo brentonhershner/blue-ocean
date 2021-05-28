@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 /*-------------------Material-UI Imports-------------------*/
@@ -30,13 +30,15 @@ function App() {
 
   const helloUser = (userObj) => {
     setLoggedUser(userObj);
-    console.log(loggedUser);
   }
 
   const logOut = () => {
     setLoggedUser({});
-    console.log(loggedUser);
   }
+
+  useEffect(() => {
+    console.log('This is the logged user from App.js', loggedUser);
+  }, [loggedUser])
 
   return (
     <Router>
