@@ -30,7 +30,6 @@ const TestPage = () => {
   const getImageList = async () => {
     const imageList = await api.getImageList();
     setImages(imageList);
-    // console.log(images);
   }
 
   return (

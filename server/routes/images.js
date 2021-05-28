@@ -37,7 +37,9 @@ images.multerS3Upload = multer({
     bucket: config.aws.Bucket,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: function(req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
+      cb(null, {
+        fieldName: file.fieldname,
+      });
     },
     key: function(req, file, cb) {
       const regex = /:|\./g;
@@ -58,33 +60,19 @@ images.getImageList = async (req, res) => {
     const imageObjects = imageUrls.map(file => {
       return { name: file, url: file, }
     })
-
     res.status(200).send(imageObjects);
   } catch (error) {
     res.status(500).send(error);
   }
 };
 
-images.upload = async (req, res, next) => {
-
-  try {
-    // await images.multerUpload.array('file')(req, res, next);
-    await images.multerS3Upload.array('file')(req, res, next);
-
-    if (req.files === undefined) {
-      return res.status(400).send({ message: "Please upload a file!" });
-    }
-    // cloudStorage.uploadPhoto(req.file);
-    console.log('success');
-    res.status(200).send({
-      message: "Uploaded the file successfully: " + req.files,
-    });
-  } catch {
-    res.status(500).send({
-      message: `Could not upload the file: ${req.files}.`,
-    });
-  }
-};
+// images.upload = async (req, res, next) => {
+//   console.log("🚀 ~ file: images.js ~ line 68 ~ images.upload= ~ req", Object.keys(req))
+//   await images.multerS3Upload.array('file')(req, res, next);
+//   console.log(Object.keys(req))
+//   console.log(req.files);
+//   next();
+// };
 
 
 export default images;
