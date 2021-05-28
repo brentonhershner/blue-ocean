@@ -1,4 +1,5 @@
 import Album from '../models/Album.js';
+import User from '../models/User.js';
 
 const albums = {};
 
@@ -10,6 +11,32 @@ albums.getAll = async (ownerId) => {
     throw err;
   }
 }
+
+albums.getFriendsAlbums = async (userId) => {
+  try {
+    const user = await User.findById(userId).exec()
+    const friendsIds = [];
+    user.friends.forEach((friend) => {
+      friendsIds.push(friend.userId);
+    });
+    const friendsAlbums = await Album.find({ accessLevel: 1, ownerId: { $in: friendsIds } });
+    return friendsAlbums;
+  }
+  catch(err) {
+    throw err;
+  }
+}
+
+albums.getPublicAlbums = async () => {
+  try {
+    const publicAlbums = await Album.find({accessLevel: 2}).exec()
+    return publicAlbums;
+  }
+  catch(err) {
+    throw err;
+  }
+};
+
 
 albums.new = async (album) => {
   try {

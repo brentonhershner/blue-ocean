@@ -109,7 +109,7 @@ export default function Login({ helloUser }) {
           <div>
             <br />
           </div>
-          {/* <Link to='/' component={RouterLink}> */}
+          <Link to='/' component={RouterLink}>
           <Button
             type="submit"
             fullWidth
@@ -121,7 +121,7 @@ export default function Login({ helloUser }) {
             >
             Login
             </Button>
-            {/* </Link> */}
+            </Link>
           <div>
             <br />
           </div>

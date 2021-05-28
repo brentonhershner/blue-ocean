@@ -130,7 +130,7 @@ usersRouter.get('/all', async (req, res) => {
 // })
 
 //CREATE NEW USER
-usersRouter.get('/', async (req, res) => {
+usersRouter.post('/', async (req, res) => {
     try {
         const formData = req.body;
         const doc = await users.createNew(formData);

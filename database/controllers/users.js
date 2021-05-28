@@ -188,13 +188,8 @@ users.removeFriend = async (currentUser, targetUser) => {
 users.login = (username, password, cb) => {
   User.findOne({userName: username}).exec()
     .then((doc) => {
-      console.log('this is the doc password', doc.password === password)
-      console.log('password', typeof password)
-      console.log('this is the doc', doc)
       if (doc.password === password) {
-        console.log('it got into return doc')
         cb(doc)
-        return doc;
       } else {
         return 'Invalid Password';
       }
