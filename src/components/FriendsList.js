@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { FixedSizeList } from 'react-window';
+// import { FixedSizeList } from 'react-window';
 import Friend from './SharedComponents/Friend.jsx';
 import { UserContext } from '../contexts/user-context';
 import SearchFriends from './search/SearchFriends';

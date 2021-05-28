@@ -69,7 +69,7 @@ function Gallery(props) {
 
   useEffect(() => {
     setSearchTerm('');
-  }, [])
+  }, [setSearchTerm])
 
   // FILTER PHOTOS BY VIEW
   useEffect(() => {
@@ -89,6 +89,7 @@ function Gallery(props) {
       })
       setShownPhotos(sharedPhotos);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view]) // update 'shownPhotos' when 'view' changes
 
   // useEffect(() => {

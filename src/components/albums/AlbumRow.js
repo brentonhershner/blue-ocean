@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // import GridList from '@material-ui/core/GridList';
 // import GridListTile from '@material-ui/core/GridListTile';
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 function AlbumRow (props) {
   const classes = useStyles();
 
+  // eslint-disable-next-line no-unused-vars
   const { photos,
     // albums
     // setPhotos,

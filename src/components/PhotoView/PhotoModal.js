@@ -78,7 +78,7 @@ const PhotoModal = ({ showModal, setShowModal }) => {
   const [refresh, setRefresh] = useState(0);
   const classes = useStyles();
 
-  const randOwner = "BlueOceaner22";
+  // const randOwner = "BlueOceaner22";
   const randDescription = [
     "Me and friends at a concert",
     "The best show ever",

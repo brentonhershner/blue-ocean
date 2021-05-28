@@ -9,6 +9,7 @@ function SearchFriends(props) {
 
   useEffect(() => {
     filterLists(searchTerm);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
 

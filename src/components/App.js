@@ -18,9 +18,8 @@ import PhotosContextProvider from '../contexts/photos-context';
 import SearchContextProvider from '../contexts/search-context';
 import NavDrawer from './navbar/NavDrawer';
 import AddPhotos from './AddPhotos/AddPhotos';
-import CreateUser from './Login/createUser'
-import SearchResults from './search/SearchResults';
-import Login from './Login/Login'
+import CreateUser from './Login/createUser';
+import Login from './Login/Login';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);

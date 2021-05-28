@@ -13,7 +13,7 @@ function SearchContextProvider(props) {
   const [currentAlbumList, setCurrentAlbumList] = useState([]);
 
   const [ searchFriend, setSearchFriend ] = useState('');
-  const [ friendResults, setFriendResults ] = useState([]);
+  // const [ friendResults, setFriendResults ] = useState([]);
 
   return(
     <SearchContext.Provider value={{
