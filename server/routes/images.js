@@ -56,7 +56,6 @@ images.getImageList = async (req, res) => {
     //   .filter((filename) => filename !== '.DS_Store')
     //   .map((filename) => folderPath + filename)
     const imageUrls = await cloudStorage.getAllUrls();
-
     const imageObjects = imageUrls.map(file => {
       return { name: file, url: file, }
     })
@@ -67,7 +66,6 @@ images.getImageList = async (req, res) => {
 };
 
 // images.upload = async (req, res, next) => {
-//   console.log("🚀 ~ file: images.js ~ line 68 ~ images.upload= ~ req", Object.keys(req))
 //   await images.multerS3Upload.array('file')(req, res, next);
 //   console.log(Object.keys(req))
 //   console.log(req.files);

@@ -1,4 +1,4 @@
-import { Photo } from '../index.js';
+import Photo from '../models/Photo.js';
 
 const photoController = {};
 

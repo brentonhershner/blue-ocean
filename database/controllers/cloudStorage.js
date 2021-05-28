@@ -79,10 +79,10 @@ cloudStorage.uploadPhoto = async (file) => {
 
 // https://hrsea16blueocean.s3-us-west-2.amazonaws.com/download.jpeg
 
-const commentMeOut = async () => {
-    const urls = await cloudStorage.getAllUrls();
-    console.log(urls);
-};
+// const commentMeOut = async () => {
+//     const urls = await cloudStorage.getAllUrls();
+//     console.log(urls);
+// };
 
 // commentMeOut();
 
