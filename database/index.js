@@ -53,6 +53,7 @@ const userPhotosSchema = new Schema({
 
 const albumSchema = new Schema({
   ownerId: String,
+  userName: String,
   uploadDate: String,
   title: String,
   description: String,
