@@ -20,9 +20,9 @@ function renderRow(friends, pending, requested) {
   // console.log('triggered')
   return (
     <>
-      {/* Friends on your friends list  */}
-      {friends.map((item, i) => (
-        <Friend  friend={item} status={'friends'} key={item.userId} />
+      {/* Friends you have requested to be friends with  */}
+      {requested.map((item, i) => (
+        <Friend  friend={item} status={'requested'} key={item.userId} />
       ))}
 
       {/* Requested friends  */}
@@ -30,9 +30,9 @@ function renderRow(friends, pending, requested) {
         <Friend  friend={item} status={'pending'} key={item.userId} />
       ))}
 
-      {/* Friends you have requested to be friends with  */}
-      {requested.map((item, i) => (
-        <Friend  friend={item} status={'requested'} key={item.userId} />
+      {/* Friends on your friends list  */}
+      {friends.map((item, i) => (
+        <Friend  friend={item} status={'friends'} key={item.userId} />
       ))}
     </>
   )
@@ -53,7 +53,7 @@ renderRow.propTypes = {
     return (
       <div className={classes.root}>
         <SearchFriends setShownUsers={setShownUsers} />
-        <p>Friends</p>
+        <h2>Friends & Requests</h2>
         <ul>
           {searchTerm.length > 0
             ? shownUsers.map((user, i) => (

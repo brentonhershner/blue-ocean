@@ -5,7 +5,6 @@ import { UserContext } from '../../contexts/user-context.js';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-
 const { friendAction } = api;
 
 const Friend = ({ friend, status }) => {
@@ -30,6 +29,7 @@ const Friend = ({ friend, status }) => {
             return (<Button onClick={() => friendAction(userInfo.userId, targetUserId, 'request')}>Add Friend</Button>)
         }
     }
+
     function statcheck() {
         if (status === 'friends') {
             return 'Friend';
@@ -42,12 +42,13 @@ const Friend = ({ friend, status }) => {
         }
     }
 
-
     return (
-                <ListItem >
-                <ListItemText  primary={username} secondary={statcheck()} />
-                {buttons()}
+      <>
+        <ListItem >
+          <ListItemText  primary={username} secondary={statcheck()} />
+          {buttons()}
         </ListItem>
+      </>
     )
 }
 

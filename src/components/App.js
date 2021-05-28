@@ -20,6 +20,7 @@ import NavDrawer from './navbar/NavDrawer';
 import AddPhotos from './AddPhotos/AddPhotos';
 import CreateUser from './Login/createUser';
 import Login from './Login/Login';
+import FriendsList from './FriendsList';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -63,7 +64,7 @@ function App() {
                     <Route exact path="/public" render={() => <Gallery view={'public'} />} />
                     <Route exact path="/personal" render={() => <Gallery view={'personal'} />} />
                     <Route exact path="/shared" render={() => <Gallery view={'shared'} />} />
-                    {/* <Route exact path="/search" render={() => <SearchResults />} /> */}
+                    <Route exact path="/friends" render={() => <FriendsList />} />
                   </Switch>
                   <AddPhotos />
                 </SearchContextProvider>
