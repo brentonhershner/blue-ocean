@@ -3,6 +3,7 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography'
 import { Link as RouterLink } from 'react-router-dom';
+import { UserInfoContext } from './Login/Login';
 
 import FriendsList from './FriendsList';
 // import Search from './navbar/Search';
@@ -12,8 +13,8 @@ import FriendsList from './FriendsList';
 // import { PhotosContext } from '../contexts/photos-context'
 import ContextTest from './ContextTest';
 
-const Home = ({ user }) => {
-  console.log(user)
+const Home = ({ logOut }) => {
+  // const value = useContext(UserInfoContext);
   // Use context in this instance is for the friends list
 
   return (
@@ -21,8 +22,8 @@ const Home = ({ user }) => {
       <Typography variant="h2">
         HELLO WORLD!
         <br />
-        <ContextTest />
-        <FriendsList />
+        {/* <div>{`Hello ${value}`}</div> */}
+        {/* <FriendsList friends={friends} pending={pending} requested={requested}/> */}
       </Typography>
       <Link to='/testpage' component={RouterLink}>Testing TestPage</Link>
       <br/>
@@ -31,6 +32,6 @@ const Home = ({ user }) => {
       <Link to='/login' component={RouterLink}>Testing Login</Link>
     </div>
   );
-};
 
+};
 export default Home;

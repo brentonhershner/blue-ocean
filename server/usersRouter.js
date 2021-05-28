@@ -244,9 +244,11 @@ usersRouter.get('/all', (req, res) => {
 
 usersRouter.get('/login', (req, res) => {
     const { username, password } = req.body;
-    User.findOne(username)
+    User.findOne({ username: username })
     .then((doc) => {
         // if (doc.password === password) {
+            console.log(doc);
+            console.log(username)
             res.status(200).send(doc)
         // } else {
         //     res.send('Invalid Password')

@@ -106,6 +106,9 @@ export default function NavDrawer(props) {
           <ListItem button>Public Photos</ListItem>
         </RouterLink>
         <ListItem button>My Friends</ListItem>
+        <RouterLink to='/login' >
+          <ListItem button onClick={() => props.logOut()}>Log Out</ListItem>
+        </RouterLink>
         <ListItem button onClick={() => { props.setDarkMode(!props.darkMode) }} >
             {props.darkMode ? <Brightness7Icon /> : <Brightness3Icon />}
           <Typography>{props.darkMode ? 'Light Mode' : 'Dark Mode'}</Typography>

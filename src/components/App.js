@@ -26,6 +26,18 @@ function App() {
 
   const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light);
 
+  const [ loggedUser, setLoggedUser ] = useState({});
+
+  const helloUser = (userObj) => {
+    setLoggedUser(userObj);
+    console.log(loggedUser);
+  }
+
+  const logOut = () => {
+    setLoggedUser({});
+    console.log(loggedUser);
+  }
+
   return (
     <Router>
       <React.Fragment>
@@ -40,10 +52,10 @@ function App() {
             <UserContextProvider>
               <PhotosContextProvider>
                 <SearchContextProvider>
-                <NavDrawer darkMode={darkMode} setDarkMode={setDarkMode} />
+                <NavDrawer logOut={logOut} />
                   <Switch>
                     <Route exact path="/" render={() => <Home />} />
-                    <Route exact path="/login" render={() => <Login />} />
+                    <Route exact path="/login" render={() => <Login helloUser={helloUser} context={loggedUser}/>} />
                     <Route exact path="/createuser" render={() => <CreateUser />} />
                     <Route exact path="/testpage" render={() => <TestPage />} />
                     <Route exact path="/public" render={() => <Gallery view={'public'} />} />

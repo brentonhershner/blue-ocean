@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -177,6 +179,7 @@ export default function CreateUser() {
           </FormControl>
           <br />
           <br />
+          <Link to='/login' component={RouterLink}>
           <Button
             onClick={() => addUser(values)}
             margin="none"
@@ -188,6 +191,7 @@ export default function CreateUser() {
           >
             Create Account
           </Button>
+          </Link>
         </Typography>
 
       </Container>
