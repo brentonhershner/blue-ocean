@@ -76,17 +76,20 @@ usersRouter.put('/friends/remove', async (req, res) => {
     }
 })
 
-usersRouter.get('/login', async (req, res) => {
+usersRouter.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
-        const doc = await users.login(username, password);
-        if (doc.password === password) {
-            res.status(200).send(doc)
-        } else {
-            res.send('Invalid Password')
-        }
+        const doc = await users.login(username, password, (doc) => {
+            console.log('CALLBACK', doc)
+            if (doc.password === password) {
+                res.status(200).send(doc)
+            } else {
+                res.send('Invalid Password')
+            }
+        })
+        
     } catch (err) {
-        res.status(500).send(err)
+        console.log('error from router', err);
     }
 })
 
