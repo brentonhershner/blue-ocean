@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import InfoIcon from '@material-ui/icons/Info';
 
-import { PhotosContext } from '../../contexts/photos-context';
+// import { PhotosContext } from '../../contexts/photos-context';
 import { SearchContext } from '../../contexts/search-context';
 import Album from './Album';
 
@@ -42,11 +42,6 @@ function AlbumRow (props) {
   const classes = useStyles();
 
   // eslint-disable-next-line no-unused-vars
-  const { photos,
-    // albums
-    // setPhotos,
-    // updatePhoto
-  } = useContext(PhotosContext);
   const { setSearchTerm } = useContext(SearchContext); // user context
   // const [currentAlbum, setCurrentAlbum] = useState({});
   // const [showModal, setShowModal] = useState(false);
@@ -121,7 +116,9 @@ function AlbumRow (props) {
           handleSelectClick={props.handleSelectClick}
           onSelect={props.onSelect}
           hasPrivilege={props.hasPrivilege}
+          masterPhotos={props.masterPhotos}
 
+          shownPhotos={props.shownPhotos}
           setShowAlbumModal={props.setShowAlbumModal}
           setAlbumTitle={props.setAlbumTitle}
           setAlbumDescription={props.setAlbumDescription}

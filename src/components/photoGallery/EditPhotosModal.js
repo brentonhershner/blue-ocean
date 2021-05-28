@@ -92,6 +92,10 @@ function EditPhotosModal(props) {
     e.preventDefault();
     let output = props.selected.map((item) => {return {item: item, tags, permission}})
     console.log(output);
+    // API CALL HERE!!!
+    // EDIT MULTIPLE photo call, in a shape that backend expects
+    // api.updatePhotos();
+
     props.onClose();
     resetModalState();
   }
@@ -120,8 +124,8 @@ function EditPhotosModal(props) {
             return (
               <GridListTile className={classes.image}>
               <img
-                srcSet={photos[item].url}
-                alt={photos[item].title}
+                srcSet={props.shownPhotos[item].url}
+                alt={props.shownPhotos[item].title}
                 loading="lazy"
               />
               </GridListTile>
@@ -131,8 +135,8 @@ function EditPhotosModal(props) {
             return (
               <GridListTile className={classes.image}>
               <img
-                srcSet={photos[item].url}
-                alt={photos[item].title}
+                srcSet={props.shownPhotos[item].url}
+                alt={props.shownPhotos[item].title}
                 loading="lazy"
               />
               </GridListTile>

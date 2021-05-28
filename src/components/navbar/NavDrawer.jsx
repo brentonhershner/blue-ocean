@@ -1,9 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Drawer } from '@material-ui/core';
 import { List, ListItem } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import Search from './Search';
+
+import { UserContext } from '../../contexts/user-context';
+import { PhotosContext } from '../../contexts/photos-context';
+
 
 import { AppBar, IconButton, Typography, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -14,6 +18,8 @@ import Divider from '@material-ui/core/Divider';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import clsx from 'clsx';
+import api from '../../api/api';
+
 
 const drawerWidth = 'max-content';
 
@@ -21,26 +27,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  // appBar: {
-    // transition: theme.transitions.create(['margin', 'width'], {
-    //   easing: theme.transitions.easing.sharp,
-    //   duration: theme.transitions.duration.leavingScreen,
-    // }),
-  // },
-  // appBarShift: {
-  //   width: `calc(100% - ${drawerWidth}px)`,
-  //   transition: theme.transitions.create(['margin', 'width'], {
-  //     easing: theme.transitions.easing.easeOut,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  //   marginRight: drawerWidth,
-  // },
-  // title: {
-  //   flexGrow: 1,
-  // },
-  // hide: {
-  //   display: 'none',
-  // },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -56,26 +42,37 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-start',
   },
-  // content: {
-  //   flexGrow: 1,
-  //   padding: theme.spacing(3),
-  //   transition: theme.transitions.create('margin', {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.leavingScreen,
-  //   }),
-  //   marginRight: -drawerWidth,
-  // },
-  // contentShift: {
-  //   transition: theme.transitions.create('margin', {
-  //     easing: theme.transitions.easing.easeOut,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  //   marginRight: 0,
-  // },
 }));
 
 export default function NavDrawer(props) {
   const [showState, setShowState] = useState(false)
+
+  const { userName, userType, userId, setUser } = useContext(UserContext);
+  const { myPhotos,
+    friendsPhotos,
+    publicPhotos,
+    myAlbums,
+    friendsAlbums,
+    publicAlbums,
+    setPhotos,
+    setAlbums
+  } = useContext(PhotosContext);
+
+  // api photos shape
+  // { personalPhotos, sharedPhotos, publicPhotos, personalAlbums, sharedAlbums, publicAlbums, friendsList, allUsers }
+  useEffect(() => {
+    // user context
+    if (userId) {
+      let response = api.kitchenSink(userId);
+      response.then((result) => {
+        setPhotos(result.personalPhotos, result.sharedPhotos, result.publicPhotos);
+        setAlbums(result.personalAlbums, result.sharedAlbums, result.publicAlbums);
+        console.log(result);
+      })
+    }
+
+
+  }, [userId])
 
   const toggleDrawer = (open) => (event) => {
     setShowState(open)
@@ -88,7 +85,6 @@ export default function NavDrawer(props) {
   const handleDrawerClose = () => {
     setShowState(false);
   };
-
 
   const classes = useStyles();
   const theme = useTheme();
@@ -188,3 +184,41 @@ export default function NavDrawer(props) {
         <div className={classes.drawerHeader} />
         <Typography paragraph></Typography>
 */
+
+
+  // appBar: {
+    // transition: theme.transitions.create(['margin', 'width'], {
+    //   easing: theme.transitions.easing.sharp,
+    //   duration: theme.transitions.duration.leavingScreen,
+    // }),
+  // },
+  // appBarShift: {
+  //   width: `calc(100% - ${drawerWidth}px)`,
+  //   transition: theme.transitions.create(['margin', 'width'], {
+  //     easing: theme.transitions.easing.easeOut,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  //   marginRight: drawerWidth,
+  // },
+  // title: {
+  //   flexGrow: 1,
+  // },
+  // hide: {
+  //   display: 'none',
+  // },
+    // content: {
+  //   flexGrow: 1,
+  //   padding: theme.spacing(3),
+  //   transition: theme.transitions.create('margin', {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   marginRight: -drawerWidth,
+  // },
+  // contentShift: {
+  //   transition: theme.transitions.create('margin', {
+  //     easing: theme.transitions.easing.easeOut,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  //   marginRight: 0,
+  // },

@@ -73,6 +73,14 @@ function CreateOrEditAlbumsModal(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (props.isAlbumCreate) {
+      //{title: props.albumtitle, descrption: props.albumDescription...}
+      //call api to create album
+    } else {
+      //call api to edit album
+    }
+    //if successful, call props.onClose()
+    //else log error
   }
 
   const deleteAlbum = () => {
@@ -111,7 +119,7 @@ function CreateOrEditAlbumsModal(props) {
           id="title"
           label="Title"
           value={props.albumTitle}
-          disabled={props.hasPrivilege ? true: false}
+          disabled={props.hasPrivilege ? false: true}
           onChange={(e) => {props.setAlbumTitle(e.target.value)}}
         />
         <TextField
@@ -119,7 +127,7 @@ function CreateOrEditAlbumsModal(props) {
           id="description"
           label="Description"
           multiline
-          disabled={props.hasPrivilege ? true: false}
+          disabled={props.hasPrivilege ? false: true}
           value={props.albumDescription}
           onChange={(e)=> {props.setAlbumDescription(e.target.value)}}
         />
@@ -132,7 +140,7 @@ function CreateOrEditAlbumsModal(props) {
           labelId="permission-select-label"
           id="permission-select"
           value={props.albumPermission}
-          disabled={props.hasPrivilege ? true: false}
+          disabled={props.hasPrivilege ? false: true}
           onChange={handlePermissionChange}
         >
           <MenuItem value={0}>Private</MenuItem>
@@ -167,7 +175,7 @@ function CreateOrEditAlbumsModal(props) {
         ? 'Cancel'
         : 'Close'}
         </Button>
-        {props.hasPrivilege
+        {props.hasPrivilege && !props.isAlbumCreate
         ? <IconButton aria-label="delete" onClick={() => {deleteAlbum()}}>
           <DeleteIcon />
         </IconButton>

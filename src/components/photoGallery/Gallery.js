@@ -35,20 +35,27 @@ let styles = {
 
 function Gallery(props) {
 
-  const { photos,
-    albums,
+  const {
+    myPhotos,
+    friendsPhotos,
+    publicPhotos,
+    myAlbums,
+    friendsAlbums,
+    publicAlbums,
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
   const { userType } = useContext(UserContext); // user context
-  const { setSearchTerm } = useContext(SearchContext); // user context
+  const { searchTerm, setSearchTerm } = useContext(SearchContext); // user context
 
+  const [masterPhotos, setMasterPhotos] = useState([]);
+  const [masterAlbums, setMasterAlbums] = useState([]);
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
-  const [shownPhotos, setShownPhotos] = useState(photos);
-  const [shownAlbums, setShownAlbums] = useState(albums);
+  const [shownPhotos, setShownPhotos] = useState([]);
+  const [shownAlbums, setShownAlbums] = useState([]);
   const [showAlbumModal, setShowAlbumModal] = useState(false);
   const [currentAlbum, setCurrentAlbum] = useState({});
   const [currentAlbumPhotos, setCurrentAlbumPhotos] = useState([]);
@@ -70,16 +77,49 @@ function Gallery(props) {
   useEffect(() => {
   if( view === 'personal' || userType === 'admin' ) {
     setHasPrivilege(true);
+    // setShownPhotos(myPhotos);
+    // setShownAlbums(myAlbums);
   } else {
     setHasPrivilege(false);
-  }
+    // if (view === 'shared') {
+      // setShownPhotos(friendsPhotos);
+      // setShownAlbums(friendsAlbums);
+    // } else {
+    //   setShownPhotos(publicPhotos);
+    //   setShownAlbums(publicAlbums);
+    }
   }, [view, userType])
+
+  useEffect (()=>{
+    if (view === 'personal') {
+    setShownPhotos(myPhotos);
+    setMasterPhotos(myPhotos);
+    setShownAlbums(myAlbums);
+    setMasterAlbums(myAlbums);
+    } else if (view === 'shared') {
+      setShownPhotos(friendsPhotos);
+      setMasterPhotos(friendsPhotos);
+      setShownAlbums(friendsAlbums);
+      setMasterAlbums(friendsAlbums);
+    } else {
+      setShownPhotos(publicPhotos);
+      setMasterPhotos(publicPhotos);
+      setShownAlbums(publicAlbums);
+      setMasterAlbums(publicAlbums);
+    }
+  },[view])
 
 
 
   useEffect(() => {
     setSearchTerm('');
   }, [view, setSearchTerm])
+
+  useEffect(() => {
+    if (onSelect) {
+      handleSelectClick(); // turns off select when album is clicked
+    }
+  }, [searchTerm])
 
   // // FILTER PHOTOS BY VIEW
   // useEffect(() => {
@@ -125,7 +165,7 @@ function Gallery(props) {
       setSelected(newArr);
     } else {
       // console.log('set modal photo as', photos[index])
-      setShowPhotoModal(photos[index]);
+      setShowPhotoModal(shownPhotos[index]);
     }
   };
 
@@ -151,6 +191,14 @@ function Gallery(props) {
     console.log('Deleting ' + JSON.stringify(selected) + ' from ' + currentAlbum.title);
   }
 
+  const deleteSelected = () => {
+
+    // API HERE!!!
+    //api delete photos and pass in selected
+
+    handleSelectClick()
+  }
+
   return (
     <>
       <div style={{display: 'flex'}}>
@@ -163,6 +211,8 @@ function Gallery(props) {
         setShownPhotos={setShownPhotos}
         setShownAlbums={setShownAlbums}
         currentAlbumPhotos={currentAlbumPhotos}
+        masterPhotos={masterPhotos}
+        masterAlbums={masterAlbums}
       />
       <AlbumRow
         currentAlbum={currentAlbum}
@@ -171,6 +221,7 @@ function Gallery(props) {
         handleSelectClick={handleSelectClick}
         onSelect={onSelect}
         hasPrivilege={hasPrivilege}
+        masterPhotos={masterPhotos}
 
         setShowAlbumModal={setShowAlbumModal}
         setAlbumTitle={setAlbumTitle}
@@ -179,6 +230,7 @@ function Gallery(props) {
         setAlbumTags={setAlbumTags}
         setIsAlbumCreate={setIsAlbumCreate}
         shownAlbums={shownAlbums}
+        shownPhotos={shownPhotos}
         setCurrentAlbumPhotos={setCurrentAlbumPhotos}
       />
       <Paper id="wrapper" className={classes.paper}>
@@ -220,7 +272,7 @@ function Gallery(props) {
                 >
                   Edit
                 </Button>
-                <IconButton aria-label="delete">
+                <IconButton onClick={deleteSelected} aria-label="delete">
                   <DeleteIcon />
                 </IconButton>
               </>
@@ -267,6 +319,7 @@ function Gallery(props) {
         aria-labelledby="Edit Photos"
         aria-describedby="Modal to edit photos"
         selected={selected}
+        shownPhotos={shownPhotos}
     />
   </Paper>
     <PhotoModal

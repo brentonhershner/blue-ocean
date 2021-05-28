@@ -4,7 +4,9 @@ export const UserContext = createContext();
 
 class UserContextProvider extends Component {
   state = {
-    userName: 'TestUser', userType: 'admin', userId: 1,
+    userName: 'TestUser',
+    userType: 'user',
+    userId: '00001',
     friends: [
       { username: 'cereal', userId: 10 },
       { username: 'before', userId: 11 },
@@ -33,15 +35,28 @@ class UserContextProvider extends Component {
     ]
   }
 
-  setUserName = (newUserName) => {
-    this.setState({ userName: newUserName })
+  setUser = (username, userType, userId) => {
+    this.setState({
+      userName: username,
+      userType: userType,
+      userId: userId,
+    })
+  }
+  setFriendsList = (friends, pending, requested, allUsers) => {
+    this.setState({
+      friends,
+      pending,
+      requested,
+      allUsers,
+    })
   }
 
   render() {
     return (
       <UserContext.Provider value={{
         ...this.state,
-        setUserName: this.setUserName
+        setUser: this.setUser,
+        setFriendsList: this.setFriendsList
       }}>
         {this.props.children}
       </UserContext.Provider>

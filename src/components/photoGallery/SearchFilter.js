@@ -3,9 +3,10 @@ import { SearchContext } from '../../contexts/search-context';
 import { PhotosContext } from '../../contexts/photos-context';
 
 function SearchFilter(props) {
-  const { photos, albums } = useContext(PhotosContext);
+  // const { photos, albums } = useContext(PhotosContext);
   const { searchTerm } = useContext(SearchContext);
-  const { setShownPhotos, setShownAlbums, currentAlbumPhotos } = props;
+  const { setShownPhotos, setShownAlbums, currentAlbumPhotos, masterPhotos, masterAlbums } = props;
+  // const { myPhotos, friendsPhotos, publicPhotos, myAlbums, friendsAlbums, publicAlbums } = useContext(PhotosContext)
 
   useEffect(() => {
     filterLists(searchTerm)
@@ -16,11 +17,19 @@ function SearchFilter(props) {
   function filterLists(string) {
     let filteredPhotoList;
     let filteredAlbumList;
-    let unfilteredPhotoList = currentAlbumPhotos.length > 0 ? currentAlbumPhotos : photos;
+    let unfilteredPhotoList;
+    let unfilteredAlbumList;
+
+    if (currentAlbumPhotos.length > 0) {
+      unfilteredPhotoList = currentAlbumPhotos;
+    } else {
+      unfilteredPhotoList = masterPhotos;
+    }
+    unfilteredAlbumList = masterAlbums;
 
     if (!string) {
       setShownPhotos(unfilteredPhotoList);
-      setShownAlbums(albums);
+      setShownAlbums(unfilteredAlbumList);
     } else {
       filteredPhotoList = unfilteredPhotoList.filter((photo) => (
         photo.tags.includes(searchTerm.toLowerCase())
@@ -28,7 +37,7 @@ function SearchFilter(props) {
       ))
       setShownPhotos(filteredPhotoList)
 
-      filteredAlbumList = albums.filter((album) => (
+      filteredAlbumList = unfilteredAlbumList.filter((album) => (
         album.tags.includes(searchTerm.toLowerCase())
         // TODO: add filter by user
         || album.owner.toLowerCase() === searchTerm.toLowerCase()
