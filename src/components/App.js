@@ -54,7 +54,7 @@ function App() {
             <UserContextProvider>
               <PhotosContextProvider>
                 <SearchContextProvider>
-                <NavDrawer logOut={logOut} />
+                <NavDrawer logOut={logOut} darkMode={darkMode} setDarkMode={setDarkMode} />
                   <Switch>
                     <Route exact path="/" render={() => <Home />} />
                     <Route exact path="/login" render={() => <Login helloUser={helloUser} context={loggedUser}/>} />
