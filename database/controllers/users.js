@@ -117,7 +117,7 @@ users.rejectFriend = async (currentUser, targetUser) => {
 }
 
 
-//removeFriend 
+//removeFriend
 users.removeFriend = async (currentUser, targetUser) => {
   try {
     const currUser = await User.findById(currentUser).exec();
@@ -178,12 +178,21 @@ users.getAll = async () => {
 //CREATE NEW USER
 users.createNew = async (formData) => {
   // console.log(formData);
+  const access = () => {
+    if (formData.userLevel) {
+      if (formData.userLevel === 'b') {  formData.userLevel = 2; }
+      if (formData.userLevel === 'c') {  formData.userLevel = 3; }
+    } else {
+      formData.userLevel = 1;
+    }
+    return formData.userLevel;
+  }
   const newUserObj = new User({
     fullName: `${formData.first_name} ${formData.last_name}`,
     userName: formData.username,
     email: formData.email,
     password: formData.password,
-    userLevel: 1,
+    userLevel: access(),
     friends: [],
     pending: [],
     requested: []

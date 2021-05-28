@@ -11,11 +11,26 @@ import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import Radio from '@material-ui/core/Radio';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import clsx from 'clsx';
 import axios from 'axios';
+
+const GreenRadio = withStyles({
+  root: {
+    color: green[400],
+    '&$checked': {
+      color: green[600],
+    },
+  },
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,15 +46,26 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '25ch',
   },
+  button: {
+    display: 'block',
+    marginTop: theme.spacing(2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }));
 
 export default function CreateUser() {
   const classes = useStyles();
-
+  const access = [ 1, 2, 3 ];
+  const [selectedValue, setSelectedValue] = React.useState('a');
   const [values, setValues] = React.useState({
     first_name: '',
     last_name: '',
     email: '',
+    userLevel: 'a',
+    selected: 'a',
     username: '',
     password: '',
     confirm: '',
@@ -47,9 +73,7 @@ export default function CreateUser() {
     showConfirm: false
   });
 
-console.log(values.showConfirm)
-
-const handleChange = (prop) => (event) => {
+  const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -67,6 +91,10 @@ const handleChange = (prop) => (event) => {
 
   const handleMouseDownConfirm = (event) => {
     event.preventDefault();
+  };
+
+  const handleChangeSelected = (event) => {
+    setSelectedValue(event.target.value);
   };
 
   const addUser = (userObj) => {
@@ -180,6 +208,28 @@ const handleChange = (prop) => (event) => {
           />
           </FormControl>
           <br />
+          Access
+          <Radio
+            checked={values.userLevel === 'a'}
+            onChange={handleChange('userLevel')}
+            value="a"
+            name="radio-button-demo"
+            inputProps={{ 'aria-label': 'A' }}
+          />1
+          <Radio
+            checked={values.userLevel === 'b'}
+            onChange={handleChange('userLevel')}
+            value="b"
+            name="radio-button-demo"
+            inputProps={{ 'aria-label': 'B' }}
+          />2
+          <Radio
+            checked={values.userLevel === 'c'}
+            onChange={handleChange('userLevel')}
+            value="c"
+            name="radio-button-demo"
+            inputProps={{ 'aria-label': 'C' }}
+          />3
           <br />
           <Link to='/login' component={RouterLink}>
           <Button
@@ -199,4 +249,31 @@ const handleChange = (prop) => (event) => {
       </Container>
     </React.Fragment>
   );
-}
+ }
+
+
+
+
+
+
+
+
+//  <FormControl className={classes.formControl}>
+//  <InputLabel id="demo-controlled-open-select-label">Access Level</InputLabel>
+//  <Select
+//    labelId="demo-controlled-open-select-label"
+//    id="demo-controlled-open-select"
+//    open={values.open}
+//    onClose={handleClose}
+//    onOpen={handleOpen}
+//    value={values.userLevel}
+//    onChange={handleChange('userLevel')}
+//  >
+//  {access.map((level, i) => (
+//    <MenuItem value={level}>{`${level}`}</MenuItem>
+//  ))}
+
+//  {/* <MenuItem value={job.management}>Management</MenuItem>
+//  <MenuItem value={job.corporate}>Corporate</MenuItem> */}
+//  </Select>
+// </FormControl>

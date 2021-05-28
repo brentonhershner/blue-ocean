@@ -63,7 +63,7 @@ usersRouter.put('/friends/reject', async (req, res) => {
 })
 
 
-//removeFriend 
+//removeFriend
 usersRouter.put('/friends/remove', async (req, res) => {
     try {
         const { currentUser, targetUser } = req.body;
@@ -87,7 +87,7 @@ usersRouter.post('/login', async (req, res) => {
                 res.send('Invalid Password')
             }
         })
-        
+
     } catch (err) {
         console.log('error from router', err);
     }
