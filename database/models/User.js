@@ -9,9 +9,9 @@ const userSchema = new Schema({
   email: String,
   password: String,
   userLevel: Number,  /* 1=general user, 2='super user', 3=admin  */
-  friends: [],
-  pending: [], /* friend requests sent */
-  requested: []  /* incoming friend requests */
+  friends: [String],
+  pending: [String], /* friend requests sent */
+  requested: [String]  /* incoming friend requests */
 });
 
 const User = model('User', userSchema);

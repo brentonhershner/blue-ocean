@@ -22,7 +22,7 @@ const randFriends = (upTo, userCount) => {
   for (let i = 0; i <= numberOfFriends; i += 1) {
     friends.push(pad(Math.floor(Math.random() * userCount) + 1, 5))
   }
-  return friends;
+  return Array.from(new Set(friends));
 }
 
 const fillNames = () => {

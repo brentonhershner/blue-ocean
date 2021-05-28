@@ -21,22 +21,14 @@ users.getFriends = async (userId) => {
 
 // friend request
 users.friendRequest = async (currentUser, targetUser) => {
+
   try {
-    const currUser = await User.find({'userId': currentUser}).exec();
-    const targUser = await User.find({'userId': targetUser}).exec();
+    const [currUser] = await User.find({ 'userId': currentUser }).exec();
+    const [targUser] = await User.find({ 'userId': targetUser }).exec();
 
-    const currUserObj = {
-      userId: currentUser,
-      userName: currUser.userName
-    };
-    const targUserObj = {
-      userId: targetUser,
-      userName: targUser.userName
-    };
-
-    targUser.requested.push(currUserObj);
+    targUser.requested.push(currUser.userId);
     await targUser.save();
-    currUser.pending.push(targUserObj);
+    currUser.pending.push(targUser.userId);
     let currSaveUser = await currUser.save()
     return currSaveUser;
   }
@@ -47,24 +39,16 @@ users.friendRequest = async (currentUser, targetUser) => {
 
 users.cancelRequest = async (currentUser, targetUser) => {
   try {
-    const currUser = await User.findById(currentUser).exec();
-    const targUser = await User.findById(targetUser).exec();
+    const [currUser] = await User.find({ 'userId': currentUser }).exec();
+    const [targUser] = await User.find({ 'userId': targetUser }).exec();
 
     //remove target user from current user's pending array
-    currUser.pending.forEach((friend, index) => {
-      if (friend.userName === targUser.userName) {
-        currUser.pending.splice(index, 1);
-      }
-    })
-    let currSaveUser = await currUser.save()
+    currUser.pending.pull(targUser.userId);
+    let currSaveUser = await currUser.save();
 
     //remove current user from target user's requested array
-    targUser.requested.forEach((friend, index) => {
-      if (friend.userName === currUser.userName) {
-        targUser.requested.splice(index, 1);
-        targUser.save();
-      }
-    })
+    targUser.requested.pull(currUser.userId);
+    targUser.save();
 
     //reply with saved current user
     return currSaveUser;
@@ -74,34 +58,23 @@ users.cancelRequest = async (currentUser, targetUser) => {
   }
 };
 
-
 users.acceptFriend = async (currentUser, targetUser) => {
   try {
-    const currUser = await User.findById(currentUser).exec();
-    const targUser = await User.findById(targetUser).exec();
-    const currUserObj = {
-      userId: currentUser,
-      userName: currUser.userName
-    };
-    const targUserObj = {
-      userId: targetUser,
-      userName: targUser.userName
-    };
+
+    const [currUser] = await User.find({ 'userId': currentUser }).exec();
+    const [targUser] = await User.find({ 'userId': targetUser }).exec();
+
+    if (!targUser.pending.includes(currUser.userId)){ return currUser; }
+
     //remove curr user from target users pending array
-    targUser.pending.forEach((friend, index) => {
-      if (friend.userName === currUser.userName) {
-        targUser.pending.splice(index, 1);
-      }
-    })
+    targUser.pending.pull(currUser.userId);
+
     //remove target user from current user's requested array
-    currUser.requested.forEach((friend, index) => {
-      if (friend.userName === targUser.userName) {
-        currUser.requested.splice(index, 1);
-      }
-    })
+    currUser.pending.pull(targUser.userId);
+
     //add each user to each other's friends arrays
-    currUser.friends.push(targUserObj);
-    targUser.friends.push(currUserObj);
+    currUser.friends.push(targUser.userId);
+    targUser.friends.push(currUser.userId);
     //reply with saved curr user
     targUser.save();
     let currSaveUser = await currUser.save();
@@ -114,37 +87,21 @@ users.acceptFriend = async (currentUser, targetUser) => {
 
 users.rejectFriend = async (currentUser, targetUser) => {
   try {
-    const currUser = await User.findById(currentUser).exec();
-    const targUser = await User.findById(targetUser).exec();
+    const [currUser] = await User.find({ 'userId': currentUser }).exec();
+    const [targUser] = await User.find({ 'userId': targetUser }).exec();
 
-    const currUserObj = {
-      userId: currentUser,
-      userName: currUser.userName
-    };
-    const targUserObj = {
-      userId: targetUser,
-      userName: targUser.userName
-    };
+    if (!currUser.pending.includes(targUser.userId)){ return currUser; }
 
     //remove target user from current user's requested array
-    currUser.requested.forEach((friend, index) => {
-      if (friend.userName === targUser.userName) {
-        currUser.requested.splice(index, 1);
-      }
-    })
-
+    currUser.requested.pull(targUser.userId);
+    
     //remove current user from target user's pending array
-    targUser.pending.forEach((friend, index) => {
-      if (friend.userName === currUser.userName) {
-        targUser.pending.splice(index, 1);
-      }
-    })
+    targUser.pending.pull(currUser.userId);
 
     //send back saved current user
     targUser.save();
     let currSaveUser = await currUser.save();
     return currSaveUser;
-
   }
   catch (err) {
     console.log(err);

@@ -51,8 +51,28 @@ photosRouter.patch('/single', async (req, res) => {
   }
 });
 
+// friends photos + public photos
+photosRouter.get('/feed', async (req, res) => {
+  try {
+    const feedPhotos = await photos.getFeed(req.query.userId);
+    res.status(200).send(feedPhotos);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// find one and update
+photosRouter.patch('/single', async (req, res) => {
+  try {
+    await photos.updateOne(req.body.photoId);
+    res.sendstatus(200);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 // add tags and change accessLevel for multiple
-photosRouter.patch('/multiple', (req, res) => {
+photosRouter.patch('/multiple', async (req, res) => {
   const { photoIds } = req.body;
   try {
     photos.updateMany(photoIds)
@@ -82,7 +102,7 @@ photosRouter.delete('/single', async (req, res) => {
     .catch((err) => { res.status(400).send(err) });
 });
 
-photosRouter.delete('/multi', (req, res) => {
+photosRouter.delete('/multi', async (req, res) => {
   const { userId, photoIds } = req.body;
   photos.deleteMany(userId, photoIds)
     .then((confirmations) => {
@@ -94,7 +114,7 @@ photosRouter.delete('/multi', (req, res) => {
 });
 
 //just for testing
-photosRouter.post('/', (req, res) => {
+photosRouter.post('/', async (req, res) => {
   const testPhoto = new Photo(req.body).save()
     .then((photo) => { res.status(200).send(photo) })
     .catch((err) => { res.status(400).send(err) });

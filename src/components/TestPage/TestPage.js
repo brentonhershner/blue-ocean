@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import api from '../../api/api';
 
@@ -65,6 +66,93 @@ const TestPage = () => {
         variant="outlined"
         onChange={(e) => setSecondaryUserId(e.target.value)}
       />
+
+
+
+
+        <ButtonGroup>
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.getFeed(userId);
+            console.log(result);
+            updatePhotos(result);
+          }}>
+            Get Feed
+      </Button>
+
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.getUserPhotos(userId);
+            console.log(result);
+            updatePhotos(result);
+          }}>
+            Get Users Photos
+      </Button>
+
+
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.getUserInfo(userId);
+            console.log(result);
+          }}>
+            Get User info
+      </Button>
+
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'request');
+            console.log(result);
+          }}>
+            Request Friend
+      </Button>
+
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'cancelRequest');
+            console.log(result);
+          }}>
+            Cancel Request
+      </Button>
+
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'accept');
+            console.log(result);
+          }}>
+            Accept Request
+      </Button>
+
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'reject');
+            console.log(result);
+          }}>
+            Reject Request
+      </Button>
+
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'reject');
+            console.log(result);
+          }}>
+            Reject Request
+      </Button>
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.kitchenSink(userId);
+            console.log(result);
+          }}>
+            Kitchen Sink
+      </Button>
+        </ButtonGroup>
 
       <Button variant='contained' onClick={async () => {
         const result = await api.getFeed(userId);

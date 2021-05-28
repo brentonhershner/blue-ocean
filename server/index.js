@@ -8,6 +8,7 @@ import routes from './router.js';
 import usersRouter from './usersRouter.js';
 import photosRouter from './photosRouter.js';
 import albumRouter from './albumRouter.js';
+import kitchenSinkRouter from './routes/kitchenSink.js';
 
 import db from '../database/index.js';
 
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/users', usersRouter);
 app.use('/api/photos', photosRouter);
 app.use('/api/albums', albumRouter);
+app.use('/api/everything', kitchenSinkRouter)
 
 routes(app);
 
