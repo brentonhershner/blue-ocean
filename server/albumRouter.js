@@ -16,6 +16,28 @@ albumRouter.get('/', async (req, res) => {
   }
 });
 
+//--------- Get Friends' Albums ------------//
+albumRouter.get('/friends', async (req, res) => {
+  try {
+    const friendsAlbums = await albums.getFriendsAlbums(req.query.userId);
+    res.status(200).send(friendsAlbums);
+  }
+  catch (error) {
+    res.status(400).send(error);
+  }
+})
+
+//--------- Get Public Albums ------------//
+albumRouter.get('/public', async (req, res) => {
+  try {
+    const publicAlbums = await albums.getPublicAlbums();
+    res.status(200).send(publicAlbums);
+  }
+  catch (error) {
+    res.status(400).send(error);
+  }
+})
+
 // ----------------------- Create a new Album -------------//
 albumRouter.post('/', async (req, res) => {
   try {
