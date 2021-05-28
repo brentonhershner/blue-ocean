@@ -7,10 +7,11 @@ const usersRouter = express.Router();
 //------------     Friends API's -----------------------------------------//
 //========================================================================//
 usersRouter.put('/friends/request', async (req, res) => {
+    console.log('usersRouter.put')
   try {
     const { currentUser, targetUser } = req.body;
-    const currUser = await User.findById(currentUser).exec();
-    const targUser = await User.findById(targetUser).exec();
+    const currUser = await User.findById(currentUser.toString()).exec();
+    const targUser = await User.findById(targetUser.toString()).exec();
 
     const currUserObj = {
         userId: currentUser,

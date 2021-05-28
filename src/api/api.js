@@ -27,12 +27,13 @@ api.upload = (formData, userId) => {
 api.friendAction = (currentUser, targetUser, action) => {
   //action should be one of the following:
   //['request', 'cancelRequest', 'accept', 'reject', 'remove']
-  console.log('test');
-  // axios.put(`${hostname}:${PORT}/api/users/friends/${action}`, {
-  //   currentUser, targetUser
-  // })
-  //   .then((res) => { console.log('this is the response, should add in some sort of update function as well', res) })
-  //   .catch((err) => { console.log(`there was an error performing ${action} friend`, err) });
+  
+  axios.put(`${hostname}:${PORT}/api/users/friends/${action}`,
+    {
+      currentUser, targetUser
+    })
+    .then((res) => { console.log('this is the response, should add in some sort of update function as well', res) })
+    .catch((err) => { console.log(`there was an error performing ${action} friend`, err) });
 }
 
 api.getUserInfo = (currentUserId) => {
