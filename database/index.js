@@ -8,6 +8,25 @@ mongoose.connect('mongodb://localhost/blueocean', {
 });
 
 
+//FIRST RES
+// {
+//   "tags": [
+//       "testTag",
+//       "anotherTestTag"
+//   ],
+//   "photoIds": [
+//       "testPhoto1",
+//       "testPhoto2"
+//   ],
+//   "_id": "60b03321d7fa914ac87700bb",
+//   "ownerId": "60afe010f2638cd1244a86ba",
+//   "title": "myTestAlbum",
+//   "description": "test for Joe Hancock",
+//   "accessLevel": 1,
+//   "uploadDate": "2021-05-28T000241000Z",
+//   "__v": 0
+// }
+
 const db = mongoose.connection;
 
 
@@ -41,7 +60,7 @@ const photoSchema = new Schema({
   uploadDate: Date,
   description: String,
   tags: Array,
-  accessLevel: Number,  /* 0=private, [1=select friends(futureFeature)], 2=all friends, [3=global(futureFeature)] */
+  accessLevel: Number,  /* 0=private,  1=all friends, 2=global */
   url: String
 });
 
@@ -51,10 +70,21 @@ const userPhotosSchema = new Schema({
   photos: [photoSchema]
 });
 
+const albumSchema = new Schema({
+  ownerId: String,
+  uploadDate: String,
+  title: String,
+  description: String,
+  tags: Array,
+  accessLevel: Number,  /* 0=private,  1=all friends, 2=global */
+  photoIds: Array
+})
+
 const Friend = model('Friend', friendSchema);
 const User = model('User', userSchema);
 const Photo = model('Photo', photoSchema);
 const UserPhotos = model('UserPhotos', userPhotosSchema);
+const Album = model('Album', albumSchema);
 
-export { Friend, User, Photo, UserPhotos }
+export { Friend, User, Photo, UserPhotos, Album }
 export default db;
