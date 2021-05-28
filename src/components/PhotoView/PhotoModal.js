@@ -7,12 +7,13 @@ import {
   MenuItem,
   Modal,
 } from "@material-ui/core";
+// import TextField from '@material-ui/core/TextField';
 import { makeStyles } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import IconButton from "@material-ui/core/IconButton";
-import InfoIcon from "@material-ui/icons/Info";
-import SharePermissions from "./SharePermissions";
+// import IconButton from "@material-ui/core/IconButton";
+// import InfoIcon from "@material-ui/icons/Info";
+// import SharePermissions from "./SharePermissions";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -71,8 +72,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PhotoModal = ({ showModal, setShowModal }) => {
-  const [modalView, setModalView] = useState(false);
+  // const [modalView, setModalView] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [refresh, setRefresh] = useState(0);
   const classes = useStyles();
 
   const randOwner = "BlueOceaner22";
@@ -111,6 +113,14 @@ const PhotoModal = ({ showModal, setShowModal }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleTagDelete = (array, index) => {
+    array.splice(index, 1);
+    setRefresh(refresh + 1);
+  };
+
+
+
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -159,13 +169,31 @@ const PhotoModal = ({ showModal, setShowModal }) => {
             </MenuItem>
           </Menu>
           <GridListTileBar
-            // title={tile.title}
-            subtitle={<span>by: {randOwner}</span>}
-            style={{ fontSize: "large" }}
+
+            subtitle={
+              <div className={classes.paper}>
+                {showModal && showModal.tags.map((tag, index, array) =>
+                  <Chip
+                    size="medium"
+                    // icon={<FaceIcon />}
+                    label={tag}
+                    // onClick
+                    onDelete={() => handleTagDelete(array, index, refresh)}
+                    className={classes.tag}
+                    key={tag+1}
+
+                  />
+                )}
+              </div>
+              // <span>
+              //   by: {randOwner}
+              // </span>
+            }
+            style={{ fontSize: "large"}}
             actionIcon={
               <Fab
                 id="InfoIcon"
-                className="edit"
+                className={classes.fab}
                 color="primary"
                 style={{ position: "absolute", top: 5, right: 5 }}
                 onClick={handleClick}

@@ -14,6 +14,7 @@ import ContextTest from './ContextTest';
 
 const Home = () => {
   // Use context in this instance is for the friends list
+
   return (
     <div>
       <Typography variant="h2">
