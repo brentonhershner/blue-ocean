@@ -15,23 +15,21 @@ kitchenSinkRouter.get('/', async (req, res) => {
 
     const userId = req.query.userId;
     const resolvedObj = {};
-    const promises = Promise.all([
+    Promise.all([
       photos.getUserPhotos(userId),
-      // photos.getSharedPhotos(userId), // TODO:
+      photos.getSharedPhotos(userId),
       photos.getPublic(),
       albums.getAll(userId),
-      // albums.getShared(userId), // TODO:
-      // albums.getPublic(), // Needs work
+      albums.getFriendsAlbums(userId),
+      albums.getPublicAlbums(),
       users.getFriends(userId),
       users.getAll()
     ]).then((resolved) => {
-      // console.log(resolved);
-      // keys.forEach((k, i) => {
-      //   resolvedObj[k] = promises[i];
-      // });
-      // console.log(resolvedObj);
-      res.status(200).send(resolved);
-      // res.status(200).send(resolvedObj);
+      keys.forEach((k, i) => {
+        resolvedObj[k] = resolved[i];
+      });
+      console.log(resolvedObj);
+      res.status(200).send(resolvedObj);
     })
   } catch (err) {
     console.error(err);

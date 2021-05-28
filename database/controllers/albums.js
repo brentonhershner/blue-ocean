@@ -14,12 +14,12 @@ albums.getAll = async (ownerId) => {
 
 albums.getFriendsAlbums = async (userId) => {
   try {
-    const user = await User.findById(userId).exec()
-    const friendsIds = [];
-    user.friends.forEach((friend) => {
-      friendsIds.push(friend.userId);
-    });
-    const friendsAlbums = await Album.find({ accessLevel: 1, ownerId: { $in: friendsIds } });
+    const user = await User.findOne({'userId': userId}).exec()
+    // const friendsIds = [];
+    // user.friends.forEach((friend) => {
+    //   friendsIds.push(friend.userId);
+    // });
+    const friendsAlbums = await Album.find({ accessLevel: 1, ownerId: { $in: user.friends } });
     return friendsAlbums;
   }
   catch(err) {
