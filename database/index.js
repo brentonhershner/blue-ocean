@@ -8,25 +8,6 @@ mongoose.connect('mongodb://localhost/blueocean', {
 });
 
 
-//FIRST RES
-// {
-//   "tags": [
-//       "testTag",
-//       "anotherTestTag"
-//   ],
-//   "photoIds": [
-//       "testPhoto1",
-//       "testPhoto2"
-//   ],
-//   "_id": "60b03321d7fa914ac87700bb",
-//   "ownerId": "60afe010f2638cd1244a86ba",
-//   "title": "myTestAlbum",
-//   "description": "test for Joe Hancock",
-//   "accessLevel": 1,
-//   "uploadDate": "2021-05-28T000241000Z",
-//   "__v": 0
-// }
-
 const db = mongoose.connection;
 
 
