@@ -34,17 +34,16 @@ let styles = {
 };
 
 function Gallery(props) {
-  const hasPrivilege = false;
 
   const { photos,
     albums,
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
-  const user = useContext(UserContext); // user context
+  const { userType } = useContext(UserContext); // user context
   const { setSearchTerm } = useContext(SearchContext); // user context
 
-  const [showPhotoModal, setShowPhotoModal] = useState(null);
+  const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
@@ -57,10 +56,11 @@ function Gallery(props) {
   //states for create/edit album modal
   const [albumTitle, setAlbumTitle] = useState('');
   const [albumDescription, setAlbumDescription] = useState('');
-  const [albumPermision, setAlbumPermission] = useState(0);
+  const [albumPermission, setAlbumPermission] = useState(0);
   const [albumTags, setAlbumTags] = useState([]);
   const [albumSelected, setAlbumSelected] = useState([]);
   const [isAlbumCreate, setIsAlbumCreate] = useState(false);
+  const [hasPrivilege, setHasPrivilege] = useState(false)
 
   const { classes,
     view, // render gallery view as = 'public', 'personal', 'shared'
@@ -68,29 +68,38 @@ function Gallery(props) {
   } = props;
 
   useEffect(() => {
-    setSearchTerm('');
-  }, [setSearchTerm])
+  if( view === 'personal' || userType === 'admin' ) {
+    setHasPrivilege(true);
+  } else {
+    setHasPrivilege(false);
+  }
+  }, [view, userType])
 
-  // FILTER PHOTOS BY VIEW
+
+
   useEffect(() => {
-    if (view === 'public') {
-      setShownPhotos(photos);
-    } else if (view === 'personal') {
-      // const personalPhotos = photos.filter(photo => photo.ownerId === user.userId) // PROPER code, when userId 1 exists
-      const personalPhotos = photos.filter(photo => photo.ownerId === 2)
-      console.log(personalPhotos);
-      setShownPhotos(personalPhotos);
-    } else if (view === 'shared') {
-      const friendIds = user.friends.map(friend => friend.userId); // map friend userIds to array
-      const sharedPhotos = photos.filter(photo => {
-        /* filter shared photos to user and friends Ids */
-        // return friendIds.concat([user.userId]).includes(photo.ownerId); // PROPER CODE, when valid friend userId's exist
-        return friendIds.concat([3]).includes(photo.ownerId); // filter shared photos to user and friends Ids
-      })
-      setShownPhotos(sharedPhotos);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [view]) // update 'shownPhotos' when 'view' changes
+    setSearchTerm('');
+  }, [view, setSearchTerm])
+
+  // // FILTER PHOTOS BY VIEW
+  // useEffect(() => {
+  //   if (view === 'public') {
+  //     setShownPhotos(photos);
+  //   } else if (view === 'personal') {
+  //     // const personalPhotos = photos.filter(photo => photo.ownerId === user.userId) // PROPER code, when userId 1 exists
+  //     const personalPhotos = photos.filter(photo => photo.ownerId === 2)
+  //     console.log(personalPhotos);
+  //     setShownPhotos(personalPhotos);
+  //   } else if (view === 'shared') {
+  //     const friendIds = user.friends.map(friend => friend.userId); // map friend userIds to array
+  //     const sharedPhotos = photos.filter(photo => {
+  //       /* filter shared photos to user and friends Ids */
+  //       // return friendIds.concat([user.userId]).includes(photo.ownerId); // PROPER CODE, when valid friend userId's exist
+  //       return friendIds.concat([3]).includes(photo.ownerId); // filter shared photos to user and friends Ids
+  //     })
+  //     setShownPhotos(sharedPhotos);
+  //   }
+  // }, [view]) // update 'shownPhotos' when 'view' changes
 
   // useEffect(() => {
   //   if (currentAlbumPhotos.length > 0) {
@@ -144,6 +153,12 @@ function Gallery(props) {
 
   return (
     <>
+      <div style={{display: 'flex'}}>
+        <h1 style={{magin: 0}}>
+          {view === 'personal' ? 'My Photos'
+        : view === 'shared' ? 'Friends\' Photos'
+        : 'Public Photos'}</h1>
+      </div>
       <SearchFilter
         setShownPhotos={setShownPhotos}
         setShownAlbums={setShownAlbums}
@@ -257,6 +272,7 @@ function Gallery(props) {
     <PhotoModal
         // alt={item.title}
         // srcSet={item.url}
+        hasPrivilege={hasPrivilege}
         showModal={showPhotoModal}
         setShowModal={setShowPhotoModal}
       />
@@ -267,7 +283,7 @@ function Gallery(props) {
       aria-describedby="Modal to create albums"
       albumTitle={albumTitle}
       albumDescription={albumDescription}
-      albumPermision={albumPermision}
+      albumPermission={albumPermission}
       albumTags={albumTags}
       albumSelected={albumSelected}
       isAlbumCreate={isAlbumCreate}

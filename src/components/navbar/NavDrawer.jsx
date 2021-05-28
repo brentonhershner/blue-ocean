@@ -123,6 +123,7 @@ export default function NavDrawer(props) {
     <React.Fragment>
       <div className={classes.root}>
         <AppBar
+          elevation={0}
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: showState,

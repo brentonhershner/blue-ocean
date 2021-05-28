@@ -8,7 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/CloseRounded';
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,26 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function CreateOrEditAlbumsModal(props) {
-
-  // const [title, setTitle] = useState(album.title);
-  // const [description, setDescription] = useState(album.description);
   const [currentTag, setCurrentTag] = useState('');
-  // const [tags, setTags] = useState(album.tags);
-  // const [permission, setPermission] = useState(album.permission);
-
-  // useEffect(()=>{
-
-  // })
-  // let album = {
-  //   title: props.albumTitle,
-  //   description: props.albumDescription,
-  //   tags: props.albumTags,
-  //   permission: props.albumPermission,
-  //   photos: props.albumSelected
-  // };
-  // if (!props.isCreate) {
-  //   album=props.album;
-  // }
 
   const handleKeyPress = (event) => {
     if(event.key === 'Enter' && currentTag){
@@ -89,28 +71,12 @@ function CreateOrEditAlbumsModal(props) {
     props.setAlbumPermission(event.target.value);
   };
 
-  // const resetModalState = () => {
-  //   if(!props.isAlbumCreate) {
-  //     props.setAlbumTitle(album.title);
-  //     setDescription(album.description);
-  //     setCurrentTag('');
-  //     setTags(album.tags);
-  //     setPermission(album.permission);
-  //   } else {
-  //     setTitle('');
-  //     setDescription('');
-  //     setCurrentTag('');
-  //     setTags([]);
-  //     setPermission(0);
-  //   }
-  // }
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // let output = props.selected.map((item) => {return {item: item, tags, permission}})
-    // console.log(output);
-    // props.onClose();
-    // resetModalState();
+  }
+
+  const deleteAlbum = () => {
+    console.log(props.albumTitle);
   }
 
   const classes = useStyles();
@@ -145,7 +111,7 @@ function CreateOrEditAlbumsModal(props) {
           id="title"
           label="Title"
           value={props.albumTitle}
-          disabled={props.hasPrivilege ? 'true': 'false'}
+          disabled={props.hasPrivilege ? true: false}
           onChange={(e) => {props.setAlbumTitle(e.target.value)}}
         />
         <TextField
@@ -153,7 +119,7 @@ function CreateOrEditAlbumsModal(props) {
           id="description"
           label="Description"
           multiline
-          disabled={props.hasPrivilege ? 'true': 'false'}
+          disabled={props.hasPrivilege ? true: false}
           value={props.albumDescription}
           onChange={(e)=> {props.setAlbumDescription(e.target.value)}}
         />
@@ -165,8 +131,8 @@ function CreateOrEditAlbumsModal(props) {
           className={classes.select}
           labelId="permission-select-label"
           id="permission-select"
-          value={props.albumPermision}
-          disabled={props.hasPrivilege ? 'true': 'false'}
+          value={props.albumPermission}
+          disabled={props.hasPrivilege ? true: false}
           onChange={handlePermissionChange}
         >
           <MenuItem value={0}>Private</MenuItem>
@@ -192,6 +158,7 @@ function CreateOrEditAlbumsModal(props) {
           </Paper>
         ))}
         </div>
+
         {props.hasPrivilege
         ? <Button type="submit" className={classes.button} size="small" variant="contained" color="primary">Submit</Button>
         : null}
@@ -200,6 +167,11 @@ function CreateOrEditAlbumsModal(props) {
         ? 'Cancel'
         : 'Close'}
         </Button>
+        {props.hasPrivilege
+        ? <IconButton aria-label="delete" onClick={() => {deleteAlbum()}}>
+          <DeleteIcon />
+        </IconButton>
+        : null}
         </form>
       </div>
     </Modal>

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import {
   Chip,
   Container,
-  Fab,
+  Paper,
   GridListTileBar,
   Menu,
   MenuItem,
   Modal,
+  IconButton,
 } from "@material-ui/core";
 // import TextField from '@material-ui/core/TextField';
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,12 +17,25 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 // import InfoIcon from "@material-ui/icons/Info";
 // import SharePermissions from "./SharePermissions";
 
+import EditPhotoModal from './EditPhotoModal';
+
 const useStyles = makeStyles((theme) => ({
   container: {
     position: "absolute",
     // display: 'flex',
     // alignItems: 'center',
     // justifyContent: 'center',
+  },
+  tag: {
+    margin: theme.spacing(0.5),
+    padding: theme.spacing(0.25, 1),
+    display: "flex",
+    width: "max-content",
+    alignContent:'center',
+    justifyContent: 'center',
+  },
+  captions: {
+    height: 'max-content',
   },
   // editMenu: {
   //   position: 'absolute',
@@ -57,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   photoContainer: {
     position: "absolute",
     maxHeight: "100vh",
-    maxWidth: "100vh",
+    maxWidth: "100vw",
     display: "flex",
     padding: "0",
     alignItems: "center",
@@ -72,10 +86,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PhotoModal = ({ showModal, setShowModal }) => {
+const PhotoModal = ({ showModal, setShowModal, hasPrivilege, photoToShow }) => {
   // const [modalView, setModalView] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [refresh, setRefresh] = useState(0);
+  const [showEditModal, setShowEditModal] = useState(false);
   const classes = useStyles();
 
   // const randOwner = "BlueOceaner22";
@@ -121,7 +136,9 @@ const PhotoModal = ({ showModal, setShowModal }) => {
   };
 
 
-
+  const handleEditModalClose = () => {
+    setShowEditModal(false);
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -144,7 +161,7 @@ const PhotoModal = ({ showModal, setShowModal }) => {
             src={showModal && showModal.url}
             alt={showModal && showModal.description}
           />
-          <Fab
+          <IconButton
             id="closeIcon"
             className="close"
             color="primary"
@@ -152,65 +169,73 @@ const PhotoModal = ({ showModal, setShowModal }) => {
             onClick={handleModalClose}
           >
             <CloseIcon />
-          </Fab>
-          <Menu
+          </IconButton>
+          {/* <Menu
             id="edit-menu"
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
             style={{ padding: "10%" }}
-          >
+          > */}
             {/* <MenuItem onClick={handleClose}>Edit Caption</MenuItem> */}
-            <MenuItem onClick={handleClose}>
+            {/* <MenuItem onClick={handleClose}>
               {showModal && showModal.description}
             </MenuItem>
             <MenuItem onClick={handleClose}>
               {showModal && "Tags: " + showModal.tags.join(", ")}
             </MenuItem>
-          </Menu>
+          </Menu> */}
           <GridListTileBar
-
+            className={classes.captions}
             subtitle={
-              <div className={classes.paper}>
+              <>
+              <h3>{showModal && showModal.title}</h3>
+              <p>By {showModal && showModal.owner}</p>
+              <div style={{display:'flex'}}>
                 {showModal && showModal.tags.map((tag, index, array) =>
-                  <Chip
+                  <Paper
                     size="medium"
                     // icon={<FaceIcon />}
                     label={tag}
                     // onClick
-                    onDelete={() => handleTagDelete(array, index, refresh)}
                     className={classes.tag}
-                    key={tag+1}
-
-                  />
+                    key={index}
+                  >
+                    {tag}
+                  </Paper>
                 )}
               </div>
-              // <span>
-              //   by: {randOwner}
-              // </span>
+              </>
             }
             style={{ fontSize: "large"}}
             actionIcon={
-              <Fab
+              <IconButton
                 id="InfoIcon"
                 className={classes.fab}
                 color="primary"
                 style={{ position: "absolute", top: 5, right: 5 }}
-                onClick={handleClick}
+                onClick={()=>setShowEditModal(true)}
               >
                 <InfoOutlinedIcon fontSize="large" />
-              </Fab>
-              // <IconButton
-              //   aria-label={`info about ${showModal && showModal.description}`}
-              //   className={classes.icon}
-              // >
-              //   <InfoIcon className={classes.icon} />
-              // </IconButton>
+              </IconButton>
             }
           />
         </Container>
       </Modal>
+      <EditPhotoModal
+      open={showEditModal}
+      onClose={handleEditModalClose}
+      aria-labelledby="Edit photo"
+      aria-describedby="Modal to edit a photo"
+      photoTitle={showModal && showModal.title}
+      photoDescription={showModal && showModal.description}
+      photoPermission={showModal && showModal.accessLevel}
+      photoTags={showModal && showModal.tags}
+      photoOwner={showModal && showModal.owner}
+
+      hasPrivilege={hasPrivilege}
+    />
     </Container>
   );
 };

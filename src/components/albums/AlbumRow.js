@@ -15,6 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import InfoIcon from '@material-ui/icons/Info';
 
 import { PhotosContext } from '../../contexts/photos-context';
+import { SearchContext } from '../../contexts/search-context';
 import Album from './Album';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +47,7 @@ function AlbumRow (props) {
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
+  const { setSearchTerm } = useContext(SearchContext); // user context
   // const [currentAlbum, setCurrentAlbum] = useState({});
   // const [showModal, setShowModal] = useState(false);
 
@@ -65,6 +67,7 @@ function AlbumRow (props) {
     // props.setShownPhotos(photos);
     props.setCurrentAlbum({});
     props.setCurrentAlbumPhotos([]);
+    setSearchTerm('');
   }
 
   return (
