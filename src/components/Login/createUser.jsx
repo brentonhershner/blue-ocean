@@ -37,17 +37,19 @@ export default function CreateUser() {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
-    password: '',
-    showPassword: false,
-    confirm: '',
-    showConfirm: false,
     first_name: '',
     last_name: '',
     email: '',
     username: '',
+    password: '',
+    confirm: '',
+    showPassword: false,
+    showConfirm: false
   });
 
-  const handleChange = (prop) => (event) => {
+console.log(values.showConfirm)
+
+const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -151,24 +153,24 @@ export default function CreateUser() {
           />
           </FormControl>
             <br />
-          <FormControl>
-          <InputLabel htmlFor="outlined-adornment-confirm">Confirm</InputLabel>
+            <FormControl className={clsx(classes.margin, classes.textField)}variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Confirm</InputLabel>
           <OutlinedInput
-            style={{labelWidth: "center"}}
-            id="outlined-basic-confirm"
-            label="Confirm"
+            id="outlined-basic-password"
+            name="password"
+            label="Password"
             variant="outlined"
             required
-            type={values.showConfirm ? 'text' : 'confirm'}
+            type={values.showConfirm ? 'text' : 'password'}
             value={values.confirm}
             onChange={handleChange('confirm')}
             margin="none"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  aria-label="toggle confirm visibility"
+                  aria-label="toggle password visibility"
                   onClick={handleClickShowConfirm}
-                  onMouseDown={handleMouseDownConfirm}
+                  onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
                   {values.showConfirm ? <Visibility /> : <VisibilityOff />}
