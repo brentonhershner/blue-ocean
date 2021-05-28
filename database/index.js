@@ -38,7 +38,7 @@ const userSchema = new Schema({
 const photoSchema = new Schema({
   photoId: String,
   ownerId: String,
-  uploadDate: Date,
+  uploadDate: String,
   description: String,
   tags: Array,
   accessLevel: Number,  /* 0=private,  1=all friends, 2=global */

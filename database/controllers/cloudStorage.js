@@ -1,7 +1,7 @@
 import aws from "aws-sdk";
 import config from '../../config.js';
 
-const imagePath = `https://${config.aws.Bucket}.s3-${config.aws.region}.amazonaws.com/`
+const imagePath = `https://${config.aws.Bucket}.s3-${config.aws.region}.amazonaws.com/`;
 
 const cloudStorage = {};
 
@@ -78,5 +78,12 @@ cloudStorage.uploadPhoto = async (file) => {
 // })();
 
 // https://hrsea16blueocean.s3-us-west-2.amazonaws.com/download.jpeg
+
+const commentMeOut = async () => {
+    const urls = await cloudStorage.getAllUrls();
+    console.log(urls);
+};
+
+// commentMeOut();
 
 export default cloudStorage;
