@@ -12,21 +12,21 @@ const Friend = ({ friend, status }) => {
     const { username, userId: targetUserId } = friend;
     var buttons = () => {
         if (status === 'friends') {
-            return (<Button onClick={() => friendAction(userInfo.userId, targetUserId, 'remove')}>Remove Friend</Button>);
+            return (<Button variant="outlined" onClick={() => friendAction(userInfo.userId, targetUserId, 'remove')}>Remove Friend</Button>);
         }
         if (status === 'pending') {
-            return (<Button onClick={() => friendAction(userInfo.userId, targetUserId, 'cancelRequest')}>Cancel Request</Button>);
+            return (<Button variant="outlined" onClick={() => friendAction(userInfo.userId, targetUserId, 'cancelRequest')}>Cancel Request</Button>);
         }
         if (status === 'requested') {
             return (
                 <>
-                    <Button onClick={() => friendAction(userInfo.userId, targetUserId, 'approve')}>Approve</Button>
-                    <Button onClick={() => friendAction(userInfo.userId, targetUserId, 'reject')}>Reject</Button>
+                    <Button variant="outlined" onClick={() => friendAction(userInfo.userId, targetUserId, 'approve')}>Approve</Button>
+                    <Button variant="outlined" onClick={() => friendAction(userInfo.userId, targetUserId, 'reject')}>Reject</Button>
                 </>
             );
         }
         if (status === 'none') {
-            return (<Button onClick={() => friendAction(userInfo.userId, targetUserId, 'request')}>Add Friend</Button>)
+            return (<Button variant="outlined" onClick={() => friendAction(userInfo.userId, targetUserId, 'request')}>Add Friend</Button>)
         }
     }
 

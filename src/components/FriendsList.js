@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 // import { FixedSizeList } from 'react-window';
 import Friend from './SharedComponents/Friend.jsx';
+import Paper from '@material-ui/core/Paper';
 import { UserContext } from '../contexts/user-context';
 import SearchFriends from './search/SearchFriends';
 import { SearchContext } from '../contexts/search-context';
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     margin: "auto",
-    height: 400,
+    height: "100%",
     maxWidth: 400,
     backgroundColor: theme.palette.background.paper,
   },
@@ -52,10 +53,10 @@ renderRow.propTypes = {
     const [ shownUsers, setShownUsers ] = useState([]);
 
     return (
-      <div className={classes.root}>
+      <Paper className={classes.root} elevation="1">
         <SearchFriends setShownUsers={setShownUsers} />
-        <h2>Friends & Requests</h2>
-        <ul>
+        <h2 style={{paddingTop: "10%"}}>Friends & Requests</h2>
+        <ul style={{overflow: "hidden", "overflow-y": "scroll"}}>
           {searchTerm.length > 0
             ? shownUsers.map((user, i) => (
                 <Friend friend={user} status={user.status || 'none'} key={i} />
@@ -63,7 +64,7 @@ renderRow.propTypes = {
             : renderRow(friends, pending, requested)
           }
         </ul>
-      </div>
+      </Paper>
     );
 }
 
