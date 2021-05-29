@@ -68,11 +68,8 @@ function Album (props) {
   const showAlbum = () => {
     setSearchTerm('');
     let shownAlbum = [];
-    props.album.photoIds.forEach((id)=>{
-      props.masterPhotos.forEach(photo => {
-        if(photo.photoId === id) {
-          shownAlbum.push(photo)};
-      })
+    props.album.photos.forEach((id)=>{
+          shownAlbum.push(props.masterPhotos[id]);
     })
     // props.setShownPhotos(shownAlbum);
     props.setCurrentAlbumPhotos(shownAlbum);
