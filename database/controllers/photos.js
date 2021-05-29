@@ -94,7 +94,6 @@ photos.deleteOne = async (userId, photoId) => {
   } catch (err) {
     throw err
   }
-
 };
 
 // delete multiple photos
