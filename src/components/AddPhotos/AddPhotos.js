@@ -8,10 +8,9 @@ import { UserContext } from '../../contexts/user-context';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
-    // margin: theme.spacing.unit,
-    bottom: theme.spacing(2),
+    left: theme.spacing.unit,
+    bottom: theme.spacing.unit,
     position: 'fixed',
-    left: 0,
   },
 
 }));
