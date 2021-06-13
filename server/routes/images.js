@@ -1,6 +1,6 @@
 // import Router from 'express-promise-router';
 import path from 'path';
-// import { readdir } from 'fs/promises';
+import { readdir } from 'fs/promises';
 import aws from "aws-sdk";
 import multer from 'multer';
 import multerS3 from 'multer-s3';
@@ -10,7 +10,8 @@ import cloudStorage from '../../database/controllers/cloudStorage.js';
 
 const images = {};
 
-const folderPath = 'imageFolder/testImages/'
+// this is the folder where photos will be saved in the file system
+const folderPath = 'imageFolder/'
 const fullPath = path.join(path.resolve(), 'public/', folderPath);
 
 const s3 = new aws.S3(config.aws);
@@ -51,11 +52,11 @@ images.multerS3Upload = multer({
 
 images.getImageList = async (req, res) => {
   try {
-    // const filenames = await readdir(fullPath);
-    // const imageUrls = filenames
-    //   .filter((filename) => filename !== '.DS_Store')
-    //   .map((filename) => folderPath + filename)
-    const imageUrls = await cloudStorage.getAllUrls();
+    const filenames = await readdir(fullPath);
+    const imageUrls = filenames
+      .filter((filename) => filename !== '.DS_Store')
+      .map((filename) => folderPath + filename)
+    // const imageUrls = await cloudStorage.getAllUrls();
     const imageObjects = imageUrls.map(file => {
       return { name: file, url: file, }
     })
@@ -65,12 +66,12 @@ images.getImageList = async (req, res) => {
   }
 };
 
-// images.upload = async (req, res, next) => {
-//   await images.multerS3Upload.array('file')(req, res, next);
-//   console.log(Object.keys(req))
-//   console.log(req.files);
-//   next();
-// };
+images.upload = async (req, res, next) => {
+  await images.multerS3Upload.array('file')(req, res, next);
+  // console.log(Object.keys(req))
+  // console.log(req.files);
+  next();
+};
 
 
 export default images;
