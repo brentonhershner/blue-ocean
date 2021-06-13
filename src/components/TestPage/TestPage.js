@@ -15,13 +15,17 @@ import { PhotosContext } from '../../contexts/photos-context.js';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexDirection: 'column',
-    // flexWrap: 'wrap',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     margin: theme.spacing(1),
   },
   tile: {
 
+  },
+  button: {
+    margin: theme.spacing(1),
   }
+
 }));
 
 
@@ -69,89 +73,129 @@ const TestPage = () => {
 
       <div className={classes.root}>
 
-        <ButtonGroup>
-          <Button variant='contained' onClick={async () => {
-            const result = await api.getFeed(userId);
-            console.log(result);
-            updatePhotos(result);
-          }}>
+        {/* <ButtonGroup> */}
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const result = await api.getFeed(userId);
+              console.log(result);
+              updatePhotos(result);
+            }}
+          >
             Get Feed
-      </Button>
+          </Button>
 
 
-          <Button variant='contained' onClick={async () => {
-            const result = await api.getUserPhotos(userId);
-            console.log(result);
-            updatePhotos(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const result = await api.getUserPhotos(userId);
+              console.log(result);
+              updatePhotos(result);
+            }}
+          >
             Get Users Photos
-      </Button>
+          </Button>
 
 
-          <Button variant='contained' onClick={async () => {
-            const result = await api.getUserInfo(userId);
-            console.log(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const result = await api.getUserInfo(userId);
+              console.log(result);
+            }}
+          >
             Get User info
-      </Button>
+          </Button>
 
 
-          <Button variant='contained' onClick={async () => {
-            const result = await api.friendAction(userId, secondaryUserId, 'request');
-            console.log(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const result = await api.friendAction(userId, secondaryUserId, 'request');
+              console.log(result);
+            }}
+          >
             Request Friend
-      </Button>
+          </Button>
 
 
-          <Button variant='contained' onClick={async () => {
-            const result = await api.friendAction(userId, secondaryUserId, 'cancelRequest');
-            console.log(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const result = await api.friendAction(userId, secondaryUserId, 'cancelRequest');
+              console.log(result);
+            }}
+          >
             Cancel Request
-      </Button>
+          </Button>
 
 
-          <Button variant='contained' onClick={async () => {
-            const result = await api.friendAction(userId, secondaryUserId, 'accept');
-            console.log(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const result = await api.friendAction(userId, secondaryUserId, 'accept');
+              console.log(result);
+            }}
+          >
             Accept Request
-      </Button>
+          </Button>
 
 
-          <Button variant='contained' onClick={async () => {
-            const result = await api.friendAction(userId, secondaryUserId, 'reject');
-            console.log(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const result = await api.friendAction(userId, secondaryUserId, 'reject');
+              console.log(result);
+            }}
+          >
             Reject Request
-      </Button>
+          </Button>
 
 
-          <Button variant='contained' onClick={async () => {
-            const result = await api.friendAction(userId, secondaryUserId, 'reject');
-            console.log(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const result = await api.friendAction(userId, secondaryUserId, 'reject');
+              console.log(result);
+            }}
+          >
             Reject Request
-      </Button>
+          </Button>
 
-          <Button variant='contained' onClick={async () => {
-            const editObj = {}
-            const result = await api.updatePhoto(editObj);
-            console.log(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const editObj = {}
+              const result = await api.updatePhoto(editObj);
+              console.log(result);
+            }}
+          >
             Update Photo
-      </Button>
+          </Button>
 
-          <Button variant='contained' onClick={async () => {
-            const editObj = {}
-            const result = await api.kitchenSink(editObj);
-            console.log(result);
-          }}>
+          <Button
+            variant='contained'
+            className={classes.button}
+            onClick={async () => {
+              const editObj = {}
+              const result = await api.kitchenSink(editObj);
+              console.log(result);
+            }}
+          >
             Kitchen Sink
-      </Button>
+          </Button>
 
-        </ButtonGroup>
+        {/* </ButtonGroup> */}
       </div>
 
       {/* <Button variant='contained' onClick={async () => {
@@ -162,7 +206,7 @@ const TestPage = () => {
       </Button> */}
 
       <GridList cols={3} >
-\//        {photos && photos.map((tile) => (
+        \//        {photos && photos.map((tile) => (
           <GridListTile key={tile.url} >
             <img src={`${tile.url}`} alt={tile.url} />
           </GridListTile>
