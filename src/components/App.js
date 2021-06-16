@@ -1,7 +1,4 @@
-import React, {
-  useState, useEffect,
-  // useContext
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 /*-------------------Material-UI Imports-------------------*/
@@ -16,9 +13,7 @@ import '../shared/styles/App.css';
 import Home from './Home';
 import Gallery from './photoGallery/Gallery'
 import AdminPage from './AdminPage/AdminPage';
-import UserContextProvider, {
-  // UserContext
-} from '../contexts/user-context';
+import UserContextProvider, { UserContext } from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
 import SearchContextProvider from '../contexts/search-context';
 import NavDrawer from './navbar/NavDrawer';
@@ -32,19 +27,19 @@ function App() {
 
   const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light);
 
-  const [loggedUser, setLoggedUser] = useState({});
+  const { user, setUser } = React.useContext(UserContext);
 
   const helloUser = (userObj) => {
-    setLoggedUser(userObj);
+    setUser(userObj);
   }
 
   const logOut = () => {
-    setLoggedUser({});
+    setUser({});
   }
 
   useEffect(() => {
-    console.log('This is the logged user from App.js', loggedUser);
-  }, [loggedUser])
+    console.log('This is the logged user from App.js', user?.userId);
+  }, [user])
 
   return (
     <Router>
@@ -63,7 +58,7 @@ function App() {
                   <NavDrawer logOut={logOut} darkMode={darkMode} setDarkMode={setDarkMode} />
                   <Switch>
                     <Route exact path="/" render={() => <Home />} />
-                    <Route exact path="/login" render={() => <Login helloUser={helloUser} context={loggedUser} />} />
+                    <Route exact path="/login" render={() => <Login helloUser={helloUser} context={user} />} />
                     <Route exact path="/createuser" render={() => <CreateUser />} />
                     <Route exact path="/admin" render={() => <AdminPage />} />
                     <Route exact path="/public" render={() => <Gallery view={'public'} />} />
