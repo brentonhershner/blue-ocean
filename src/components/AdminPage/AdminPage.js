@@ -255,7 +255,7 @@ const AdminPage = () => {
         Get User info
       </Button> */}
 
-      <UsersTable></UsersTable>
+      <UsersTable/>
 
       <GridList cols={3} >
         \//        {photos && photos.map((tile) => (
