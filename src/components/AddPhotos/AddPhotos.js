@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Box from '@material-ui/core/Box';
-import api from '../../api/api';
+import photoApi from '../../api/photoApi';
 import { UserContext } from '../../contexts/user-context';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 
 const AddPhotos = () => {
   const classes = useStyles();
-
   const { userId } = useContext(UserContext);
 
   const upload = (e) => {
@@ -28,7 +27,7 @@ const AddPhotos = () => {
       formData.append('file', selectedFiles[key]);
     }
 
-    api.upload(formData, userId)
+    photoApi.upload(formData, userId)
       .then((response) => {/* console.log(response) */ })
       .catch((error) => console.error(error));
   };

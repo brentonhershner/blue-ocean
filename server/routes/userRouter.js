@@ -1,21 +1,16 @@
-import express, {
-    // request
-} from 'express';
-import Photo from '../database/models/Photo.js';
-import User from '../database/models/User.js';
+import express from 'express';
 
-import users from '../database/controllers/users.js'
+import userController from '../../database/controllers/userController.js'
 
-
-const usersRouter = express.Router();
+const userRouter = express.Router();
 
 //------------------------------------------------------------------------//
 //------------     Friends API's -----------------------------------------//
 //========================================================================//
-usersRouter.put('/friends/request', async (req, res) => {
+userRouter.put('/friends/request', async (req, res) => {
     try {
         const { currentUser, targetUser } = req.body;
-        const currSaveUser = await users.friendRequest(currentUser, targetUser);
+        const currSaveUser = await userController.friendRequest(currentUser, targetUser);
         res.status(200).send(currSaveUser);
     }
     catch (err) {
@@ -24,11 +19,10 @@ usersRouter.put('/friends/request', async (req, res) => {
     }
 });
 
-
-usersRouter.put('/friends/cancelRequest', async (req, res) => {
+userRouter.put('/friends/cancelRequest', async (req, res) => {
     try {
         const { currentUser, targetUser } = req.body;
-        const currSaveUser = await users.cancelRequest(currentUser, targetUser)
+        const currSaveUser = await userController.cancelRequest(currentUser, targetUser)
         //reply with saved current user
         res.status(200).send(currSaveUser);
     }
@@ -38,10 +32,10 @@ usersRouter.put('/friends/cancelRequest', async (req, res) => {
     }
 });
 
-usersRouter.put('/friends/accept', async (req, res) => {
+userRouter.put('/friends/accept', async (req, res) => {
     try {
         const { currentUser, targetUser } = req.body;
-        const currSaveUser = await users.acceptFriend(currentUser, targetUser);
+        const currSaveUser = await userController.acceptFriend(currentUser, targetUser);
         res.status(200).send(currSaveUser);
     }
     catch (err) {
@@ -50,10 +44,10 @@ usersRouter.put('/friends/accept', async (req, res) => {
     }
 })
 
-usersRouter.put('/friends/reject', async (req, res) => {
+userRouter.put('/friends/reject', async (req, res) => {
     try {
         const { currentUser, targetUser } = req.body;
-        const currSaveUser = await users.rejectFriend(currentUser, targetUser);
+        const currSaveUser = await userController.rejectFriend(currentUser, targetUser);
         res.status(200).send(currSaveUser);
     }
     catch (err) {
@@ -64,10 +58,10 @@ usersRouter.put('/friends/reject', async (req, res) => {
 
 
 //removeFriend
-usersRouter.put('/friends/remove', async (req, res) => {
+userRouter.put('/friends/remove', async (req, res) => {
     try {
         const { currentUser, targetUser } = req.body;
-        const currSaveUser = await users.removeFriend(currentUser, targetUser)
+        const currSaveUser = await userController.removeFriend(currentUser, targetUser)
         res.status(200).send(currSaveUser);
     }
     catch (err) {
@@ -76,10 +70,10 @@ usersRouter.put('/friends/remove', async (req, res) => {
     }
 })
 
-usersRouter.post('/login', async (req, res) => {
+userRouter.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
-        const doc = await users.login(username, password, (doc) => {
+        const doc = await userController.login(username, password, (doc) => {
             console.log('CALLBACK', doc)
             if (doc.password === password) {
                 res.status(200).send(doc)
@@ -97,15 +91,15 @@ usersRouter.post('/login', async (req, res) => {
 //------------     User's API's -----------------------------------------//
 //========================================================================//
 
-usersRouter.get('/', (req, res) => {
-    users.getInfo(req.body.userId)
+userRouter.get('/', (req, res) => {
+    userController.getInfo(req.body.userId)
         .then((doc) => { res.status(200).send(doc) })
         .catch((err) => { res.status(400).send(err) })
 })
 
-usersRouter.get('/all', async (req, res) => {
+userRouter.get('/all', async (req, res) => {
     try {
-        const allUsers = await users.getAll();
+        const allUsers = await userController.getAll();
         res.status(200).send(allUsers);
     } catch (err) {
         res.status(400).send(err);
@@ -130,10 +124,10 @@ usersRouter.get('/all', async (req, res) => {
 // })
 
 //CREATE NEW USER
-usersRouter.post('/', async (req, res) => {
+userRouter.post('/', async (req, res) => {
     try {
         const formData = req.body;
-        const doc = await users.createNew(formData);
+        const doc = await userController.createNew(formData);
         res.status(200).send(doc)
     } catch (err) {
         console.log('Something went wrong: ', err);
@@ -142,24 +136,23 @@ usersRouter.post('/', async (req, res) => {
 })
 
 // get user info
-usersRouter.get('/info', async (req, res) => {
+userRouter.get('/info', async (req, res) => {
+    console.log('userRouter /info')
     try {
-        const info = await users.getInfo(req.query.userId)
+        const info = await userController.getInfo(req.query.userId)
         res.send(info);
     } catch (err) {
         res.status(500).send(err);
     }
 })
 
-usersRouter.delete('/users', async (req, res) => {
+userRouter.delete('/users', async (req, res) => {
     try {
-        const result = await users.delete(req.body.userId)
+        const result = await userController.delete(req.body.userId)
         res.send(result);
     } catch (err) {
         res.status(500).send(err);
     }
 })
 
-
-
-export default usersRouter;
+export default userRouter;

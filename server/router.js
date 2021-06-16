@@ -1,22 +1,11 @@
-import express from 'express';
-
-import images from './routes/images.js';
-import photoController from '../database/controllers/photoController.js';
-
-const router = express.Router();
-const users = express.Router();
-const photos = express.Router();
-
-
+import albums from './routes/albumRouter.js';
+import photoRouter from './routes/photoRouter.js';
+import userRouter from './routes/userRouter.js';
 
 const routes = (app) => {
-  router.get('/api/images/list', images.getImageList);
-  router.post('/api/images/upload',
-    images.multerS3Upload.array('file'),
-    photoController.savePhotoData
-  );
-
-  app.use(router);
+  app.use('/api/albums', albums);
+  app.use('/api/photos', photoRouter);
+  app.use('/api/users', userRouter);
 }
 
 export default routes;

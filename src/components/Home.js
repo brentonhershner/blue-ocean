@@ -14,7 +14,7 @@ const Home = ({ logOut }) => {
         HELLO WORLD!
         <br />
       </Typography>
-      <Link to='/testpage' component={RouterLink}>Testing TestPage</Link>
+      <Link to='/admin' component={RouterLink}>Admin Page</Link>
       <br/>
       <Link to='/createuser' component={RouterLink}>Testing Create User</Link>
       <br/>

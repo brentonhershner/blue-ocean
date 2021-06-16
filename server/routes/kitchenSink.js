@@ -1,8 +1,8 @@
 import express from 'express';
 
-import photos from '../../database/controllers/photos.js';
-import users from '../../database/controllers/users.js';
-import albums from '../../database/controllers/albums.js';
+import photoController from '../../database/controllers/photoController.js';
+import userController from '../../database/controllers/userController.js';
+import albumController from '../../database/controllers/albumController.js';
 
 const kitchenSinkRouter = express.Router();
 
@@ -16,14 +16,14 @@ kitchenSinkRouter.get('/', async (req, res) => {
     const userId = req.query.userId;
     const resolvedObj = {};
     Promise.all([
-      photos.getUserPhotos(userId),
-      photos.getSharedPhotos(userId),
-      photos.getPublic(),
-      albums.getAll(userId),
-      albums.getFriendsAlbums(userId),
-      albums.getPublicAlbums(),
-      users.getFriendsNames(userId), // add username to this
-      users.getAll() // add username to his
+      photoController.getUserPhotos(userId),
+      photoController.getSharedPhotos(userId),
+      photoController.getPublic(),
+      albumController.getAll(userId),
+      albumController.getFriendsAlbums(userId),
+      albumController.getPublicAlbums(),
+      userController.getFriendsNames(userId), // add username to this
+      userController.getAll() // add username to his
     ]).then((resolved) => {
       keys.forEach((k, i) => {
         resolvedObj[k] = resolved[i] || [];

@@ -12,7 +12,7 @@ import Themes from '../shared/styles/themes';
 import '../shared/styles/App.css';
 import Home from './Home';
 import Gallery from './photoGallery/Gallery'
-import TestPage from './TestPage/TestPage';
+import AdminPage from './AdminPage/AdminPage';
 import UserContextProvider, { UserContext } from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
 import SearchContextProvider from '../contexts/search-context';
@@ -27,7 +27,7 @@ function App() {
 
   const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light);
 
-  const [ loggedUser, setLoggedUser ] = useState({});
+  const [loggedUser, setLoggedUser] = useState({});
 
   const helloUser = (userObj) => {
     setLoggedUser(userObj);
@@ -45,22 +45,22 @@ function App() {
     <Router>
       <React.Fragment>
         <ThemeProvider theme={appliedTheme}>
-         <h1
-         style={{textAlign:"center"}}
-         >
-          Marineon
-        </h1>
+          <h1
+            style={{ textAlign: "center" }}
+          >
+            Marineon
+          </h1>
           <CssBaseline />
           <Container className="App">
             <UserContextProvider>
               <PhotosContextProvider>
                 <SearchContextProvider>
-                <NavDrawer logOut={logOut} darkMode={darkMode} setDarkMode={setDarkMode} />
+                  <NavDrawer logOut={logOut} darkMode={darkMode} setDarkMode={setDarkMode} />
                   <Switch>
                     <Route exact path="/" render={() => <Home />} />
-                    <Route exact path="/login" render={() => <Login helloUser={helloUser} context={loggedUser}/>} />
+                    <Route exact path="/login" render={() => <Login helloUser={helloUser} context={loggedUser} />} />
                     <Route exact path="/createuser" render={() => <CreateUser />} />
-                    <Route exact path="/testpage" render={() => <TestPage />} />
+                    <Route exact path="/admin" render={() => <AdminPage />} />
                     <Route exact path="/public" render={() => <Gallery view={'public'} />} />
                     <Route exact path="/personal" render={() => <Gallery view={'personal'} />} />
                     <Route exact path="/shared" render={() => <Gallery view={'shared'} />} />

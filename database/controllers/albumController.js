@@ -1,9 +1,9 @@
 import Album from '../models/Album.js';
 import User from '../models/User.js';
 
-const albums = {};
+const albumController = {};
 
-albums.getAll = async (ownerId) => {
+albumController.getAll = async (ownerId) => {
   try {
     const allAlbums = await Album.find({ ownerId })
     return allAlbums;
@@ -12,7 +12,7 @@ albums.getAll = async (ownerId) => {
   }
 }
 
-albums.getFriendsAlbums = async (userId) => {
+albumController.getFriendsAlbums = async (userId) => {
   try {
     const user = await User.findOne({'userId': userId}).exec()
     // const friendsIds = [];
@@ -27,7 +27,7 @@ albums.getFriendsAlbums = async (userId) => {
   }
 }
 
-albums.getPublicAlbums = async () => {
+albumController.getPublicAlbums = async () => {
   try {
     const publicAlbums = await Album.find({accessLevel: 2}).exec()
     return publicAlbums;
@@ -38,7 +38,7 @@ albums.getPublicAlbums = async () => {
 };
 
 
-albums.new = async (album) => {
+albumController.new = async (album) => {
   try {
     const newAlbum = await new Album(album).save();
     return newAlbum;
@@ -47,7 +47,7 @@ albums.new = async (album) => {
   }
 };
 
-albums.update = async (album) => {
+albumController.update = async (album) => {
   try {
     const { albumId } = album;
     const updatedAlbum = await Album.findById(albumId).exec();
@@ -66,7 +66,7 @@ albums.update = async (album) => {
   }
 };
 
-albums.delete = async (albumId) => {
+albumController.delete = async (albumId) => {
   try {
     const album = await Album
       .deleteOne({ _id: albumId }).exec()
@@ -77,4 +77,4 @@ albums.delete = async (albumId) => {
   }
 };
 
-export default albums;
+export default albumController;

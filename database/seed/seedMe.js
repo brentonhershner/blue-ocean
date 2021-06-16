@@ -7,8 +7,9 @@ mongoose.connect('mongodb://localhost/blueocean', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+const connection = mongoose.connection;
 
-const userCount = 100;
+const userCount = 10;
 
 const pad = (num, size) => {
   num = num.toString();
@@ -103,8 +104,6 @@ const fillPhotos = () => {
   });
 }
 
-
-const connection = mongoose.connection;
 connection.once("open", async function() {
   console.log("MongoDB connected successfully");
   await connection.db.listCollections().toArray(function(err, names) {
@@ -112,6 +111,7 @@ connection.once("open", async function() {
       console.log(err);
     } else {
       names.forEach((name) => {
+        console.log(name);
         mongoose.connection.db.dropCollection(name.name, function(err, result) {
           console.log(`${name.name} dropped`);
         })
@@ -120,9 +120,7 @@ connection.once("open", async function() {
   });
   setTimeout(() => {
     fillNames();
-    fillPhotos();
+    // fillPhotos();
   }, 1000)
 });
-
-
 

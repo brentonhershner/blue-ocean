@@ -1,9 +1,19 @@
 import User from '../models/User.js';
 
-const users = {};
+const userController = {};
+
+userController.getAll = async () => {
+  try {
+    const allUsers = await User.find({}).exec()
+    console.log(allUsers);
+    return allUsers;
+  } catch (err) {
+    throw err
+  }
+}
 
 // get user info
-users.getInfo = async (userId) => {
+userController.getInfo = async (userId) => {
   try {
     const [userInfo] = await User.find({ 'userId': userId }).exec();
     return userInfo
@@ -13,21 +23,21 @@ users.getInfo = async (userId) => {
 };
 
 // get friends list
-users.getFriends = async (userId) => {
+userController.getFriends = async (userId) => {
   return User.find({ 'userId': userId }).select('friends');
 };
 
 // get friends list with usernames
-users.getFriendsNames = async (userId) => {
-  const friends = await users.getFriends(userId);
+userController.getFriendsNames = async (userId) => {
+  const friends = await userController.getFriends(userId);
   return Promise.all(friends.map(f => {
-    return User.find({ 'userId': f }).select('userId', 'username')
+    return User.find({ 'userId': f }).select('userId username')
   }));
 };
 
 
 // friend request
-users.friendRequest = async (currentUser, targetUser) => {
+userController.friendRequest = async (currentUser, targetUser) => {
 
   try {
     const [currUser] = await User.find({ 'userId': currentUser }).exec();
@@ -44,7 +54,7 @@ users.friendRequest = async (currentUser, targetUser) => {
   }
 };
 
-users.cancelRequest = async (currentUser, targetUser) => {
+userController.cancelRequest = async (currentUser, targetUser) => {
   try {
     const [currUser] = await User.find({ 'userId': currentUser }).exec();
     const [targUser] = await User.find({ 'userId': targetUser }).exec();
@@ -65,7 +75,7 @@ users.cancelRequest = async (currentUser, targetUser) => {
   }
 };
 
-users.acceptFriend = async (currentUser, targetUser) => {
+userController.acceptFriend = async (currentUser, targetUser) => {
   try {
 
     const [currUser] = await User.find({ 'userId': currentUser }).exec();
@@ -92,7 +102,7 @@ users.acceptFriend = async (currentUser, targetUser) => {
   }
 }
 
-users.rejectFriend = async (currentUser, targetUser) => {
+userController.rejectFriend = async (currentUser, targetUser) => {
   try {
     const [currUser] = await User.find({ 'userId': currentUser }).exec();
     const [targUser] = await User.find({ 'userId': targetUser }).exec();
@@ -118,7 +128,7 @@ users.rejectFriend = async (currentUser, targetUser) => {
 
 
 //removeFriend
-users.removeFriend = async (currentUser, targetUser) => {
+userController.removeFriend = async (currentUser, targetUser) => {
   try {
     const currUser = await User.findById(currentUser).exec();
     const targUser = await User.findById(targetUser).exec();
@@ -149,7 +159,7 @@ users.removeFriend = async (currentUser, targetUser) => {
   }
 };
 
-users.login = (username, password, cb) => {
+userController.login = (username, password, cb) => {
   User.findOne({ userName: username }).exec()
     .then((doc) => {
       if (doc.password === password) {
@@ -164,19 +174,8 @@ users.login = (username, password, cb) => {
 };
 
 
-users.getAll = async () => {
-  try {
-    const allUsers = await User.find({}).exec()
-    console.log(allUsers);
-    return allUsers;
-  } catch (err) {
-    throw err
-  }
-}
-
-
 //CREATE NEW USER
-users.createNew = async (formData) => {
+userController.createNew = async (formData) => {
   // console.log(formData);
   const access = () => {
     if (formData.userLevel) {
@@ -203,10 +202,10 @@ users.createNew = async (formData) => {
     .catch((err) => err)
 }
 
-users.delete = (userID) => {
+userController.delete = (userID) => {
   //this is future feature for superusers, providing option to delete a user account
   //need to setup some sort of authentication to verify not just anyone can delete user account
   return 'sorry, my planning skills weren\'t good enough to get this functionality implemented yet';
 }
 
-export default users;
+export default userController;

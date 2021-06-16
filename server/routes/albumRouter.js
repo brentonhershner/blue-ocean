@@ -1,6 +1,6 @@
 import express, { request } from 'express';
-import Album from '../database/models/Album.js';
-import albums from '../database/controllers/albums.js';
+import Album from '../../database/models/Album.js';
+import albumController from '../../database/controllers/albumController.js';
 
 const albumRouter = express.Router();
 
@@ -8,7 +8,7 @@ const albumRouter = express.Router();
 //--------- Get all albums by User ------------//
 albumRouter.get('/', async (req, res) => {
   try {
-    const allAlbums = await albums.getAll(req.query.userId);
+    const allAlbums = await albumController.getAll(req.query.userId);
     res.status(200).send(allAlbums);
   }
   catch (error) {
@@ -19,7 +19,7 @@ albumRouter.get('/', async (req, res) => {
 //--------- Get Friends' Albums ------------//
 albumRouter.get('/friends', async (req, res) => {
   try {
-    const friendsAlbums = await albums.getFriendsAlbums(req.query.userId);
+    const friendsAlbums = await albumController.getFriendsAlbums(req.query.userId);
     res.status(200).send(friendsAlbums);
   }
   catch (error) {
@@ -30,7 +30,7 @@ albumRouter.get('/friends', async (req, res) => {
 //--------- Get Public Albums ------------//
 albumRouter.get('/public', async (req, res) => {
   try {
-    const publicAlbums = await albums.getPublicAlbums();
+    const publicAlbums = await albumController.getPublicAlbums();
     res.status(200).send(publicAlbums);
   }
   catch (error) {
@@ -43,7 +43,7 @@ albumRouter.post('/', async (req, res) => {
   try {
     const regex = /:|\./g;
     const timedate = (new Date()).toISOString().replace(regex, '');
-    const newAlbum = await albums.new({
+    const newAlbum = await albumController.new({
       ...req.body,
       uploadDate: timedate
     });
@@ -58,7 +58,7 @@ albumRouter.post('/', async (req, res) => {
 albumRouter.patch('/', async (req, res) => {
   try {
     const album = req.body;
-    const returnAlbum = await albums.update(album);
+    const returnAlbum = await albumController.update(album);
 
     res.status(200).send(returnAlbum);
   }
@@ -70,7 +70,7 @@ albumRouter.patch('/', async (req, res) => {
 //----------- Delete an Album -----------//
 albumRouter.delete('/', async (req, res) => {
   try {
-    const album = await albums.delete(req.body.albumId)
+    const album = await albumController.delete(req.body.albumId)
     res.status(200).send(album)
   }
   catch (error) {
