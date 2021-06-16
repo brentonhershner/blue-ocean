@@ -56,6 +56,8 @@ const AdminPage = () => {
   // const [userId, setUserId] = useState(initialUserId?.userId || '00001');
   const { photos, setPhotos } = useContext(PhotosContext);
   const { user, setUserById } = useContext(UserContext);
+  // const [ users, setUsers ] = React.useState([]);
+  const [userId, setUserId] = React.useState('');
   const classes = useStyles();
 
   const updatePhotos = async (fetchedPhotos) => {
@@ -65,13 +67,18 @@ const AdminPage = () => {
     setPhotos(imageList || []);
   }
 
-  const debouncedSetUser = debounce(setUserById, 500)
-
   useEffect(() => {
     const fetchedPhotos = photoApi.getFeed(user?.userId);
     updatePhotos(fetchedPhotos);
+    return (() => { console.log('should run once when user changes') })
   }, [user])
 
+  const debouncedSetUser = React.useCallback(debounce(setUserById, 500), []);
+
+  const handleChange = (e) => {
+    setUserId(e.target.value)
+    debouncedSetUser(e.target.value)
+  }
 
   return (
     <Paper className={classes.root} >
@@ -112,12 +119,12 @@ const AdminPage = () => {
         onSubmit={(e) => e.preventDefault()}
       >
         <TextField
-          value={user?.userId}
+          value={userId}
           id="outlined-basic"
           label="User ID"
           variant="outlined"
           InputLabelProps={{ shrink: true }}
-          onChange={(e) => debouncedSetUser(e.target.value)}
+          onChange={handleChange}
         />
         {/* <TextField
           value={secondaryUserId}
@@ -136,7 +143,7 @@ const AdminPage = () => {
             className={classes.button}
             onClick={async () => {
               const result = await photoApi.getFeed(user?.userId);
-              console.log(result);
+              // console.log(result);
               updatePhotos(result);
             }}
           >
