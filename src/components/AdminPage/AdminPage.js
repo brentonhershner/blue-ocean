@@ -57,7 +57,6 @@ const AdminPage = () => {
   const { photos, setPhotos } = useContext(PhotosContext);
   const { user, setUserById } = useContext(UserContext);
   const classes = useStyles();
-  const [data, setData] = useState();
 
   const updatePhotos = async (fetchedPhotos) => {
     const imageList = await fetchedPhotos;
@@ -92,7 +91,7 @@ const AdminPage = () => {
             console.log(result);
           }}
         >
-          Get All Users
+          List All Users
         </Button>
 
         {/* <Button
@@ -130,20 +129,6 @@ const AdminPage = () => {
       </form>
 
       <div className={classes.buttons}>
-
-        <Button
-          variant='contained'
-          className={classes.button}
-          onClick={async () => {
-            // console.log(`clicked Get User Info for ${userId}`)
-            const result = await userApi.getUserInfo(user?.userId);
-            console.log(result);
-            setData(result);
-          }}
-        >
-          Get User info
-        </Button>
-
 
         <ButtonGroup>
           <Button
@@ -262,10 +247,6 @@ const AdminPage = () => {
       }}>
         Get User info
       </Button> */}
-
-      <Typography>
-        {JSON.stringify(data, null, 2)}
-      </Typography>
 
       <UsersTable></UsersTable>
 
