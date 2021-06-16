@@ -12,6 +12,7 @@ import albumApi from '../../api/albumApi';
 import photoApi from '../../api/photoApi';
 import userApi from '../../api/userApi';
 import UsersTable from './UsersTable';
+import { debounce } from 'lodash';
 
 import { PhotosContext } from '../../contexts/photos-context.js';
 import { UserContext } from '../../contexts/user-context.js';
@@ -51,10 +52,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 const AdminPage = () => {
-  const initialUserId = React.useContext(UserContext);
+  // const initialUserId = React.useContext(UserContext);
   // const [userId, setUserId] = useState(initialUserId?.userId || '00001');
-  const { photos, setPhotos, } = useContext(PhotosContext);
-  const { user, setUser, } = useContext(UserContext);
+  const { photos, setPhotos } = useContext(PhotosContext);
+  const { user, setUserById } = useContext(UserContext);
   const classes = useStyles();
   const [data, setData] = useState();
 
@@ -65,12 +66,12 @@ const AdminPage = () => {
     setPhotos(imageList || []);
   }
 
+  const debouncedSetUser = debounce(setUserById, 500)
 
   useEffect(() => {
-    const fetchedPhotos = photoApi.getFeed(user.userId);
+    const fetchedPhotos = photoApi.getFeed(user?.userId);
     updatePhotos(fetchedPhotos);
   }, [user])
-
 
 
   return (
@@ -98,7 +99,7 @@ const AdminPage = () => {
           variant='contained'
           className={classes.button}
           onClick={async () => {
-            const result = await userApi.getUserInfo(user.userId);
+            const result = await userApi.getUserInfo(user?.userId);
             console.log(result);
           }}
         >
@@ -107,13 +108,17 @@ const AdminPage = () => {
       </div>
 
 
-      <form className={classes.form}>
+      <form
+        className={classes.form}
+        onSubmit={(e) => e.preventDefault()}
+      >
         <TextField
           value={user?.userId}
           id="outlined-basic"
-          label="PrimaryUserId"
+          label="User ID"
           variant="outlined"
-          onChange={(e) => setUser(e.target.value)}
+          InputLabelProps={{ shrink: true }}
+          onChange={(e) => debouncedSetUser(e.target.value)}
         />
         {/* <TextField
           value={secondaryUserId}
@@ -131,7 +136,7 @@ const AdminPage = () => {
           className={classes.button}
           onClick={async () => {
             // console.log(`clicked Get User Info for ${userId}`)
-            const result = await userApi.getUserInfo(user.userId);
+            const result = await userApi.getUserInfo(user?.userId);
             console.log(result);
             setData(result);
           }}
@@ -145,7 +150,7 @@ const AdminPage = () => {
             variant='contained'
             className={classes.button}
             onClick={async () => {
-              const result = await photoApi.getFeed(user.userId);
+              const result = await photoApi.getFeed(user?.userId);
               console.log(result);
               updatePhotos(result);
             }}
@@ -158,7 +163,7 @@ const AdminPage = () => {
             variant='contained'
             className={classes.button}
             onClick={async () => {
-              const result = await photoApi.getUserPhotos(user.userId);
+              const result = await photoApi.getUserPhotos(user?.userId);
               console.log(result);
               updatePhotos(result);
             }}
@@ -175,7 +180,7 @@ const AdminPage = () => {
             variant='contained'
             className={classes.button}
             onClick={async () => {
-              const result = await api.friendAction(user.userId, secondaryUserId, 'request');
+              const result = await api.friendAction(user?.userId, secondaryUserId, 'request');
               console.log(result);
             }}
           >
@@ -187,7 +192,7 @@ const AdminPage = () => {
             variant='contained'
             className={classes.button}
             onClick={async () => {
-              const result = await api.friendAction(user.userId, secondaryUserId, 'cancelRequest');
+              const result = await api.friendAction(user?.userId, secondaryUserId, 'cancelRequest');
               console.log(result);
             }}
           >
@@ -201,7 +206,7 @@ const AdminPage = () => {
             variant='contained'
             className={classes.button}
             onClick={async () => {
-              const result = await api.friendAction(user.userId, secondaryUserId, 'accept');
+              const result = await api.friendAction(user?.userId, secondaryUserId, 'accept');
               console.log(result);
             }}
           >
@@ -213,7 +218,7 @@ const AdminPage = () => {
             variant='contained'
             className={classes.button}
             onClick={async () => {
-              const result = await api.friendAction(user.userId, secondaryUserId, 'reject');
+              const result = await api.friendAction(user?.userId, secondaryUserId, 'reject');
               console.log(result);
             }}
           >
@@ -252,7 +257,7 @@ const AdminPage = () => {
       </div>
 
       {/* <Button variant='contained' onClick={async () => {
-        const result = await api.getUserInfo(user.userId);
+        const result = await api.getUserInfo(user?.userId);
         console.log(JSON.stringify(result, null, 2));
       }}>
         Get User info
