@@ -12,14 +12,14 @@ export const UserContext = React.createContext({
   requested: []
 });
 
-const setUserById = async (userId) => {
-  const info = await userApi.getUserInfo(userId);
-  console.log(info);
-}
-
 function UserContextProvider(props) {
   const [user, setUser] = React.useState(UserContext)
 
+  const setUserById = async (userId) => {
+    console.log(userId);
+    const info = await userApi.getUserInfo(userId);
+    setUser(info);
+  }
 
   return (
     <UserContext.Provider value={{ user, setUser, setUserById }} >
