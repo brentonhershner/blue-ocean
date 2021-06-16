@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import api from '../../api/api';
-import albumApi from '../../api/albumApi';
+// import albumApi from '../../api/albumApi';
 import photoApi from '../../api/photoApi';
 import userApi from '../../api/userApi';
 import UsersTable from './UsersTable';

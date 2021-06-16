@@ -73,6 +73,7 @@ userRouter.put('/friends/remove', async (req, res) => {
 userRouter.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
+        // eslint-disable-next-line no-unused-vars
         const doc = await userController.login(username, password, (doc) => {
             console.log('CALLBACK', doc)
             if (doc.password === password) {

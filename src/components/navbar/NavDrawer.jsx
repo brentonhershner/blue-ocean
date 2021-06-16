@@ -47,13 +47,18 @@ const useStyles = makeStyles((theme) => ({
 export default function NavDrawer(props) {
   const [showState, setShowState] = useState(false)
 
-  const { userName, userType, userId, setUser } = useContext(UserContext);
-  const { myPhotos,
-    friendsPhotos,
-    publicPhotos,
-    myAlbums,
-    friendsAlbums,
-    publicAlbums,
+  const {
+    // userName, userType,
+    userId,
+    // setUser
+   } = useContext(UserContext);
+  const {
+    // myPhotos,
+    // friendsPhotos,
+    // publicPhotos,
+    // myAlbums,
+    // friendsAlbums,
+    // publicAlbums,
     setPhotos,
     setAlbums
   } = useContext(PhotosContext);
@@ -108,23 +113,23 @@ export default function NavDrawer(props) {
   const list = () => (
     <div onClick={toggleDrawer(false)}>
       <List>
-        <RouterLink to='/personal' style={{textDecoration:'none', color:'inherit'}}>
+        <RouterLink to='/personal' style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItem button>My Photos</ListItem>
         </RouterLink>
-        <RouterLink to='/shared' style={{textDecoration:'none', color:'inherit'}}>
+        <RouterLink to='/shared' style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItem button>Friends Photos</ListItem>
         </RouterLink>
-        <RouterLink to='/public' style={{textDecoration:'none', color:'inherit'}}>
+        <RouterLink to='/public' style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItem button>Public Photos</ListItem>
         </RouterLink>
-        <RouterLink to='/friends' style={{textDecoration:'none', color:'inherit'}}>
+        <RouterLink to='/friends' style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItem button>My Friends</ListItem>
         </RouterLink>
-        <RouterLink to='/login' style={{textDecoration:'none', color:'inherit'}}>
+        <RouterLink to='/login' style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItem button onClick={() => props.logOut()}>Log Out</ListItem>
         </RouterLink>
         <ListItem button onClick={() => { props.setDarkMode(!props.darkMode) }} >
-            {props.darkMode ? <Brightness7Icon /> : <Brightness3Icon />}
+          {props.darkMode ? <Brightness7Icon /> : <Brightness3Icon />}
           <Typography>{props.darkMode ? 'Light Mode' : 'Dark Mode'}</Typography>
         </ListItem>
       </List>
@@ -145,9 +150,9 @@ export default function NavDrawer(props) {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <Typography variant="h6" noWrap className={classes.title}>
-              <RouterLink to='/' style={{textDecoration:'none', color:'inherit'}}>
+              <RouterLink to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
                 Marineon
-        </RouterLink>
+              </RouterLink>
             </Typography>
             <div
               style={{ display: "flex", justifyContent: "center", width: "33%" }}

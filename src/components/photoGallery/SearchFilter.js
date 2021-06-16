@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { SearchContext } from '../../contexts/search-context';
-import { PhotosContext } from '../../contexts/photos-context';
+// import { PhotosContext } from '../../contexts/photos-context';
 
 function SearchFilter(props) {
   // const { photos, albums } = useContext(PhotosContext);
@@ -10,7 +10,6 @@ function SearchFilter(props) {
 
   useEffect(() => {
     filterLists(searchTerm)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, currentAlbumPhotos])
 
 

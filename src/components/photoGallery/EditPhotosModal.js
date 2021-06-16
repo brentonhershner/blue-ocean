@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/CloseRounded';
-import { PhotosContext } from '../../contexts/photos-context';
+// import { PhotosContext } from '../../contexts/photos-context';
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 
@@ -55,10 +55,10 @@ function EditPhotosModal(props) {
   const [tags, setTags] = useState([]);
   const [permission, setPermission] = useState(0);
 
-  const { photos,
-    // setPhotos,
-    // updatePhoto
-  } = useContext(PhotosContext);
+  // const { photos,
+  //   // setPhotos,
+  //   // updatePhoto
+  // } = useContext(PhotosContext);
 
   const handleKeyPress = (event) => {
     if(event.key === 'Enter'){

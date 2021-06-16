@@ -1,4 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {
+  useState, useEffect,
+  // useContext
+} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 /*-------------------Material-UI Imports-------------------*/
@@ -13,7 +16,9 @@ import '../shared/styles/App.css';
 import Home from './Home';
 import Gallery from './photoGallery/Gallery'
 import AdminPage from './AdminPage/AdminPage';
-import UserContextProvider, { UserContext } from '../contexts/user-context';
+import UserContextProvider, {
+  // UserContext
+} from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
 import SearchContextProvider from '../contexts/search-context';
 import NavDrawer from './navbar/NavDrawer';

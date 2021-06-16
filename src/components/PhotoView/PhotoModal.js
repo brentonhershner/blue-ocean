@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-  Chip,
+  // Chip,
   Container,
   Paper,
   GridListTileBar,
-  Menu,
-  MenuItem,
+  // Menu,
+  // MenuItem,
   Modal,
   IconButton,
 } from "@material-ui/core";
@@ -88,8 +88,8 @@ const useStyles = makeStyles((theme) => ({
 
 const PhotoModal = ({ showModal, setShowModal, hasPrivilege, photoToShow }) => {
   // const [modalView, setModalView] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [refresh, setRefresh] = useState(0);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  // const [refresh, setRefresh] = useState(0);
   const [showEditModal, setShowEditModal] = useState(false);
   const classes = useStyles();
 
@@ -126,24 +126,24 @@ const PhotoModal = ({ showModal, setShowModal, hasPrivilege, photoToShow }) => {
     setShowModal(null);
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleTagDelete = (array, index) => {
-    array.splice(index, 1);
-    setRefresh(refresh + 1);
-  };
+  // const handleTagDelete = (array, index) => {
+  //   array.splice(index, 1);
+  //   setRefresh(refresh + 1);
+  // };
 
 
   const handleEditModalClose = () => {
     setShowEditModal(false);
   }
 
-  const handleClose = () => {
-    setAnchorEl(null);
-    setShowModal(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  //   setShowModal(null);
+  // };
 
   return (
     <Container id="container" className={classes.root}>

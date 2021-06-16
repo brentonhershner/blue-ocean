@@ -11,10 +11,10 @@ import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+// import Select from '@material-ui/core/Select';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import { withStyles } from '@material-ui/core/styles';
+// import { green } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
@@ -22,15 +22,15 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import clsx from 'clsx';
 import axios from 'axios';
 
-const GreenRadio = withStyles({
-  root: {
-    color: green[400],
-    '&$checked': {
-      color: green[600],
-    },
-  },
-  checked: {},
-})((props) => <Radio color="default" {...props} />);
+// const GreenRadio = withStyles({
+//   root: {
+//     color: green[400],
+//     '&$checked': {
+//       color: green[600],
+//     },
+//   },
+//   checked: {},
+// })((props) => <Radio color="default" {...props} />);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,8 +58,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CreateUser() {
   const classes = useStyles();
-  const access = [ 1, 2, 3 ];
-  const [selectedValue, setSelectedValue] = React.useState('a');
+  // const access = [ 1, 2, 3 ];
+  // const [selectedValue, setSelectedValue] = React.useState('a');
   const [values, setValues] = React.useState({
     first_name: '',
     last_name: '',
@@ -89,18 +89,18 @@ export default function CreateUser() {
     setValues({ ...values, showConfirm: !values.showConfirm });
   };
 
-  const handleMouseDownConfirm = (event) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownConfirm = (event) => {
+  //   event.preventDefault();
+  // };
 
-  const handleChangeSelected = (event) => {
-    setSelectedValue(event.target.value);
-  };
+  // const handleChangeSelected = (event) => {
+  //   setSelectedValue(event.target.value);
+  // };
 
   const addUser = (userObj) => {
     axios.post('/api/users', userObj)
-    .then(console.log(values))
-    .catch((err) => { console.log(err) })
+      .then(console.log(values))
+      .catch((err) => { console.log(err) })
   }
 
   return (
@@ -154,58 +154,58 @@ export default function CreateUser() {
             margin="normal"
           />
           <br />
-          <FormControl className={clsx(classes.margin, classes.textField)}variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-basic-password"
-            name="password"
-            label="Password"
-            variant="outlined"
-            required
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            margin="none"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
+          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-basic-password"
+              name="password"
+              label="Password"
+              variant="outlined"
+              required
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              margin="none"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
           </FormControl>
-            <br />
-            <FormControl className={clsx(classes.margin, classes.textField)}variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Confirm</InputLabel>
-          <OutlinedInput
-            id="outlined-basic-password"
-            name="password"
-            label="Password"
-            variant="outlined"
-            required
-            type={values.showConfirm ? 'text' : 'password'}
-            value={values.confirm}
-            onChange={handleChange('confirm')}
-            margin="none"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowConfirm}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showConfirm ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
+          <br />
+          <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Confirm</InputLabel>
+            <OutlinedInput
+              id="outlined-basic-password"
+              name="password"
+              label="Password"
+              variant="outlined"
+              required
+              type={values.showConfirm ? 'text' : 'password'}
+              value={values.confirm}
+              onChange={handleChange('confirm')}
+              margin="none"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowConfirm}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showConfirm ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
           </FormControl>
           <br />
           Access
@@ -232,24 +232,24 @@ export default function CreateUser() {
           />3
           <br />
           <Link to='/login' component={RouterLink}>
-          <Button
-            onClick={() => addUser(values)}
-            margin="none"
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.create}
-          >
-            Create Account
-          </Button>
+            <Button
+              onClick={() => addUser(values)}
+              margin="none"
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.create}
+            >
+              Create Account
+            </Button>
           </Link>
         </Typography>
 
       </Container>
     </React.Fragment>
   );
- }
+}
 
 
 

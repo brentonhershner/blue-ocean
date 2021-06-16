@@ -1,5 +1,5 @@
-import express, { request } from 'express';
-import Album from '../../database/models/Album.js';
+import express from 'express';
+// import Album from '../../database/models/Album.js';
 import albumController from '../../database/controllers/albumController.js';
 
 const albumRouter = express.Router();
