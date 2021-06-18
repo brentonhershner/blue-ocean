@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddPhotos = () => {
   const classes = useStyles();
-  const { userId } = useContext(UserContext);
+  const userId = useContext(UserContext)?.userId || '00001';
 
   const upload = (e) => {
     const selectedFiles = e.target.files;
@@ -27,8 +27,10 @@ const AddPhotos = () => {
       formData.append('file', selectedFiles[key]);
     }
 
-    photoApi.upload(formData, userId)
-      .then((response) => {/* console.log(response) */ })
+    photoApi.upload(formData)
+      .then((response) => {
+        console.log(response)
+      })
       .catch((error) => console.error(error));
   };
 

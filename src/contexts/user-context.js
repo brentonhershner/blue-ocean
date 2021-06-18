@@ -16,7 +16,7 @@ function UserContextProvider(props) {
   const [user, setUser] = React.useState(UserContext)
 
   const setUserById = async (userId) => {
-    console.log(userId);
+    // console.log(userId);
     const info = await userApi.getUserInfo(userId);
     setUser(info);
   }

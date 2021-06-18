@@ -5,6 +5,10 @@ import photoController from '../../database/controllers/photoController.js';
 import path from 'path';
 import { readdir } from 'fs/promises';
 import multer from 'multer';
+import serverConfig from '../serverConfig.js';
+
+const url = 'http://localhost'
+const PORT = serverConfig.PORT;
 
 // import users from '../database/controllers/userController.js';
 // import albums from '../database/controllers/albumController.js';
@@ -32,11 +36,15 @@ const multerUpload = multer({
 });
 
 photoRouter.post('/upload', async (req, res, next) => {
-  await multerUpload.array('file')(req, res, next);
-  // console.log(Object.keys(req))
-  // console.log(req.files);
-  next();
-});
+  await multerUpload.array('file')(req, res, next)},
+  (req,res) => { 
+    console.log(req.files[0]);
+    console.log(Object.keys(req.files[0]));
+    const fullPaths = req.files.map(file => `${url}:${PORT}/${folderPath}${file.filename}`);
+    console.log(fullPaths);
+    res.status(200).send(fullPaths);
+  }
+);
 
 photoRouter.get('/all', async (req, res) => {
   try {

@@ -10,6 +10,7 @@ const userSchema = new Schema({
   password: String,
   userLevel: Number,  /* 1=general user, 2='super user', 3=admin  */
   friends: [String],
+  photos: [String],
   pending: [String], /* friend requests sent */
   requested: [String]  /* incoming friend requests */
 });

@@ -36,6 +36,7 @@ const fillNames = () => {
       const email = userName.concat('@email.com');
       const password = 'qwerty';
       const userLevel = 1;
+      const photos = [];
       const friends = randFriends(15, userCount);
       const pending = randFriends(4, userCount);
       const requested = randFriends(4, userCount);
@@ -46,6 +47,7 @@ const fillNames = () => {
         email,
         password,
         userLevel,
+        photos,
         friends,
         pending,
         requested

@@ -14,11 +14,10 @@ const photoApi = {};
 //     .catch(err => { throw err });
 // };
 
-photoApi.upload = (formData, userId) => {
+photoApi.upload = (formData) => {
   // TODO photoController.savePhotoData
   return axios.post(`${hostname}:${PORT}/api/photos/upload`,
     formData,
-    userId,
     {
       headers: { 'Content-type': 'multipart/form-data' },
     },

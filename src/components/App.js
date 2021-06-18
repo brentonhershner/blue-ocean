@@ -38,7 +38,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('This is the logged user from App.js', user?.userId);
+    // console.log('This is the logged user from App.js', user?.userId);
   }, [user])
 
   return (

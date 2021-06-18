@@ -1,4 +1,4 @@
-import { fullPath } from '../../server/routes/images.js';
+import { fullPath } from '../../server/routes/photoRouter.js';
 
 const dummy = {};
 

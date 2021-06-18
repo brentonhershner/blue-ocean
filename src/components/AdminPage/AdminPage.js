@@ -7,7 +7,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
-import api from '../../api/api';
+// import api from '../../api/api';
 // import albumApi from '../../api/albumApi';
 import photoApi from '../../api/photoApi';
 import userApi from '../../api/userApi';
@@ -68,9 +68,8 @@ const AdminPage = () => {
   }
 
   useEffect(() => {
-    const fetchedPhotos = photoApi.getFeed(user?.userId);
-    updatePhotos(fetchedPhotos);
-    return (() => { console.log('should run once when user changes') })
+    // const fetchedPhotos = photoApi.getFeed(user?.userId);
+    // updatePhotos(fetchedPhotos);
   }, [user])
 
   const debouncedSetUser = React.useCallback(debounce(setUserById, 500), []);
@@ -82,12 +81,7 @@ const AdminPage = () => {
 
   return (
     <Paper className={classes.root} >
-      <Typography
-        display='block'
-        variant="h2"
-      >
-        Admin Page
-      </Typography>
+      <Typography display='block' variant="h2">Admin Page</Typography>
 
       <div className={classes.buttons}>
         <Button
@@ -117,22 +111,17 @@ const AdminPage = () => {
       <form
         className={classes.form}
         onSubmit={(e) => e.preventDefault()}
+        autoComplete='off'
       >
         <TextField
           value={userId}
           id="outlined-basic"
-          label="User ID"
+          label="ID of User"
           variant="outlined"
-          InputLabelProps={{ shrink: true }}
+          type="text"
+          // InputLabelProps={{ shrink: true }}
           onChange={handleChange}
         />
-        {/* <TextField
-          value={secondaryUserId}
-          id="outlined-basic"
-          label="SecondaryUserId"
-          variant="outlined"
-          onChange={(e) => setSecondaryUserId(e.target.value)}
-        /> */}
       </form>
 
       <div className={classes.buttons}>
@@ -219,8 +208,6 @@ const AdminPage = () => {
         </ButtonGroup> */}
 
 
-        {/* <ButtonGroup> */}
-        {/* </ButtonGroup> */}
 
         <Button
           variant='contained'
@@ -234,17 +221,6 @@ const AdminPage = () => {
           Update Photo
         </Button>
 
-        <Button
-          variant='contained'
-          className={classes.button}
-          onClick={async () => {
-            const editObj = {}
-            const result = await api.kitchenSink(editObj);
-            console.log(result);
-          }}
-        >
-          Kitchen Sink
-        </Button>
 
       </div>
 
@@ -255,7 +231,7 @@ const AdminPage = () => {
         Get User info
       </Button> */}
 
-      <UsersTable/>
+      <UsersTable />
 
       <GridList cols={3} >
         \//        {photos && photos.map((tile) => (
